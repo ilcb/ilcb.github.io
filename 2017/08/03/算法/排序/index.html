@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>排序算法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="引子经常遇到需要对数字数组进行排序的情况，本文列举了常用排序算法的原理及实现；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法">
+<meta property="og:url" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="引子经常遇到需要对数字数组进行排序的情况，本文列举了常用排序算法的原理及实现；">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/bubble.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/bubble.gif">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/select.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/select.gif">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/insert.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/insert.gif">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/shell.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/quick.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/quick.gif">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/merge.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/merge.gif">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/heap.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/heap.gif">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/count.gif">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/bucket.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/radix.png">
+<meta property="og:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/radix.gif">
+<meta property="article:published_time" content="2017-08-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-29T07:25:42.613Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="排序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/bubble.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="_post-算法/排序" class="h-entry article article-type-_post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time class="dt-published" datetime="2017-08-02T16:00:00.000Z" itemprop="datePublished">2017-08-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      排序算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h1><p>经常遇到需要对数字数组进行排序的情况，本文列举了常用排序算法的原理及实现；</p>
+<span id="more"></span>
+
+<h1 id="排序算法性能"><a href="#排序算法性能" class="headerlink" title="排序算法性能"></a>排序算法性能</h1><table>
+<thead>
+<tr>
+<th>排序算法</th>
+<th align="left">平均时间复杂度</th>
+<th>最好</th>
+<th>最坏</th>
+<th>空间复杂度</th>
+<th>排序方式</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>冒泡</td>
+<td align="left">O(n²)</td>
+<td>O(n)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>占用常数内存</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>选择</td>
+<td align="left">O(n²)</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>占用常数内存</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>插入</td>
+<td align="left">O(n²)</td>
+<td>O(n)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>占用常数内存</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>希尔</td>
+<td align="left">O(n logn)</td>
+<td>O(n log2n)</td>
+<td>O(n log2n)</td>
+<td>O(1)</td>
+<td>占用常数内存</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>快速</td>
+<td align="left">O(n logn)</td>
+<td>O(n logn)</td>
+<td>O(n²)</td>
+<td>O(logn)</td>
+<td>占用常数内存</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>归并</td>
+<td align="left">O(n logn)</td>
+<td>O(n logn)</td>
+<td>O(n logn)</td>
+<td>O(n)</td>
+<td>占用额外内存</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td align="left">O(n logn)</td>
+<td>O(n logn)</td>
+<td>O(n logn)</td>
+<td>O(1)</td>
+<td>占用常数内存</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>计数排序</td>
+<td align="left">O(n + k)</td>
+<td>O(n + k)</td>
+<td>O(n + k)</td>
+<td>o(k)</td>
+<td>占用额外内存</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>桶排序</td>
+<td align="left">O(n + k)</td>
+<td>O(n + k)</td>
+<td>O(n²)</td>
+<td>O(n + k)</td>
+<td>占用额外内存</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td align="left">O(n * k)</td>
+<td>O(n * k)</td>
+<td>O(n * k</td>
+<td>O(n + k)</td>
+<td>占用额外内存</td>
+<td>稳定</td>
+</tr>
+</tbody></table>
+<p><em>本文所有代码基于策略模式实现</em></p>
+<h1 id="排序接口-Sorter"><a href="#排序接口-Sorter" class="headerlink" title="排序接口 Sorter"></a>排序接口 Sorter</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 排序器接口(策略模式: 将算法封装到具有共同接口的独立的类中使得它们可以相互替换)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array 待排序的数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array 待排序的数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comp  比较两个对象的比较器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array 待排序的数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> start 开始索引</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> end   开始索引</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 基数排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array 待排序的数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> radix 基数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="环境类-SortContext"><a href="#环境类-SortContext" class="headerlink" title="环境类 SortContext"></a>环境类 SortContext</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortContext</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt;&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Sorter sorter;</span><br><span class="line">    <span class="keyword">private</span> T[] array;</span><br><span class="line">    <span class="keyword">private</span> Comparator&lt;T&gt; comparator;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> radix;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortContext</span><span class="params">(Sorter sorter)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sorter = sorter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSorter</span><span class="params">(Sorter sorter)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sorter = sorter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setArray</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.array = array;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setComparator</span><span class="params">(Comparator&lt;T&gt; comparator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.comparator = comparator;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRadix</span><span class="params">(<span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.radix = radix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> BubbleSorter) &#123; <span class="comment">//冒泡排序</span></span><br><span class="line">            sorter.sort(array);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> InsertSorter) &#123; <span class="comment">//插入排序</span></span><br><span class="line">            sorter.sort(array);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> ShellSorter) &#123; <span class="comment">//希尔排序</span></span><br><span class="line">            sorter.sort(array);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> MergeSorter) &#123; <span class="comment">//归并排序</span></span><br><span class="line">            sorter.sort(array, <span class="number">0</span>, array.length - <span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> QuickSorter) &#123; <span class="comment">//快速排序</span></span><br><span class="line">            sorter.sort(array, <span class="number">0</span>, array.length - <span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> SelectSorter) &#123; <span class="comment">//选择排序</span></span><br><span class="line">            sorter.sort(array);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> HeapSorter) &#123; <span class="comment">//堆排序</span></span><br><span class="line">            sorter.sort(array);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> RadixSorter) &#123; <span class="comment">//基数排序</span></span><br><span class="line">            sorter.sort(array, radix);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> CountSorter) &#123; <span class="comment">//计数排序</span></span><br><span class="line">            sorter.sort(array);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sorter <span class="keyword">instanceof</span> BucketSorter) &#123; <span class="comment">//桶排序</span></span><br><span class="line">            sorter.sort(array);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p>1.将序列中所有元素两两比较，将最大的放在最后面；<br>2.将剩余序列中所有元素两两比较，将最大的放在最后面；<br>3.重复第二步，直到只剩下一个数；</p>
+<p><img src="bubble.png" alt="bubble"></p>
+<h2 id="冒泡排序动图展示"><a href="#冒泡排序动图展示" class="headerlink" title="冒泡排序动图展示"></a>冒泡排序动图展示</h2><p><img src="bubble.gif" alt="bubble"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 冒泡排序</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, length = array.length; i &lt; length - <span class="number">1</span>; ++i) &#123; <span class="comment">// 排序需进行length - 1轮</span></span><br><span class="line">            <span class="keyword">boolean</span> swapped = <span class="keyword">false</span>; <span class="comment">//设定一个标记，若为false，则表示此次循环没有进行交换，也就是待排序列已经有序，排序已然完成</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; length - i - <span class="number">1</span>; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (array[j].compareTo(array[j + <span class="number">1</span>]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    T temp = array[j];</span><br><span class="line">                    array[j] = array[j + <span class="number">1</span>];</span><br><span class="line">                    array[j + <span class="number">1</span>] = temp;</span><br><span class="line"></span><br><span class="line">                    swapped = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!swapped) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, length = array.length; i &lt; length; ++i) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> swapped = <span class="keyword">false</span>; <span class="comment">//设定一个标记，若为false，则表示此次循环没有进行交换，也就是待排序列已经有序，排序已然完成</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; length - i - <span class="number">1</span>; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (comp.compare(array[j], array[j + <span class="number">1</span>]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    T temp = array[j];</span><br><span class="line">                    array[j] = array[j + <span class="number">1</span>];</span><br><span class="line">                    array[j + <span class="number">1</span>] = temp;</span><br><span class="line">                    swapped = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!swapped) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><h2 id="算法原理-1"><a href="#算法原理-1" class="headerlink" title="算法原理"></a>算法原理</h2><p>1.遍历整个序列，将最小的数放在最前面；<br>2.遍历剩下的序列，将最小的数放在最前面；<br>3.重复第二步，直到只剩下一个数；</p>
+<p><img src="select.png" alt="select"></p>
+<h2 id="选择排序动图展示"><a href="#选择排序动图展示" class="headerlink" title="选择排序动图展示"></a>选择排序动图展示</h2><p><img src="select.gif" alt="select"></p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123; <span class="comment">//循环n次</span></span><br><span class="line">            T minest = array[i];</span><br><span class="line">            <span class="keyword">int</span> position = i;</span><br><span class="line">    </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; length; ++j) &#123;<span class="comment">//选出最小的值和位置</span></span><br><span class="line">                <span class="keyword">if</span> (array[j].compareTo(minest) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    minest = array[j];</span><br><span class="line">                    position = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    </span><br><span class="line">            array[position] = array[i];</span><br><span class="line">            array[i] = minest;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123; <span class="comment">//循环n次</span></span><br><span class="line">            T minest = array[i];</span><br><span class="line">            <span class="keyword">int</span> position = i;</span><br><span class="line">    </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; length; ++j) &#123;<span class="comment">//选出最小的值和位置</span></span><br><span class="line">                <span class="keyword">if</span> (comp.compare(array[j], minest) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    minest = array[j];</span><br><span class="line">                    position = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    </span><br><span class="line">            array[position] = array[i];</span><br><span class="line">            array[i] = minest;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><h2 id="算法原理-2"><a href="#算法原理-2" class="headerlink" title="算法原理"></a>算法原理</h2><p>1.将第一个数和第二个数排序，然后构成一个有序序列；<br>2.将第三个数插入进去，构成一个新的有序序列；<br>3.对第四个数、第五个数……直到最后一个数，重复第二步；</p>
+<p><img src="insert.png" alt="insert"></p>
+<h2 id="插入排序动图展示"><a href="#插入排序动图展示" class="headerlink" title="插入排序动图展示"></a>插入排序动图展示</h2><p><img src="insert.gif" alt="insert"></p>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        <span class="keyword">int</span> preIndex;</span><br><span class="line">        T current;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; length; ++i) &#123;</span><br><span class="line">            current = array[i]; <span class="comment">// 待插入的数</span></span><br><span class="line">            preIndex = i - <span class="number">1</span>; <span class="comment">// 待插入的位置</span></span><br><span class="line">    </span><br><span class="line">            <span class="keyword">while</span> (preIndex &gt;= <span class="number">0</span> &amp;&amp; current.compareTo(array[preIndex]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 从后到前循环，将大于current的数向后移动一格</span></span><br><span class="line">                array[preIndex + <span class="number">1</span>] = array[preIndex];</span><br><span class="line">                --preIndex;</span><br><span class="line">            &#125;</span><br><span class="line">            array[preIndex + <span class="number">1</span>] = current;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        <span class="keyword">int</span> preIndex;</span><br><span class="line">        T current;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; length; ++i) &#123;</span><br><span class="line">            current = array[i]; <span class="comment">// 待插入的数</span></span><br><span class="line">            preIndex = i - <span class="number">1</span>; <span class="comment">// 待插入的位置</span></span><br><span class="line">    </span><br><span class="line">            <span class="keyword">while</span> (preIndex &gt;= <span class="number">0</span> &amp;&amp; comp.compare(current, array[preIndex]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 从后到前循环，将大于current的数向后移动一格</span></span><br><span class="line">                array[preIndex + <span class="number">1</span>] = array[preIndex];</span><br><span class="line">                --preIndex;</span><br><span class="line">            &#125;</span><br><span class="line">            array[preIndex + <span class="number">1</span>] = current;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h1><h2 id="算法原理-3"><a href="#算法原理-3" class="headerlink" title="算法原理"></a>算法原理</h2><p>1.将数的个数设为 n，取奇数 k=n/2，将下标差值为 k 的数分为一组，构成有序序列；<br>2.再取 k=k/2 ，将下标差值为 k 的数分为一组，构成有序序列；<br>3.重复第二步，直到 k=1 执行简单插入排序；</p>
+<p><img src="shell.png" alt="shell"></p>
+<h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShellSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        <span class="keyword">int</span> gap = length / <span class="number">2</span>; <span class="comment">//分组数</span></span><br><span class="line">        <span class="keyword">while</span> (gap &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//把距离为gap的元素编为一个组，扫描所有组</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = gap; i &lt; length; ++i) &#123;</span><br><span class="line">                <span class="keyword">int</span> j = i - gap;</span><br><span class="line">    </span><br><span class="line">                <span class="comment">//对距离为gap的元素组进行排序</span></span><br><span class="line">                <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; array[j + gap].compareTo(array[j]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    T temp = array[j];</span><br><span class="line">                    array[j] = array[j + gap];</span><br><span class="line">                    array[j + gap] = temp;</span><br><span class="line">    </span><br><span class="line">                    j -= gap;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            gap /= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        <span class="keyword">int</span> gap = length / <span class="number">2</span>; <span class="comment">//分组数</span></span><br><span class="line">        <span class="keyword">while</span> (gap &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//把距离为gap的元素编为一个组，扫描所有组</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = gap; i &lt; length; ++i) &#123;</span><br><span class="line">                <span class="keyword">int</span> j = i - gap;</span><br><span class="line">    </span><br><span class="line">                <span class="comment">//对距离为gap的元素组进行排序</span></span><br><span class="line">                <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; comp.compare(array[j + gap], array[j]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    T temp = array[j];</span><br><span class="line">                    array[j] = array[j + gap];</span><br><span class="line">                    array[j + gap] = temp;</span><br><span class="line">    </span><br><span class="line">                    j -= gap;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            gap /= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><h2 id="算法原理-4"><a href="#算法原理-4" class="headerlink" title="算法原理"></a>算法原理</h2><p>1.选择第一个数为 p，小于 p 的数放在左边，大于 p 的数放在右边；<br>2.递归的将 p 左边和右边的数都按照第一步进行，直到不能递归；</p>
+<p><img src="quick.png" alt="quick"></p>
+<h2 id="快速排序动图展示"><a href="#快速排序动图展示" class="headerlink" title="快速排序动图展示"></a>快速排序动图展示</h2><p><img src="quick.gif" alt="quick"></p>
+<h2 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuickSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (start &lt; end) &#123;</span><br><span class="line">            <span class="keyword">int</span> left = start; <span class="comment">// 左端索引</span></span><br><span class="line">            <span class="keyword">int</span> right = end; <span class="comment">// 右端索引</span></span><br><span class="line"></span><br><span class="line">            T base = array[start]; <span class="comment">// 选定的基准值</span></span><br><span class="line"></span><br><span class="line">            T temp; <span class="comment">// 记录临时中间值</span></span><br><span class="line">            <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">                <span class="keyword">while</span> (array[left].compareTo(base) &lt; <span class="number">0</span> &amp;&amp; (left &lt; end)) &#123;</span><br><span class="line">                    <span class="comment">// 左索引往后移，直到找到不小于base的数才停下来</span></span><br><span class="line">                    ++left;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span> (array[right].compareTo(base) &gt; <span class="number">0</span> &amp;&amp; (right &gt; start)) &#123;</span><br><span class="line">                    <span class="comment">// 右索引往前移，直到找到不大于base的数才停下来</span></span><br><span class="line">                    --right;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (left &lt;= right) &#123;</span><br><span class="line">                    temp = array[left];</span><br><span class="line">                    array[left] = array[right];</span><br><span class="line">                    array[right] = temp;</span><br><span class="line"></span><br><span class="line">                    ++left;</span><br><span class="line">                    --right;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (right &gt; start) &#123;</span><br><span class="line">                <span class="comment">//递归，排左索引前面的数</span></span><br><span class="line">                sort(array, start, right);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (left &lt; end) &#123;</span><br><span class="line">                <span class="comment">//递归，排右索引后面的数</span></span><br><span class="line">                sort(array, left, end);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><h2 id="算法原理-5"><a href="#算法原理-5" class="headerlink" title="算法原理"></a>算法原理</h2><p>归并排序是建立在归并操作上的一种排序算法，采用<strong>分治法（Divide and Conquer）思想</strong>；<br>将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为<strong>二路归并</strong>。</p>
+<p>归并排序思想：<br>将待排序序列 array[0…n-1]看成是 n 个长度为 1 的有序序列，将相邻的有序表成对归并，得到 n/2 个长度为 2 的有序表；将这些有序序列再次归并，得到 n/4 个长度为 4 的有序序列；如此反复进行下去，最后得到一个长度为 n 的有序序列。</p>
+<p>综上可知，归并排序其实要做两件事：<br>1.“分解”—将序列每次<strong>折半划分</strong>。<br>2.“合并”—将划分后的序列段<strong>两两合并后排序</strong>。</p>
+<p>先来考虑第二步，<strong>如何合并</strong>？<br>在每次合并过程中，都是对两个有序的序列段进行合并，然后排序；<br>这两个有序序列段分别为 array1[low,  mid]和 array2[mid+1,  high]；<br>先将他们合并到一个局部的<strong>暂存数组</strong>tempArray 中，等合并完成后再将 tempArray 复制回 array 中。<br>每次从 array1、array2 中取出一个记录进行关键字的比较，将较小者放入 tempArray 中。最后将各段中余下的部分直接复制到 tempArray 中。<br>经过这样的过程，tempArray 已经是一个有序的序列，再将其复制回 array 中，一次合并排序就完成了。</p>
+<p>接下来考虑第一步，<strong>如何拆分？</strong><br>在某趟归并中，设各子表的长度为<strong>gap</strong>，则归并前 array[0…n-1]中共有<strong>n/gap</strong>个有序的子表：array[0…gap-1], array[gap…2*gap-1], … , array[(n/gap)*gap … n-1]。<br>调用 Merge<strong>将相邻的子表归并</strong>时，若子表个数为奇数，则最后一个子表无须和其他子表归并（即本趟处理轮空）：若子表个数为偶数，则要注意到最后一对子表中后一个子表区间的上限为 n-1。</p>
+<p><img src="merge.png" alt="merge"></p>
+<h2 id="归并排序动图展示"><a href="#归并排序动图展示" class="headerlink" title="归并排序动图展示"></a>归并排序动图展示</h2><p><img src="merge.gif" alt="merge"></p>
+<h2 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//递归实现二路归并排序（分治法）</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//二路归并排序，分为二路</span></span><br><span class="line">        <span class="keyword">int</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (start &lt; end) &#123;</span><br><span class="line">            <span class="comment">// 递归过程</span></span><br><span class="line">            sort(array, start, mid);</span><br><span class="line">            sort(array, mid + <span class="number">1</span>, end);</span><br><span class="line">    </span><br><span class="line">            <span class="comment">//合并</span></span><br><span class="line">            merge(array, start, mid, end);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 归并排序</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(T[] array, <span class="keyword">int</span> low, <span class="keyword">int</span> mid, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = low; <span class="comment">// 左数组第一个元素的索引</span></span><br><span class="line">        <span class="keyword">int</span> h = mid + <span class="number">1</span>; <span class="comment">// 右数组第1个元素</span></span><br><span class="line">        <span class="keyword">int</span> t = <span class="number">0</span>; <span class="comment">// 临时数组索引</span></span><br><span class="line">    </span><br><span class="line">        Object[] temp = <span class="keyword">new</span> Object[array.length]; <span class="comment">// 存放临时序列</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= mid &amp;&amp; h &lt;= high) &#123; <span class="comment">// 扫描第一段和第二段序列，直到有一个扫描结束</span></span><br><span class="line">            <span class="comment">// 判断第一段和第二段取出的数哪个更小，将其存入合并序列，并继续向下扫描</span></span><br><span class="line">            <span class="keyword">if</span> (array[l].compareTo(array[h]) &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                temp[t++] = array[l++];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                temp[t++] = array[h++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 若第一段序列还没扫描完，将其全部复制到合并序列</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= mid) &#123;</span><br><span class="line">            temp[t++] = array[l++];</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 若第二段序列还没扫描完，将其全部复制到合并序列</span></span><br><span class="line">        <span class="keyword">while</span> (h &lt;= high) &#123;</span><br><span class="line">            temp[t++] = array[h++];</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 将合并后的序列复制到原始序列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>, i = low; i &lt;= high; ++i, ++k) &#123;</span><br><span class="line">            array[i] = (T) temp[k];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 非递归实现归并</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(T[] array, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size = <span class="number">1</span>; <span class="comment">//size标记当前各个归并序列的high-low，从1，2，4，8，……，2*size</span></span><br><span class="line">        <span class="keyword">int</span> low;</span><br><span class="line">        <span class="keyword">int</span> mid;</span><br><span class="line">        <span class="keyword">int</span> high;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">while</span> (size &lt;= length - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">//从第一个元素开始扫描，low代表第一个分割的序列的第一个元素</span></span><br><span class="line">            low = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (low + size &lt;= length - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="comment">//mid代表第一个分割的序列的最后一个元素</span></span><br><span class="line">                mid = low + size - <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">                <span class="comment">//high 代表第二个分割的序列的最后一个元素</span></span><br><span class="line">                high = mid + size;</span><br><span class="line">    </span><br><span class="line">                <span class="comment">// 如果第二个序列个数不足size个</span></span><br><span class="line">                <span class="keyword">if</span> (high &gt; length - <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="comment">//调整 high 为最后一个元素的下标即可</span></span><br><span class="line">                    high = length - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">    </span><br><span class="line">                <span class="comment">// 调用归并方法，进行分割的序列分段排序</span></span><br><span class="line">                merge(array, low, mid, high);</span><br><span class="line">    </span><br><span class="line">                <span class="comment">//下一次归并时第一序列的第一个元素位置</span></span><br><span class="line">                low = high + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            size *= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><h2 id="算法原理-6"><a href="#算法原理-6" class="headerlink" title="算法原理"></a>算法原理</h2><p><strong>堆</strong>是一棵<strong>顺序存储</strong>的<strong>完全二叉树</strong>。<br>其中每个结点的关键字都<strong>不大于</strong>其孩子结点的关键字，这样的堆称为<strong>小根堆</strong>。<br>其中每个结点的关键字都<strong>不小于</strong>其孩子结点的关键字，这样的堆称为<strong>大根堆</strong>。……<br>举例来说，对于 n 个元素的序列{R0, R1, … , Rn}当且仅当满足下列关系之一时，称之为堆：<br>1.Ri &lt;= R2i+1 且 Ri &lt;= R2i+2 (小根堆)<br>2.Ri &gt;= R2i+1 且 Ri &gt;= R2i+2 (大根堆)<br>其中 i=1,2,…,n/2 向下取整</p>
+<p>实现堆排序需要解决两个问题：<br>1.如何由一个无序序列建成一个堆？<br>2.如何在输出堆顶元素之后，调整剩余元素成为一个新的堆？<br>先考虑第二个问题，一般在输出堆顶元素之后，视为将这个元素排除，然后用表中最后一个元素填补它的位置，自上向下进行调整：首先将堆顶元素和它的左右子树的根结点进行比较，把最小的元素交换到堆顶；然后顺着被破坏的路径一路调整下去，直至叶子结点，就得到新的堆。这个自堆顶至叶子的调整过程为“筛选”，从无序序列建立堆的过程就是一个反复“筛选”的过程。</p>
+<p>堆排序过程<br>1.首先，按堆的定义将数组 R[0..n]调整为堆（这个过程称为创建初始堆），交换 R[0]和 R[n]；<br>2.然后，将 R[0..n-1]调整为堆，交换 R[0]和 R[n-1]；<br>3.如此反复，直到交换了 R[0]和 R[1]为止。</p>
+<p>可归纳为两个操作：<br>1.根据初始数组去<strong>构造初始堆</strong>（构建一个完全二叉树，保证所有的父结点都比它的孩子结点数值大）。<br>2.每次<strong>交换第一个和最后一个元素，输出最后一个元素</strong>（最大值），然后把剩下元素<strong>重新调整</strong>为大根堆。 </p>
+<p><img src="heap.png" alt="heap"></p>
+<h2 id="堆排序动图展示"><a href="#堆排序动图展示" class="headerlink" title="堆排序动图展示"></a>堆排序动图展示</h2><p><img src="heap.gif" alt="heap"></p>
+<h2 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">buildHeap</span><span class="params">(T[] array, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = length / <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;<span class="comment">//从最后一个非叶子节点，才能构成adjustHeap操作的目标二叉树</span></span><br><span class="line">            adjustHeap(array, i, length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//这里将i定义为完全二叉树的根</span></span><br><span class="line">    <span class="comment">//将完全二叉树调整为大顶堆,前提是二叉树的根的子树已经为大顶堆。</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">adjustHeap</span><span class="params">(T[] array, <span class="keyword">int</span> curIdx, <span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lChild = <span class="number">2</span> * curIdx + <span class="number">1</span>; <span class="comment">//左孩子</span></span><br><span class="line">        <span class="keyword">int</span> rChild = <span class="number">2</span> * curIdx + <span class="number">2</span>; <span class="comment">//右孩子</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">int</span> k = curIdx;   <span class="comment">//临时变量</span></span><br><span class="line">        <span class="keyword">if</span> (curIdx &lt; size / <span class="number">2</span>) &#123; <span class="comment">//如果i是叶子节点就结束</span></span><br><span class="line">            <span class="keyword">if</span> (lChild &lt; size &amp;&amp; array[k].compareTo(array[lChild]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                k = lChild;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (rChild &lt; size &amp;&amp; array[k].compareTo(array[rChild]) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                k = rChild;</span><br><span class="line">            &#125;</span><br><span class="line">    </span><br><span class="line">            <span class="keyword">if</span> (k != curIdx) &#123;</span><br><span class="line">                T temp = array[k];</span><br><span class="line">                array[k] = array[curIdx];</span><br><span class="line">                array[curIdx] = temp;</span><br><span class="line">                adjustHeap(array, k, size);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将数组分为两部分，一部分为有序区，在数组末尾，另一部分为无序区。堆属于无序区</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">        buildHeap(array, length);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = length - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;<span class="comment">//i为无序区的长度，经过如下两步，长度递减</span></span><br><span class="line">            <span class="comment">//堆顶即下标为0的元素</span></span><br><span class="line">            T temp = array[i];</span><br><span class="line">            array[i] = array[<span class="number">0</span>];</span><br><span class="line">            array[<span class="number">0</span>] = temp;</span><br><span class="line">            adjustHeap(array, <span class="number">0</span>, i);   <span class="comment">//2.将无顺区调整为大顶堆，即选择出最大的元素。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h1><h2 id="算法原理-7"><a href="#算法原理-7" class="headerlink" title="算法原理"></a>算法原理</h2><p>计数排序假设输入的元素都是<strong>0 到 k 之间的整数</strong>。计数排序的思想是对每一个输入元素 x，确定出小于 x 的元素个数，有了这一信息，就可以把 x 直接放在它在最终输出数组的位置上，例如，如果有 17 个元素小于 x，则 x 就是属于第 18 个输出位置。计数排序的核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。<br>作为一种线性时间复杂度的排序，计数排序要求输入的数据必须是有确定范围的整数。</p>
+<h3 id="比较计数排序"><a href="#比较计数排序" class="headerlink" title="比较计数排序"></a>比较计数排序</h3><p>针对排序列表中的每一个元素，算出列表中小于该元素的元素个数，并把结果记录在一张表中。这个“个数”指出了该元素在有序列表中的位置。加入一个列表 A 中有一个元素为 10，而小于 10 的元素个数有 5 个，那么 10 应该排在第六个位置上，也就是 A[5]（下标从 0 开始）。这个算法称为<strong>比较计数排序</strong>。</p>
+<p>下面举个例子来说明，待排序数组为 array[6]={7, 9, 4, 2, 1, 8}：</p>
+<p>1.建数组 countArray[6]用于计数，并初始化数组元素为 0:</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>2.进行第 1 轮比较，i = 0,  for (j = i + 1, j &lt; array.length; ++j )，如果 array[i] (值为7) &gt;= array[j]，countArray[i]++，如果 array[i] &lt; array[j]，count[j]++</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center"><code>7</code></td>
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p>3.进行第 2 轮比较，i = 1,  for (j = i + 1, j &lt; array.length; ++j )，如果 array[i] (值为9) &gt;= array[j]，countArray[i]++，如果 array[i] &lt; array[j]，count[j]++</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center">7</td>
+<td align="center"><code>9</code></td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">3</td>
+<td align="center">5</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p>4.进行第 3 轮比较，i = 2,  for (j = i + 1, j &lt; array.length; ++j )，如果 array[i] (值为4) &gt;= array[j]，countArray[i]++，如果 array[i] &lt; array[j]，count[j]+</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center"><code>4</code></td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">3</td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2</td>
+</tr>
+</tbody></table>
+<p>5.进行第 4 轮比较，i = 3,  for (j = i + 1, j &lt; array.length; ++j )，如果 array[i] (值为2) &gt;= array[j]，countArray[i]++，如果 array[i] &lt; array[j]，count[j]+</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center"><code>2</code></td>
+<td align="center">1</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">3</td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">3</td>
+</tr>
+</tbody></table>
+<p>6.进行第 5 轮比较，i = 4,  for (j = i + 1, j &lt; array.length; ++j )，如果 array[i] (值为1) &gt;= array[j]，countArray[i]++，如果 array[i] &lt; array[j]，count[j]+</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center"><code>1</code></td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">3</td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">4</td>
+</tr>
+</tbody></table>
+<p>7.最终状态</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center"><code>8</code></td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">3</td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">4</td>
+</tr>
+</tbody></table>
+<p>8.用一个数组 tempArray[0……5]通过**tempArray[ countArray[i] ] = array[i]**存放数组 A 的值。</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>array 数组</td>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td>countArray 数组</td>
+<td align="center">3</td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td>tempArray 数组</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">9</td>
+</tr>
+</tbody></table>
+<p>9.for(i = 0; i &lt; array.length; ++i) array[i] = tempArray[i];排序完成</p>
+<h3 id="分布计数排序"><a href="#分布计数排序" class="headerlink" title="分布计数排序"></a>分布计数排序</h3><p>排序步骤：<br>1.设被排序的数组为 array，tempArray 为临时数组。<br>2.首先通过一个数组 countArray[i]计算大小等于 i 的元素个数，此过程只需要一次循环遍历就可以；<br>3.在此基础上，计算小于或者等于 i 的元素个数，也是一重循环就完成。<br>4.逆序循环，从 length[array]到 1，将 A[i]放到第 countArray[array[i]]个位置上<br>原理是：countArray[array[i]]表示小于等于 array[i]的元素个数，正好是 array[i]排序后应该在的位置。而且从 length[array]到 1 逆序循环，可以保证相同元素间的相对顺序不变，这也是计数排序稳定性的体现。</p>
+<p>下面举例说明：<br>数组如 array[10] = {3, 2, 4, 7, 5, 6, 9, 0, 6}，创建一个临时数组 countArray[k]这样的一个数组，k 表示数组 a 中的元素必须都在 0-k 之间，对于这个数组 k 为 9。通过数组 countArray 下标来记录我们需要排序的数组 array 中的元素，然后只要输出记录了这些的下标就好了。如果针对没有重复的序列，很容易可以得到这样的排好序的序列如：a[8]={0, 2, 3, 4, 5, 6, 7, 9}</p>
+<table>
+<thead>
+<tr>
+<th>下标</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>countArray 数组</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td>取下标排序后</td>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center"></td>
+<td align="center">9</td>
+</tr>
+</tbody></table>
+<p>针对有重复的情况，只需要记录有几个重复，在上表中的第二行就是用来解决这个问题的，我们可用来记录有几次重复，从而达到彻底的解决这排序的问题。如未排序数组：array[11] = {3, 2, 2, 4, 7, 5, 5, 6, 9, 6, 0, 6}</p>
+<table>
+<thead>
+<tr>
+<th>下标</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>countArray 数组</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td>取下标排序后</td>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center"></td>
+<td align="center">9</td>
+</tr>
+</tbody></table>
+<p>排序后得到数组为 array[11] = {0, 2, 2, 3, 4, 5, 5, 6, 6, 7, 9}</p>
+<h2 id="计数排序动图展示"><a href="#计数排序动图展示" class="headerlink" title="计数排序动图展示"></a>计数排序动图展示</h2><p><img src="count.gif" alt="count"></p>
+<h2 id="代码-7"><a href="#代码-7" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CountSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">    </span><br><span class="line">        T maxValue = getMax(array);</span><br><span class="line">        <span class="comment">//数组里所有的数字都小于range</span></span><br><span class="line">        <span class="keyword">int</span> range = Integer.valueOf(maxValue.toString());</span><br><span class="line">        <span class="keyword">int</span>[] countArray = <span class="keyword">new</span> <span class="keyword">int</span>[range + <span class="number">1</span>];</span><br><span class="line">    </span><br><span class="line">        <span class="comment">//统计每个数组元素array[i]在数组中出现的个数</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> value = Integer.valueOf(array[i].toString());</span><br><span class="line">            ++countArray[value];</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">//通过在countArray中记录计数和，countArray中存放的是小于等于i元素的数字个数</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; countArray.length; ++i) &#123;</span><br><span class="line">            countArray[i] += countArray[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        Object[] tempArray = <span class="keyword">new</span> Object[length];</span><br><span class="line">        <span class="comment">// 把待排序数组中的元素放在临时数组中对应的位置上</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">            <span class="keyword">int</span> value = Integer.valueOf(array[i].toString());</span><br><span class="line">            <span class="keyword">int</span> position = countArray[value] - <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">            tempArray[position] = value;</span><br><span class="line">            --countArray[value];</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">            array[i] = (T) tempArray[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function">T <span class="title">getMax</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        T max = array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[i].compareTo(max) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                max = array[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h1><h2 id="算法原理-8"><a href="#算法原理-8" class="headerlink" title="算法原理"></a>算法原理</h2><p>桶排序(Bucket Sort)的原理很简单，它是将数组分到有限数量的桶子里。<br>假设待排序的长度为 length 数组 array 中共有 length 个整数，并且已知数组 array 中数据的范围[0, MAX)，将这个序列划分成长度为 bucketsLen（可为(MAX - 0) / length + 1）个的子区间(桶)。然后基于某种映射函数，将待排序列的关键字 key 映射到第 i 个桶中(即桶数组 buckets 的下标 i)，那么该关键字 key 就作为 buckets[i]中的元素(每个桶 buckets[i]都是一组大小为 length / bucketsLen 的序列)。接着对每个桶 buckets[i]中的所有元素进行比较排序(可以使用快排)。然后依次枚举输出 buckets[0]…buckets[bucketLen]中的全部内容即是一个有序序列。</p>
+<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>1.建立一堆 buckets；<br>2.遍历原始数组，并将数据放入到各自的 buckets 当中；<br>3.对非空的 buckets 进行排序；<br>4.按照顺序遍历这些 buckets 并放回到原始数组中即可构成排序后的数组。</p>
+<h2 id="关键字—桶-映射函数"><a href="#关键字—桶-映射函数" class="headerlink" title="[关键字—桶]映射函数"></a>[关键字—桶]映射函数</h2><p>bIndex = f(key):其中，bIndex 为桶数组 B 的下标（即第 bIndex 个桶），key 为待排序列的关键字。桶排序之所以能够高效，关键在于这个映射函数，它必须做到：如果关键字 k1 &lt; k2，那么 f(k1)&lt;=f(k2)。也就是说 buckets(i)中的最小数据都要小于 buckets(i+1)中最大数据。下面举个例子：<br>假如待排序列 array = {29,  25,  3,  49,  9,  37,  21,  43}，这些数据全部在 1—50 之间。因此我们定制 5 个桶，然后确定映射函数 f(key) = (key + 1) / 10。则第一个关键字 29 将定位到第 3 个桶中((29 + 1)/10=3)。依次将所有关键字全部堆入桶中，并在每个非空的桶中进行快速排序后得到如下图所示：</p>
+<p><img src="bucket.png" alt="bucket"></p>
+<p>对上图只要顺序输出每个 buckets[i]中的数据就可以得到有序序列了。</p>
+<h2 id="代码-8"><a href="#代码-8" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BucketSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line">    </span><br><span class="line">        T maxValue = getMax(array);</span><br><span class="line">        <span class="keyword">int</span> max = Integer.valueOf(maxValue.toString());</span><br><span class="line">    </span><br><span class="line">        List&lt;List&lt;T&gt;&gt; buckets = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; max + <span class="number">1</span>; ++i) &#123;</span><br><span class="line">            List&lt;T&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            buckets.add(list);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">//将每个元素放入桶</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; ++i) &#123;</span><br><span class="line">            T element = array[i];</span><br><span class="line">            <span class="keyword">int</span> index = Integer.valueOf(element.toString());</span><br><span class="line">    </span><br><span class="line">            buckets.get(index).add(element);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        Object[] tempArray = <span class="keyword">new</span> Object[length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; buckets.size(); ++i) &#123;</span><br><span class="line">            List&lt;T&gt; list = buckets.get(i);</span><br><span class="line">            Collections.sort(list);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; list.size(); ++k) &#123;</span><br><span class="line">                T element = list.get(k);</span><br><span class="line">                <span class="keyword">if</span> (element != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    tempArray[j++] = element;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">            array[i] = (T) tempArray[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function">T <span class="title">getMax</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        T max = array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[i].compareTo(max) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                max = array[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h1><h2 id="算法原理-9"><a href="#算法原理-9" class="headerlink" title="算法原理"></a>算法原理</h2><p>基数排序(Radix Sort)是一种非比较型整数排序算法，它的基本思想是：将整数按位数切割成不同的数字，然后按每个位数分别比较；<br>具体做法是：将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列；<br>基数排序按照对位数分组的顺序的不同，可以分为 LSD 基数排序和 MSD 基数排序。<br>下面举个例子，待排序数组 array = {53, 3, 542, 748, 14, 214, 154, 63, 616}，排序过程如下：<br>1.首先将所有待比较树脂统一为统一位数长度，接着从最低位开始，依次进行排序；<br>2.按照个位数进行排序；<br>3.按照十位数进行排序；<br>4.按照百位数进行排序；<br>排序后，数列就变成了一个有序序列:</p>
+<p><img src="radix.png" alt="radix"></p>
+<h3 id="LSD（Least-sgnificant-digital）基数排序"><a href="#LSD（Least-sgnificant-digital）基数排序" class="headerlink" title="LSD（Least sgnificant digital）基数排序"></a>LSD（Least sgnificant digital）基数排序</h3><p>按照从低位到高位的顺序进行分组排序。例如：1, 2, 3, 4, 5, 6, 7, 8, 9, 10 第一次分组后为 10, 1, 2, 3, 4, 5, 6, 7, 8, 9，适用于位数小的数列</p>
+<h3 id="MSD（Most-sgnificant-digital）基数排序"><a href="#MSD（Most-sgnificant-digital）基数排序" class="headerlink" title="MSD（Most sgnificant digital）基数排序"></a>MSD（Most sgnificant digital）基数排序</h3><p>按照从高位到低位的顺序进行分组排序。例如：1, 2, 3, 4, 5, 6, 7, 8, 9, 10 第一次分组以后为 1, 10, 2, 3, 4, 5, 6, 7, 8, 9，如果位数多的话，使用 MSD 的效率比 LSD 好</p>
+<h2 id="基数排序动图展示"><a href="#基数排序动图展示" class="headerlink" title="基数排序动图展示"></a>基数排序动图展示</h2><p><img src="radix.gif" alt="radix"></p>
+<h2 id="代码-9"><a href="#代码-9" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> me.ilcb.algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基数排序</span></span><br><span class="line"><span class="comment">    **/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RadixSorter</span> <span class="keyword">implements</span> <span class="title">Sorter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array 待排序数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> radix 进制基数</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = array.length;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取数组中最大的数字用于计算最大位数</span></span><br><span class="line">        T max = getMax(array);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> bits = <span class="number">0</span>; <span class="comment">//数组中最大数的位数</span></span><br><span class="line">        <span class="keyword">int</span> maxValue = Integer.valueOf(max.toString());</span><br><span class="line">        <span class="comment">//获取最大位数</span></span><br><span class="line">        <span class="keyword">while</span> (maxValue &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            maxValue /= <span class="number">10</span>;</span><br><span class="line">            bits++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Object[] buckets = <span class="keyword">new</span> Object[length];</span><br><span class="line">        <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[radix]; <span class="comment">// 存放各个桶的数据统计个数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> rate = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 按照从低位到高位的顺序执行排序过程</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">0</span>; b &lt; bits; b++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//重置count数组，开始统计下一个关键字</span></span><br><span class="line">            Arrays.fill(count, <span class="number">0</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//计算每个待排序数据的关键字</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> key = Integer.valueOf(array[i].toString());</span><br><span class="line">            </span><br><span class="line">                <span class="keyword">int</span> bucketIdx = (key / rate) % radix;</span><br><span class="line">                ++count[bucketIdx];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// count[i]表示第i个桶的右边界索引</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; radix; ++i) &#123;</span><br><span class="line">                count[i] = count[i] + count[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 将数据依次装入桶中, 开始从左向右，现在从右向左扫描，保证排序稳定性</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">                <span class="comment">// 求出待排序元素第b位的数字，如34第2位是3</span></span><br><span class="line">                <span class="keyword">int</span> key = Integer.valueOf(array[i].toString());</span><br><span class="line">                <span class="keyword">int</span> bucketIdx = (key / rate) % radix;</span><br><span class="line">            </span><br><span class="line">                buckets[count[bucketIdx] - <span class="number">1</span>] = array[i]; <span class="comment">//插入到count[key] - 1位，因为数组下标从0开始</span></span><br><span class="line">                --count[bucketIdx];</span><br><span class="line">            &#125;</span><br><span class="line">            rate *= radix; <span class="comment">//前进一位</span></span><br><span class="line">            System.out.print(<span class="string">&quot;\n 第&quot;</span> + (b + <span class="number">1</span>) + <span class="string">&quot;次：&quot;</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">                array[i] = (T) buckets[i];</span><br><span class="line">            &#125;</span><br><span class="line">            print(array);</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function">T <span class="title">getMax</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        T max = array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[i].compareTo(max) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                max = array[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出数组</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            System.out.print(array[i].toString() + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, Comparator&lt;T&gt; comp)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> &lt;T extends Comparable&lt;T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] array, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/08/03/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/" data-id="ckuk0wnr3000d1mjh0ub9h1n4" data-title="排序算法" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/08/%E5%90%8E%E7%AB%AF/Java/%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          我是一个线程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/02/%E5%90%8E%E7%AB%AF/Java/Java%20%E7%BA%BF%E7%A8%8B%E6%B1%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java 线程池</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AOP/">AOP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/SpringMVC/">SpringMVC</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/SpringMVC/MyBatis/">MyBatis</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/%E4%BA%8B%E5%8A%A1/">事务</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%93%E5%AD%98/">缓存</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%93%E5%AD%98/%E5%B7%A5%E5%85%B7/">工具</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/" rel="tag">AOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/" rel="tag">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/" rel="tag">创建型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8/" rel="tag">异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/" rel="tag">结构型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/" rel="tag">行为型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AOP/" style="font-size: 11.25px;">AOP</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 16.25px;">Java</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 13.75px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 10px;">SpringMVC</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 12.5px;">事务</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">分布式</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" style="font-size: 10px;">分布式缓存</a> <a href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/" style="font-size: 15px;">创建型</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 12.5px;">并发</a> <a href="/tags/%E5%BC%82%E5%B8%B8/" style="font-size: 10px;">异常</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.25px;">数据库</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 10px;">消息队列</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/" style="font-size: 17.5px;">结构型</a> <a href="/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/" style="font-size: 18.75px;">行为型</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/10/10/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/29/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E4%BC%98%E5%8C%96/">Sql 优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/02/%E5%90%8E%E7%AB%AF/Spring/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/">spring 事务管理</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql-%E4%BA%8B%E5%8A%A1/">MySql-事务</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/29/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">数据库事务</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

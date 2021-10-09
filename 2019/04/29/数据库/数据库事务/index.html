@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>数据库事务 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="什么是事务 数据库事务（简称：事务）是数据库管理系统执行过程中的一个逻辑单位，由一个有限的数据库操作序列构成。—— 维基百科  对事务的理解应该注意以下几点：  事务就是要保证一组数据库操作，要么全部成功，要么全部失败 在 MySQL 中，事务支持是由存储引擎实现 不是所有引擎都支持事务，InnoDB、DBD 支持事务，MyISAM 和 MEMORY 就不支持事务 在 mysql 中用的最多的存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库事务">
+<meta property="og:url" content="http://example.com/2019/04/29/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="什么是事务 数据库事务（简称：事务）是数据库管理系统执行过程中的一个逻辑单位，由一个有限的数据库操作序列构成。—— 维基百科  对事务的理解应该注意以下几点：  事务就是要保证一组数据库操作，要么全部成功，要么全部失败 在 MySQL 中，事务支持是由存储引擎实现 不是所有引擎都支持事务，InnoDB、DBD 支持事务，MyISAM 和 MEMORY 就不支持事务 在 mysql 中用的最多的存储">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-29T07:25:42.612Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="事务">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="_post-数据库/数据库事务" class="h-entry article article-type-_post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/29/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/" class="article-date">
+  <time class="dt-published" datetime="2019-04-28T16:00:00.000Z" itemprop="datePublished">2019-04-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      数据库事务
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h2><blockquote>
+<p>数据库事务（简称：事务）是数据库管理系统执行过程中的一个逻辑单位，由一个有限的数据库操作序列构成。—— 维基百科</p>
+</blockquote>
+<p>对事务的理解应该注意以下几点：</p>
+<ul>
+<li>事务就是要保证一组数据库操作，要么全部成功，要么全部失败</li>
+<li>在 MySQL 中，事务支持是由存储引擎实现</li>
+<li>不是所有引擎都支持事务，InnoDB、DBD 支持事务，MyISAM 和 MEMORY 就不支持事务</li>
+<li>在 mysql 中用的最多的存储引擎有：innodb，bdb，myisam，memory 等。其中 innodb 和 bdb 支持事务而 myisam 等不支持事务</li>
+</ul>
+<h2 id="事务的-4-大特性"><a href="#事务的-4-大特性" class="headerlink" title="事务的 4 大特性"></a>事务的 4 大特性</h2><h3 id="原子性-Atomicity"><a href="#原子性-Atomicity" class="headerlink" title="原子性(Atomicity)"></a>原子性(Atomicity)</h3><p>事务被视为不可分割的最小单元，事务包含的所有操作要么全部成功，要么全部失败回滚，因此事务的操作如果成功就必须要完全应用到数据库，如果操作失败则不能对数据库有任何影响</p>
+<h3 id="一致性-Consistency"><a href="#一致性-Consistency" class="headerlink" title="一致性(Consistency)"></a>一致性(Consistency)</h3><p>一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态，所有的变更都必须应用于事务的修改，以确保数据的完整性</p>
+<h3 id="隔离性-Isolation"><a href="#隔离性-Isolation" class="headerlink" title="隔离性(Isolation)"></a>隔离性(Isolation)</h3><p>一个事务的执行不能被其他事务干扰。 </p>
+<h3 id="持久性-Durability"><a href="#持久性-Durability" class="headerlink" title="持久性(Durability)"></a>持久性(Durability)</h3><p>一个事务一旦被提交了，对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作</p>
+<h2 id="并发事务引起的问题"><a href="#并发事务引起的问题" class="headerlink" title="并发事务引起的问题"></a>并发事务引起的问题</h2><p>当并发访问数据时，多个事务访问同一数据时，可能会存在 5 类问题，包括 3 类数据读取问题（脏读、不可重复读和幻读）和 2 类数据更新问题（第 1 类丢失更新和第 2 类丢失更新）</p>
+<h3 id="丢失修改"><a href="#丢失修改" class="headerlink" title="丢失修改"></a>丢失修改</h3><h4 id="第一类丢失修改"><a href="#第一类丢失修改" class="headerlink" title="第一类丢失修改"></a>第一类丢失修改</h4><p>A 数据撤销时，覆盖了事务 B 已经提交的数据</p>
+<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="left">取款事务 A</th>
+<th>转账事务 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T1</td>
+<td align="left"><font color="green">start transaction;</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T2</td>
+<td align="left"></td>
+<td><font color="blue">start transaction;</font></td>
+</tr>
+<tr>
+<td align="center">T3</td>
+<td align="left"><font color="green">查询账户余额为 1000</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T4</td>
+<td align="left"></td>
+<td><font color="blue">查询账户余额为 1000</font></td>
+</tr>
+<tr>
+<td align="center">T5</td>
+<td align="left"></td>
+<td><font color="blue">汇入 100 元，修改账户余额为 1100</font></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"></td>
+<td><font color="blue">commit;</font></td>
+</tr>
+<tr>
+<td align="center">T7</td>
+<td align="left"><font color="green">取出 100 元，更新余额为 900</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T8</td>
+<td align="left"><font color="green">rollback</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T9</td>
+<td align="left"><font color="green">余额恢复为 1000</font><br/><font color="red"><strong>B 事务汇款操作结果丢失</strong></font></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="第二类丢失修改"><a href="#第二类丢失修改" class="headerlink" title="第二类丢失修改"></a>第二类丢失修改</h4><p>B 事务覆盖 A 事务已经提交的数据，造成 B 事务所做的操作丢失</p>
+<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="left">转账事务 A</th>
+<th>取款事务 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T1</td>
+<td align="left"></td>
+<td><font color="blue">start transaction;</font></td>
+</tr>
+<tr>
+<td align="center">T2</td>
+<td align="left"><font color="green">start transaction;</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T3</td>
+<td align="left"></td>
+<td><font color="blue">查询账户余额为 1000</font></td>
+</tr>
+<tr>
+<td align="center">T4</td>
+<td align="left"><font color="green">查询账户余额为 1000</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T5</td>
+<td align="left"></td>
+<td><font color="blue">取出 100 元，更新余额为 900</font></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"></td>
+<td><font color="blue">commit</font></td>
+</tr>
+<tr>
+<td align="center">T5</td>
+<td align="left"><font color="green">汇入 100 元</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"><font color="green">commit;</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"><font color="green">修改账户余额为 1100</font><br/><font color="red"><strong>A 事务取款结果丢失</strong></font></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="读脏数据（Dirty-Read）"><a href="#读脏数据（Dirty-Read）" class="headerlink" title="读脏数据（Dirty Read）"></a>读脏数据（Dirty Read）</h3><p>A 事务读取 B 事务尚未提交的数据并在此基础上操作，而 B 事务执行回滚，那么 A 读取到的数据就是脏数据</p>
+<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="left">转账事务 A</th>
+<th>取款事务 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T1</td>
+<td align="left"></td>
+<td><font color="blue">start transaction;</font></td>
+</tr>
+<tr>
+<td align="center">T2</td>
+<td align="left"><font color="green">start transaction;</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T3</td>
+<td align="left"></td>
+<td><font color="blue">查询账户余额为 1000</font></td>
+</tr>
+<tr>
+<td align="center">T4</td>
+<td align="left"></td>
+<td><font color="blue">取出 500 元，更新余额为 500</font></td>
+</tr>
+<tr>
+<td align="center">T5</td>
+<td align="left"><font color="green">查询账户余额为 500</font><br/><font color="red"><strong>脏读</strong></font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"></td>
+<td><font color="blue">rollback，更新余额为 1000</font></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"><font color="blue">汇入 100，余额更新为 600</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"><font color="blue">commit;</font></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="不可重复读（Unrepeatable-Read）"><a href="#不可重复读（Unrepeatable-Read）" class="headerlink" title="不可重复读（Unrepeatable Read）"></a>不可重复读（Unrepeatable Read）</h3><p>事务 A 重新读取前面读取过的数据，发现该数据已经被另一个已提交的事务 B 修改过了</p>
+<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="left">转账事务 A</th>
+<th>取款事务 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T1</td>
+<td align="left"></td>
+<td><font color="blue">start transaction;</font></td>
+</tr>
+<tr>
+<td align="center">T2</td>
+<td align="left"><font color="green">start transaction;</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T3</td>
+<td align="left"></td>
+<td><font color="blue">查询账户余额为 1000</font></td>
+</tr>
+<tr>
+<td align="center">T4</td>
+<td align="left"><font color="green">查询账户余额为 1000</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T5</td>
+<td align="left"></td>
+<td><font color="blue">取出 500 元，更新余额为 500</font></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"></td>
+<td><font color="blue">commit</font></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"><font color="green">查询账户余额为 500</font><br/><font color="red"><strong>不可重复读</strong></font></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="幻读（Phantom-Read）"><a href="#幻读（Phantom-Read）" class="headerlink" title="幻读（Phantom Read）"></a>幻读（Phantom Read）</h3><p>A 事务读取 B 事务提交的新增数据。</p>
+<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="left">统计金额事务 A</th>
+<th>转账事务 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T1</td>
+<td align="left"></td>
+<td><font color="blue">start transaction;</font></td>
+</tr>
+<tr>
+<td align="center">T2</td>
+<td align="left"><font color="green">start transaction;</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T3</td>
+<td align="left"><font color="green">统计总存款金额为 10000</font></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">T4</td>
+<td align="left"></td>
+<td><font color="green">新开一个账户存入 500</font></td>
+</tr>
+<tr>
+<td align="center">T5</td>
+<td align="left"></td>
+<td><font color="blue">commit</font></td>
+</tr>
+<tr>
+<td align="center">T6</td>
+<td align="left"><font color="green">统计总存款金额为 10500</font><br><font color="red">幻读</font></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h2><p>数据库通过锁机制解决并发访问的问题。<br>根据锁定对象不同：分为行级锁和表级锁；<br>根据并发事务锁定的关系上看：分为共享锁定和独占锁定，共享锁定会防止独占锁定但允许其他的共享锁定。而独占锁定既防止共享锁定也防止其他独占锁定。为了更改数据，数据库必须在进行更改的行上施加行独占锁定，insert、update、delete 和 selsct for update 语句都会隐式采用必要的行锁定。<br>但是直接使用锁机制管理是很复杂的，基于锁机制，数据库给用户提供了不同的事务隔离级别，只要设置了事务隔离级别，数据库就会分析事务中的 sql 语句然后自动选择合适的锁。<br>隔离级别解决并发问题如下图：</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+<th>第一类丢失更新</th>
+<th>第二类丢失更新</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ UNCOMMITED</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>READ COMMITTED</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>REPEATABLE READ</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+<h3 id="设置事务隔离级别"><a href="#设置事务隔离级别" class="headerlink" title="设置事务隔离级别"></a>设置事务隔离级别</h3><ul>
+<li><p>可以在 my.ini 文件中使用 transaction-isolation 选项来设置服务器的缺省事务隔离级别。<br>该选项值可以是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">– READ<span class="operator">-</span>UNCOMMITTED</span><br><span class="line">– READ<span class="operator">-</span>COMMITTED</span><br><span class="line">– REPEATABLE<span class="operator">-</span>READ</span><br><span class="line">– SERIALIZABLE</span><br><span class="line">例如：</span><br><span class="line">transaction<span class="operator">-</span>isolation <span class="operator">=</span> READ<span class="operator">-</span>COMMITTED</span><br></pre></td></tr></table></figure></li>
+<li><p>通过 sql 命令动态设置隔离级别，隔离级别也可以在运行的服务器中动态设置，应使用 SET TRANSACTION ISOLATION LEVEL 语句。<br>语法模式为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">SET</span> [<span class="keyword">GLOBAL</span> <span class="operator">|</span> SESSION] TRANSACTION ISOLATION LEVEL <span class="operator">&lt;</span>isolation<span class="operator">-</span>level<span class="operator">&gt;</span></span><br><span class="line"> 其中的<span class="operator">&lt;</span>isolation<span class="operator">-</span>level<span class="operator">&gt;</span>可以是：</span><br><span class="line">	– READ UNCOMMITTED</span><br><span class="line">	– READ COMMITTED</span><br><span class="line">	– REPEATABLE READ</span><br><span class="line">	– SERIALIZABLE</span><br><span class="line">例如： <span class="keyword">SET</span> TRANSACTION ISOLATION LEVEL REPEATABLE READ;</span><br></pre></td></tr></table></figure>
+<h3 id="事务隔离级别的作用范围"><a href="#事务隔离级别的作用范围" class="headerlink" title="事务隔离级别的作用范围"></a>事务隔离级别的作用范围</h3><p>  – 全局级：对所有的会话有效<br>  – 会话级：只对当前的会话有效 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">例如:</span><br><span class="line">设置会话级隔离级别为READ COMMITTED ：</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SET</span> TRANSACTION ISOLATION LEVEL READ COMMITTED；</span><br><span class="line">或：</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SET</span> SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED；</span><br><span class="line"></span><br><span class="line">设置全局级隔离级别为READ COMMITTED ： </span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SET</span> <span class="keyword">GLOBAL</span> TRANSACTION ISOLATION LEVEL READ COMMITTED；</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/04/29/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/" data-id="ckuk0wnr2000b1mjh2zty21ek" data-title="数据库事务" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/30/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql-%E4%BA%8B%E5%8A%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySql-事务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/29/%E5%90%8E%E7%AB%AF/Java/Java%E5%BC%82%E5%B8%B8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java 异常</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AOP/">AOP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/SpringMVC/">SpringMVC</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/SpringMVC/MyBatis/">MyBatis</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/%E4%BA%8B%E5%8A%A1/">事务</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%93%E5%AD%98/">缓存</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%93%E5%AD%98/%E5%B7%A5%E5%85%B7/">工具</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/" rel="tag">AOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/" rel="tag">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/" rel="tag">创建型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8/" rel="tag">异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/" rel="tag">结构型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/" rel="tag">行为型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AOP/" style="font-size: 11.25px;">AOP</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 16.25px;">Java</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 13.75px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 10px;">SpringMVC</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 12.5px;">事务</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">分布式</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" style="font-size: 10px;">分布式缓存</a> <a href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/" style="font-size: 15px;">创建型</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 12.5px;">并发</a> <a href="/tags/%E5%BC%82%E5%B8%B8/" style="font-size: 10px;">异常</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.25px;">数据库</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 10px;">消息队列</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/" style="font-size: 17.5px;">结构型</a> <a href="/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/" style="font-size: 18.75px;">行为型</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/10/10/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/29/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E4%BC%98%E5%8C%96/">Sql 优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/02/%E5%90%8E%E7%AB%AF/Spring/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/">spring 事务管理</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql-%E4%BA%8B%E5%8A%A1/">MySql-事务</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/29/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">数据库事务</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

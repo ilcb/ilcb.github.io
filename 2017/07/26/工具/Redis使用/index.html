@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Redis 使用 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Redis key 命令 del key存在 key 时删除 key dump key序列化给定 key ，并返回被序列化的值 exists key检查 key 是否存在 expire key seconds设置 key 的过期时间，以秒为单位 expireat key timestamp设置 key 在指定时间戳之后过期 expireat key millseconds设置 key 的过期时间，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 使用">
+<meta property="og:url" content="http://example.com/2017/07/26/%E5%B7%A5%E5%85%B7/Redis%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Redis key 命令 del key存在 key 时删除 key dump key序列化给定 key ，并返回被序列化的值 exists key检查 key 是否存在 expire key seconds设置 key 的过期时间，以秒为单位 expireat key timestamp设置 key 在指定时间戳之后过期 expireat key millseconds设置 key 的过期时间，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png">
+<meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2014/11/pubsub2.png">
+<meta property="article:published_time" content="2017-07-26T09:33:12.000Z">
+<meta property="article:modified_time" content="2021-05-29T07:25:42.600Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="分布式缓存">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="_post-工具/Redis使用" class="h-entry article article-type-_post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/07/26/%E5%B7%A5%E5%85%B7/Redis%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2017-07-26T09:33:12.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%93%E5%AD%98/">缓存</a>►<a class="article-category-link" href="/categories/%E7%BC%93%E5%AD%98/%E5%B7%A5%E5%85%B7/">工具</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Redis 使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Redis-key-命令"><a href="#Redis-key-命令" class="headerlink" title="Redis key 命令"></a>Redis key 命令</h2><ul>
+<li>del key<br>存在 key 时删除 key</li>
+<li>dump key<br>序列化给定 key ，并返回被序列化的值</li>
+<li>exists key<br>检查 key 是否存在</li>
+<li>expire key seconds<br>设置 key 的过期时间，以秒为单位</li>
+<li>expireat key timestamp<br>设置 key 在指定时间戳之后过期</li>
+<li>expireat key millseconds<br>设置 key 的过期时间，以毫秒为单位</li>
+<li>pexoureat key milliseconds-timestamp<br>设置 key 过期时间的时间戳(unix timestamp) 以毫秒计</li>
+<li>keys pattern<br>查找与指定模式匹配的所有 key</li>
+<li>move key db<br>将当前数据库的 key 移动到给定的数据库 db 当中</li>
+<li>persist key<br>删除 key 的过期时间</li>
+<li>ttl key<br>获取 key 的剩余到期时间,以秒为单位</li>
+<li>randomkey<br>从 redis 返回一个随机的 key</li>
+<li>rename key newkey<br>更改 key 名称</li>
+<li>pttl key<br>获取 key 的剩余到期时间，以毫秒为单位</li>
+<li>renamenx key newkey<br>仅当 newkey 不存在时，将 key 改名为 newkey</li>
+<li>type key<br>返回 key 所存储的值的类型<h2 id="Redis-字符串（string）"><a href="#Redis-字符串（string）" class="headerlink" title="Redis 字符串（string）"></a>Redis 字符串（string）</h2></li>
+<li>set key value<br>设置 key 的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> key <span class="string">&#x27;value&#x27;</span></span><br><span class="line">​OK</span><br></pre></td></tr></table></figure></li>
+<li>get key<br>获取指定 key 的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get key</span><br><span class="line">​<span class="string">&quot;value&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>getset key value<br>将给定 key 的值设为 value,返回 key 的旧值（old value）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; getset key <span class="string">&#x27;new-value&#x27;</span></span><br><span class="line">​<span class="string">&quot;value&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; get key</span><br><span class="line">​<span class="string">&quot;new-value&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>setex key seconds value<br>将 value 关联到 key,并将 key 的过期时间设置位 seconds 秒<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; setex mykey 60 redis</span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; ttl mykey</span><br><span class="line">​(<span class="built_in">integer</span>) 55</span><br><span class="line">​127.0.0.1:6379&gt; get mykey</span><br><span class="line">​<span class="string">&quot;redis&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>setnx key value<br>只有在 key 不存在时设置 key 的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; exists job</span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br><span class="line">​127.0.0.1:6379&gt; setnx job <span class="string">&#x27;programmer&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; setnx job <span class="string">&#x27;code-framer&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br><span class="line">​127.0.0.1:6379&gt; get job</span><br><span class="line">​<span class="string">&quot;programmer&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>setrange key offset value<br>用 value 重置 key 存储的字符串值，从偏移量 offset 开始<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> key1 <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; setrange key1 6 <span class="string">&#x27;redis&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 11</span><br><span class="line">​127.0.0.1:6379&gt; get key1</span><br><span class="line">​<span class="string">&quot;hello redis&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>getrange key start end<br>返回 key 中字符串的子串<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; get key</span><br><span class="line">​<span class="string">&quot;value&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>setbit key offset value<br>对 key 存储的字符串值，设定或清除指定偏移量上的位</li>
+<li>getbit key offset<br>对 key 存储的字符串值，获取指定偏移量上的位（bit）</li>
+<li>mset key value key1 value1 …<br>设置一个或多个 key-value 对<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; mset key1 <span class="string">&#x27;hello&#x27;</span> key2 <span class="string">&#x27;world&#x27;</span></span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; get key1</span><br><span class="line">​<span class="string">&quot;hello&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; get key2</span><br><span class="line">​<span class="string">&quot;world&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; mget key1 key2</span><br><span class="line">​1) <span class="string">&quot;hello&quot;</span></span><br><span class="line">​2) <span class="string">&quot;world&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>mget key1 key2 …<br>获取一个或多个给定 key 的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> key1 <span class="string">&#x27;value1&#x27;</span></span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> key2 <span class="string">&#x27;value2&#x27;</span></span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; mget key1 key2</span><br><span class="line">​1) <span class="string">&quot;value1&quot;</span></span><br><span class="line">​2) <span class="string">&quot;value2&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>msetnx key value key1 value1 …<br>仅当所有给定的 key 都不存在时设置一个或多个 key-value 对<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; msetnx rmdbs <span class="string">&#x27;mysql&#x27;</span> nosql <span class="string">&#x27;mongodb&#x27;</span> key-value-store <span class="string">&#x27;redis&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; mget rmdbs nosql key-value-store</span><br><span class="line">​1) <span class="string">&quot;mysql&quot;</span></span><br><span class="line">​2) <span class="string">&quot;mongodb&quot;</span></span><br><span class="line">​3) <span class="string">&quot;redis&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; msetnx rmdbs <span class="string">&#x27;sqlite&#x27;</span> language <span class="string">&#x27;java&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure></li>
+<li>strlen key<br>返回 key 存储值的长度<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> mykey <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; strlen mykey</span><br><span class="line">​(<span class="built_in">integer</span>) 11</span><br></pre></td></tr></table></figure></li>
+<li>psetex key milliseconds value<br>以毫秒为单位设置 key 的生存时间<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; psetex mykey 20000 <span class="string">&#x27;hell0&#x27;</span></span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; pttl mykey</span><br><span class="line">​(<span class="built_in">integer</span>) 16300</span><br><span class="line">​127.0.0.1:6379&gt; get mykey</span><br><span class="line">​<span class="string">&quot;hell0&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>incr key<br>将 key 中存储的数字+1<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> page 10</span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; incr page</span><br><span class="line">​(<span class="built_in">integer</span>) 11</span><br><span class="line">​127.0.0.1:6379&gt; get page</span><br><span class="line">​<span class="string">&quot;11&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>incrby key increment<br>将 key 存储的值加上给定的增量值(increment)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> page 10</span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; incrby page 5</span><br><span class="line">​(<span class="built_in">integer</span>) 15</span><br></pre></td></tr></table></figure></li>
+<li>incrbyfloat key increment<br>将 key 存储的值奖赏指定的浮点增量值(increment)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> mykey 10.5</span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; incrbyfloat mykey 0.4</span><br><span class="line">​<span class="string">&quot;10.9&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>decr key<br>将 key 中存储的数字-1<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> fail_times 10</span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; decr fail_times</span><br><span class="line">​(<span class="built_in">integer</span>) 9</span><br></pre></td></tr></table></figure></li>
+<li>decrby key decrement<br>将 key 中存储的数字减去指定的减量值(decrement)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; <span class="built_in">set</span> count 10</span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; decrby count 5</span><br><span class="line">​(<span class="built_in">integer</span>) 5</span><br></pre></td></tr></table></figure></li>
+<li>append key value<br>如果 key 已经存在且是一个字符串，将 value 值追加到 key 中存储值的末尾<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; exists phone</span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br><span class="line">​127.0.0.1:6379&gt; append phone <span class="string">&#x27;nokia&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 5</span><br><span class="line">​127.0.0.1:6379&gt; append phone <span class="string">&#x27;5300&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 9</span><br><span class="line">​127.0.0.1:6379&gt; get phone</span><br><span class="line">​<span class="string">&quot;nokia5300&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Redis-哈希-hash"><a href="#Redis-哈希-hash" class="headerlink" title="Redis 哈希 (hash)"></a>Redis 哈希 (hash)</h2></li>
+<li>hset key field value<br>将哈希表 key 中的字段 field 的值设为 value<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hset myhash field1 <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
+<li>hsetnx key field value<br>只有在字段 field 不存在时，设置哈希表字段的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hsetnx myhash field1 <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure></li>
+<li>hget key field<br>获取哈希表中指定 key 的指定字段和值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hget myhash field1</span><br><span class="line">​<span class="string">&quot;aaa&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>hgetall key<br>获取哈希表中指定 key 的所有字段和值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hset myhash field2 <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; hgetall myhash</span><br><span class="line">​1) <span class="string">&quot;field1&quot;</span></span><br><span class="line">​2) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​3) <span class="string">&quot;field2&quot;</span></span><br><span class="line">​4) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>hmset key field1 value1 field2 value2 …<br>同时将多个 field-value 对设置到哈希表中<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hmset myhash field3 <span class="string">&#x27;ccc&#x27;</span> field4 <span class="string">&#x27;ddd&#x27;</span></span><br><span class="line">​OK</span><br></pre></td></tr></table></figure></li>
+<li>hmget key field1 field2 …<br>获取所有给定字段的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hmget myhash field3</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>hdel key field1 field2<br>删除一个或多个哈希表字段<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hdel myhash field3</span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; hgetall myhash</span><br><span class="line">​1) <span class="string">&quot;field1&quot;</span></span><br><span class="line">​2) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​3) <span class="string">&quot;field2&quot;</span></span><br><span class="line">​4) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>hexists key field<br>查看哈希表 key 中，指定的 field 是否存在<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hexists myhash field3</span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure></li>
+<li>hkeys key<br>获取所有哈希表中的字段<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hexists myhash field3</span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure></li>
+<li>hincrby key field increment<br>哈希表中 key 指定的字段的整数值加上增量<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">​increment127.0.0.1:6379&gt; hset myhash field 5</span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; hincrby myhash field 1</span><br><span class="line">​(<span class="built_in">integer</span>) 6</span><br><span class="line">​127.0.0.1:6379&gt; hincrby myhash field -6</span><br><span class="line">​(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure></li>
+<li>hincrbyfloat key field increment<br>哈希表中 key 指定的字段的浮点值加上增量 increment<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hset mykey field 10.5</span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; hincrbyfloat mykey field 0.1</span><br><span class="line">​<span class="string">&quot;10.6&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>hlen key<br>获取哈希表中字段的数量<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hlen myhash</span><br><span class="line">​(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure></li>
+<li>hvals key<br>获取哈希表中所有值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; hvals myhash</span><br><span class="line">​1) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​3) <span class="string">&quot;10.5&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>hscan key cursor[MATCH pattern][COUNT count]<br>迭代哈希表中的键值对<h2 id="Redis-列表-list"><a href="#Redis-列表-list" class="headerlink" title="Redis 列表 (list)"></a>Redis 列表 (list)</h2></li>
+<li>lpush key value1 value2 …<br>将一个或多个值插入到列表头部<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; lpush list1 <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; lpush list1 <span class="string">&#x27;bbb&#x27;</span> <span class="string">&#x27;ccc&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure></li>
+<li>lpushx key value<br>将一个子插入到已存在的列表头部<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; lpushx list1 <span class="string">&#x27;111&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 4</span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 0 4</span><br><span class="line">​1) <span class="string">&quot;111&quot;</span></span><br><span class="line">​2) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​3) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​4) <span class="string">&quot;aaa&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>lpop key<br>移出并获取列表的第 1 个元素<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; lpop list1</span><br><span class="line">​<span class="string">&quot;111&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 0 4</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​3) <span class="string">&quot;aaa&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>rpush key value1 value2 …<br>在列表中添加一个或多个值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; rpush list1 <span class="string">&#x27;111&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 4</span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 0 4</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​3) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​4) <span class="string">&quot;111&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>rpushx key value<br>为已存在的列表添加值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; rpushx list1 <span class="string">&#x27;222&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 5</span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 0 5</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​3) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​4) <span class="string">&quot;111&quot;</span></span><br><span class="line">​5) <span class="string">&quot;222&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>rpop key<br>移除并获取列表最后一个元素<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; rpop list1</span><br><span class="line">​<span class="string">&quot;222&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 0 5</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​3) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​4) <span class="string">&quot;111&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>blpop key1 key2 … timeout<br>移除并获取列表的第 1 个元素，如果没有元素会阻塞列表知道等待超时或者发现可弹出元素为止<br>如果列表为空，返回一个 nil 。 否则，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 key ，第二个元素是被弹出元素的值。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; blpop list1 100</span><br><span class="line">​1) <span class="string">&quot;list1&quot;</span></span><br><span class="line">​2) <span class="string">&quot;ccc&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>brpop key1 key2 … timeout<br>移除并获取列表的最后 1 个元素，如果没有元素会阻塞列表知道等待超时或者发现可弹出元素为止<br>假如在指定时间内没有任何元素被弹出，则返回一个 nil 和等待时长。 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 key ，第二个元素是被弹出元素的值。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; brpop list1 100</span><br><span class="line">​1) <span class="string">&quot;list1&quot;</span></span><br><span class="line">​2) <span class="string">&quot;111&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>brpoplpush source destination timeout<br>从列表中弹出一个值，并插入另一个列表中并返回它， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止</li>
+<li>rpoplpush source destination<br>移除列表最后一个元素，并将元素添加到另一个列表并返回<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; rpush mylist <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; rpush mylist <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 2</span><br><span class="line">​127.0.0.1:6379&gt; rpoplpush mylist myotherlist</span><br><span class="line">​<span class="string">&quot;bbb&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; lrange mylist 0 2</span><br><span class="line">​1) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; lrange myotherlist 0 2</span><br><span class="line">​1) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>lindex key index<br>通过索引获取列表中的元素<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; lindex list1 0</span><br><span class="line">​<span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>linsert key BEFORE|AFTER pivot value<br>在列表的元素前或者之后插入元素<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; linsert list1 before <span class="string">&#x27;aaa&#x27;</span> <span class="string">&#x27;444&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 3</span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 0 4</span><br><span class="line">​1) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​2) <span class="string">&quot;444&quot;</span></span><br><span class="line">​3) <span class="string">&quot;aaa&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>lrange key start end<br>获取列表指定范围内的元素</li>
+<li>llen key<br>获取列表长度<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; llen list1</span><br><span class="line">​(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure></li>
+<li>lrem key count value<br>移除列表元素<ul>
+<li>count &gt; 0 : 从表头开始向表尾搜索，移除与 VALUE 相等的元素，数量为 COUNT 。</li>
+<li>count &lt; 0 : 从表尾开始向表头搜索，移除与 VALUE 相等的元素，数量为 COUNT 的绝对值。</li>
+<li>count = 0 : 移除表中所有与 VALUE 相等的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrem list1 -2 <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; lrange list1 0 3</span><br><span class="line">1) <span class="string">&quot;444&quot;</span></span><br><span class="line">2) <span class="string">&quot;aaa&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>lset key index value<br>通过索引设置列表元素的值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; lset list1 0 <span class="string">&#x27;ccc&#x27;</span></span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 0 3</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;aaa&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>ltrim key start end<br>截取列表，只保留指定区间的元素<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; ltrim list1 1 2</span><br><span class="line">​OK</span><br><span class="line">​127.0.0.1:6379&gt; lrange list1 1 2</span><br><span class="line">​(empty list or <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure>
+​<h2 id="Redis-集合-set"><a href="#Redis-集合-set" class="headerlink" title="Redis 集合 (set)"></a>Redis 集合 (set)</h2></li>
+<li>sadd key memeber1 member2<br>向集合中添加一个或多个成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; sadd myset <span class="string">&#x27;aaa&#x27;</span> <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 2</span><br></pre></td></tr></table></figure></li>
+<li>spop key<br>移除并返回集合中的一个随机元素<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; spop myset</span><br><span class="line">​<span class="string">&quot;aaa&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>smembers key<br>返回集合中的所有成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; smembers myset</span><br><span class="line">​1) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>sismember key member<br>判断 member 元素是否是集合 key 的元素<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; sismember myset <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
+<li>scard key<br>获取集合成员数<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; scard myset</span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
+<li>sdiff key1 key2 …<br>返回指定所有集合的差集<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; sadd myset1 <span class="string">&#x27;ccc&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; sdiff myset myset1</span><br><span class="line">​1) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>sdiffstore destination key1 key2 …<br>返回所有给定集合的差集并存储在 destination 中<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; sdiffstore myset2 myset myset1</span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; smembers myset2</span><br><span class="line">​1) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>sinter key1 key2 …<br>返回给定所有集合的交集<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; sinter myset myset1</span><br><span class="line">​(empty list or <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure></li>
+<li>sinterstore destination key1 key2 …<br>返回给定所有集合的交集并存储在 destination 中</li>
+<li>sunion key1 key2 …<br>返回所有给定结合的并集<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; sunion myset myset1</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>sunionstore destination key1 key2 …<br>所有给定集合的并集存储在 destination 中<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; sunionstore myset3 myset myset1</span><br><span class="line">​(<span class="built_in">integer</span>) 2</span><br><span class="line">​127.0.0.1:6379&gt; smembers myset3</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>smove source destination memeber<br>将 members 元素从 source 集合移动到 destination 集合<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; smove myset myset1 <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; smembers myset1</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​2) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; smembers myset</span><br><span class="line">​(empty list or <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure></li>
+<li>srandmember key [count]<br>返回结合中一个或多个随机数<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; srandmember myset1</span><br><span class="line">​<span class="string">&quot;bbb&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>srem key member1 member2 …<br>移除集合中一个或多个成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; srem myset1 <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; smembers myset1</span><br><span class="line">​1) <span class="string">&quot;ccc&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>sscan key cursour [MATCH pattern][COUNT count]<br>迭代集合中的元素<h2 id="Redis-有序集合-sorted-set"><a href="#Redis-有序集合-sorted-set" class="headerlink" title="Redis 有序集合 (sorted set)"></a>Redis 有序集合 (sorted set)</h2><ul>
+<li>zadd key score1 member1 score2 member2 …<br>向有序集合添加一个或多个成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zadd myset 1 <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; zadd myset 1 <span class="string">&#x27;bbb&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; zadd myset 2 <span class="string">&#x27;ccc&#x27;</span> 3 <span class="string">&#x27;ddd&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 2</span><br><span class="line">​127.0.0.1:6379&gt; zrange myset 0 -1 withscores</span><br><span class="line">​1) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​2) <span class="string">&quot;1&quot;</span></span><br><span class="line">​3) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​4) <span class="string">&quot;1&quot;</span></span><br><span class="line">​5) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​6) <span class="string">&quot;2&quot;</span></span><br><span class="line">​7) <span class="string">&quot;ddd&quot;</span></span><br><span class="line">​8) <span class="string">&quot;3&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>zrem key member1 member2 …<br>移除有序集合中一个或多个成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zrem myset <span class="string">&#x27;ddd&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 1</span><br><span class="line">​127.0.0.1:6379&gt; zrange myset 0 -1 withscores</span><br><span class="line">​1) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​2) <span class="string">&quot;1&quot;</span></span><br><span class="line">​3) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​4) <span class="string">&quot;1&quot;</span></span><br><span class="line">​5) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​6) <span class="string">&quot;2&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>zremrangebylex key min max<br>移除有序集合中给定字典区间内所有成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zadd myzset 0 aaa 0 b 0 c 0 d 0 e</span><br><span class="line">​(<span class="built_in">integer</span>) 5</span><br><span class="line">​127.0.0.1:6379&gt; zadd myzset 0 foo 0 zap 0 zip 0 alpha</span><br><span class="line">​(<span class="built_in">integer</span>) 4</span><br><span class="line">​127.0.0.1:6379&gt; zrange myzset 0 -1</span><br><span class="line">​1) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​2) <span class="string">&quot;alpha&quot;</span></span><br><span class="line">​3) <span class="string">&quot;b&quot;</span></span><br><span class="line">​4) <span class="string">&quot;c&quot;</span></span><br><span class="line">​5) <span class="string">&quot;d&quot;</span></span><br><span class="line">​6) <span class="string">&quot;e&quot;</span></span><br><span class="line">​7) <span class="string">&quot;foo&quot;</span></span><br><span class="line">​8) <span class="string">&quot;zap&quot;</span></span><br><span class="line">​9) <span class="string">&quot;zip&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>zremrangebyrank key start end<br>移除有序集合中给定排名区间内的所有成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zremrangebyrank myzset 0 1</span><br><span class="line">​(<span class="built_in">integer</span>) 2</span><br><span class="line">​127.0.0.1:6379&gt; zrange myzset 0 -1</span><br><span class="line">​1) <span class="string">&quot;b&quot;</span></span><br><span class="line">​2) <span class="string">&quot;c&quot;</span></span><br><span class="line">​3) <span class="string">&quot;d&quot;</span></span><br><span class="line">​4) <span class="string">&quot;e&quot;</span></span><br><span class="line">​5) <span class="string">&quot;foo&quot;</span></span><br><span class="line">​6) <span class="string">&quot;zap&quot;</span></span><br><span class="line">​7) <span class="string">&quot;zip&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>zremrangebyscore key min max<br>移除有序集合中给定分数区间内的所有成员<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zremrangebyscore myzset 0 1</span><br><span class="line">​(<span class="built_in">integer</span>) 7</span><br><span class="line">​127.0.0.1:6379&gt; zrange myzset 0 -1</span><br><span class="line">​(empty list or <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure></li>
+<li>zcard key<br>获取有序集合的成员数<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zcard myset</span><br><span class="line">​(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure></li>
+<li>zcount key min max<br>计算在有序集合中指定分数区间的成员数<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zcount myset 0 2</span><br><span class="line">​(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure></li>
+<li>zrevrank key member<br>返回有序集合中指定成员的排名，有序集合成员按分数从大到小排序<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zrevrank myset <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​(<span class="built_in">integer</span>) 2</span><br></pre></td></tr></table></figure></li>
+<li>zscore key member<br>返回有序集合中成员的分数值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zscore myset <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​<span class="string">&quot;1&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>zincrby key increment member<br>有序集合中对指定成员的分数加上增量 increment<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">​127.0.0.1:6379&gt; zincrby myset 3 <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">​<span class="string">&quot;4&quot;</span></span><br><span class="line">​127.0.0.1:6379&gt; zrange myset 0 -1 withscores</span><br><span class="line">​1) <span class="string">&quot;bbb&quot;</span></span><br><span class="line">​2) <span class="string">&quot;1&quot;</span></span><br><span class="line">​3) <span class="string">&quot;ccc&quot;</span></span><br><span class="line">​4) <span class="string">&quot;2&quot;</span></span><br><span class="line">​5) <span class="string">&quot;aaa&quot;</span></span><br><span class="line">​6) <span class="string">&quot;4&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>zinterstore destination numkeys key1 key2<br>计算给定的一个或多个有序集合的交集并将结果存储在新的有序集合中<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; ZADD mid_test 70 <span class="string">&quot;Li Lei&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD mid_test 70 <span class="string">&quot;Han Meimei&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD mid_test 99.5 <span class="string">&quot;Tom&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD fin_test 88 <span class="string">&quot;Li Lei&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD fin_test 75 <span class="string">&quot;Han Meimei&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD fin_test 99.5 <span class="string">&quot;Tom&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZINTERSTORE sum_point 2 mid_test fin_test</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure></li>
+<li>zunionstore destination numkeys key1 key2 …<br>计算给定的一个或多个有序集合的并集，并存储在 destination 中</li>
+<li>zlexcount key min max<br>在有序集合中计算指定字典区间内成员数量</li>
+<li>zrange key start stop [WITHSCOURES]<br>通过索引区间返回有序集合指定区间内的成员</li>
+<li>zrangebylex key min max [LIMIT offset count]<br>通过字典区间返回有序集合的成员</li>
+<li>zrangebyscore key min max [WITHSCORES][LIMIT]<br>通过分数返回有序集合中指定成员的索引</li>
+<li>zrank key member<br>返回有序集合中指定成员的索引</li>
+<li>zrevrange key start end [WITHSCORES]<br>返回有序集合指定区间内的成员，通过索引，分数从高到低</li>
+<li>zrevrangebyscore key max min [WITHSCORES]<br>返回有序集合中指定分数区间内的成员，分数从高到低</li>
+<li>scan key cursor [MATCH pattern][COUNT count]<br>迭代有序集合中的元素<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2>​  在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基 数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。<br>​但是，因为 Hy​Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定 的、并且是很小的。<br>perLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。</li>
+<li>pfadd key element1 element2 …<br>添加指定元素到 HyperLogLog 中</li>
+<li>pfcount key1 key2 …<br>返回给定 HyperLogLog 的基数估算值。</li>
+<li>[PFMERGE destkey sourcekey <a target="_blank" rel="noopener" href="http://www.runoob.com/redis/hyperloglog-pfmerge.html">sourcekey …]</a><br> 将多个 HyperLogLog 合并为一个 HyperLogLog<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; pfadd runonbkey <span class="string">&#x27;redis&#x27;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; pfadd runonbkey <span class="string">&#x27;mongodb&#x27;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; pfadd runonbkey <span class="string">&#x27;mysql&#x27;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; pfcount runonbkey</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure>
+<h2 id="Redis-发布订阅-pub-sub"><a href="#Redis-发布订阅-pub-sub" class="headerlink" title="Redis 发布订阅(pub/sub)"></a>Redis 发布订阅(pub/sub)</h2>​Redis 发布订阅(pub/sub)是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。<br>​Redis 客户端可以订阅任意数量的频道。<br>​下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系：<br>​<img src="http://www.runoob.com/wp-content/uploads/2014/11/pubsub1.png" alt="pubsub1"><br>​当有新消息通过 PUBLISH 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：<br>​<img src="http://www.runoob.com/wp-content/uploads/2014/11/pubsub2.png" alt="pubsub2"><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; subscribe redisChat</span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) <span class="string">&quot;subscribe&quot;</span></span><br><span class="line">2) <span class="string">&quot;redisChat&quot;</span></span><br><span class="line">3) (<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure>
+重新开启个 redis 客户端，然后在同一个频道 redisChat 发布两次消息，订阅者就能接收到消息：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; publish redisChat <span class="string">&#x27;Redis is a great caching tools&#x27;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; publish redisChat <span class="string">&#x27;learn redis&#x27;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure>
+订阅者的客户端收到消息：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1) <span class="string">&quot;message&quot;</span></span><br><span class="line">2) <span class="string">&quot;redisChat&quot;</span></span><br><span class="line">3) <span class="string">&quot;Redis is a great caching tools&quot;</span></span><br><span class="line">1) <span class="string">&quot;message&quot;</span></span><br><span class="line">2) <span class="string">&quot;redisChat&quot;</span></span><br><span class="line">3) <span class="string">&quot;learn redis&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3></li>
+<li>psubscribe pattern1 pattern2 …<br>订阅一个或多个符合给定模式的频道。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PSUBSCRIBE mychannel</span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) <span class="string">&quot;psubscribe&quot;</span></span><br><span class="line">2) <span class="string">&quot;mychannel&quot;</span></span><br><span class="line">3) (<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
+<li>pubsub subcommand argument1 argument2 …<br>查看订阅与发布系统状态<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PUBSUB CHANNELS</span><br><span class="line">(empty list or <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure></li>
+<li>publish channel message<br>将信息发送到指定的频道<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PUBLISH mychannel <span class="string">&quot;hello, i m here&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
+<li>punsubscribe pattern1 pattern2 …<br>退订所有给定模式的频道<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PUNSUBSCRIBE mychannel </span><br><span class="line">1) <span class="string">&quot;punsubscribe&quot;</span></span><br><span class="line">2) <span class="string">&quot;a&quot;</span></span><br><span class="line">3) (<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
+<li>subscribe channel1 channel2 …<br>订阅给定的一个或多个频道的信息<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SUBSCRIBE mychannel </span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) <span class="string">&quot;subscribe&quot;</span></span><br><span class="line">2) <span class="string">&quot;mychannel&quot;</span></span><br><span class="line">3) (<span class="built_in">integer</span>) 1</span><br><span class="line">1) <span class="string">&quot;message&quot;</span></span><br><span class="line">2) <span class="string">&quot;mychannel&quot;</span></span><br><span class="line">3) <span class="string">&quot;a&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>unsubscribe channel1 channel2<br>退订指定的频道<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; UNSUBSCRIBE mychannel </span><br><span class="line">1) <span class="string">&quot;unsubscribe&quot;</span></span><br><span class="line">2) <span class="string">&quot;a&quot;</span></span><br><span class="line">3) (<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure>
+<h2 id="Redis-事务"><a href="#Redis-事务" class="headerlink" title="Redis 事务"></a>Redis 事务</h2>​Redis 事务可以一次执行多个命令， 并且带有以下两个重要的保证：<br>​事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。<br>​事务是一个原子操作：事务中的命令要么全部被执行，要么全部都不执行。<br>​一个事务从开始到执行会经历以下三个阶段：</li>
+</ul>
+<ul>
+<li>开始事务。</li>
+<li>命令入队。</li>
+<li>执行事务。<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; SET book-name <span class="string">&quot;Mastering C++ in 21 days&quot;</span></span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; GET book-name</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; SADD tag <span class="string">&quot;C++&quot;</span> <span class="string">&quot;Programming&quot;</span> <span class="string">&quot;Mastering Series&quot;</span></span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; SMEMBERS tag</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; EXEC</span><br><span class="line">1) OK</span><br><span class="line">2) <span class="string">&quot;Mastering C++ in 21 days&quot;</span></span><br><span class="line">3) (<span class="built_in">integer</span>) 3</span><br><span class="line">4) 1) <span class="string">&quot;Mastering Series&quot;</span></span><br><span class="line">2) <span class="string">&quot;C++&quot;</span></span><br><span class="line">3) <span class="string">&quot;Programming&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>multi<br>标记一个事务的开始</li>
+<li>discard<br>取消事务，放弃执行事务内的所有命令</li>
+<li>exec<br>执行所有事务命令</li>
+<li>watch key1 key2<br>监视一个或多个 key,如果在事务执行之前 key 被其它命令改动，则事务被打断</li>
+<li>unwatch<br>取消 watch 命令对所有 key 的监视<h2 id="Redis-连接命令"><a href="#Redis-连接命令" class="headerlink" title="Redis 连接命令"></a>Redis 连接命令</h2></li>
+<li>auth password<br>验证密码是否正确<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; AUTH PASSWORD</span><br><span class="line">(error) ERR Client sent AUTH, but no password is <span class="built_in">set</span></span><br><span class="line">redis 127.0.0.1:6379&gt; CONFIG SET requirepass <span class="string">&quot;mypass&quot;</span></span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; AUTH mypass</span><br><span class="line">Ok</span><br></pre></td></tr></table></figure></li>
+<li>echo message<br>打印字符串<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; ECHO <span class="string">&quot;Hello World&quot;</span></span><br><span class="line"><span class="string">&quot;Hello World&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>ping<br>查看服务是否运行</li>
+<li>quit<br>关闭当前连接</li>
+<li>select index<br>切换到指定的数据库</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2017/07/26/%E5%B7%A5%E5%85%B7/Redis%E4%BD%BF%E7%94%A8/" data-id="ckuk0wnqt00031mjh6av96sli" data-title="Redis 使用" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/31/%E5%90%8E%E7%AB%AF/Java/Java%E8%BF%AD%E4%BB%A3%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java 迭代器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/26/%E5%90%8E%E7%AB%AF/Spring/Spring%20AOP%E5%AE%9E%E4%BE%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring AOP 实例</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AOP/">AOP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/SpringMVC/">SpringMVC</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/SpringMVC/MyBatis/">MyBatis</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/%E4%BA%8B%E5%8A%A1/">事务</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%93%E5%AD%98/">缓存</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%93%E5%AD%98/%E5%B7%A5%E5%85%B7/">工具</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOP/" rel="tag">AOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO/" rel="tag">IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/" rel="tag">创建型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8/" rel="tag">异常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/" rel="tag">结构型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/" rel="tag">行为型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AOP/" style="font-size: 11.25px;">AOP</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 16.25px;">Java</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 13.75px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 10px;">SpringMVC</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 12.5px;">事务</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 10px;">分布式</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" style="font-size: 10px;">分布式缓存</a> <a href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/" style="font-size: 15px;">创建型</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 12.5px;">并发</a> <a href="/tags/%E5%BC%82%E5%B8%B8/" style="font-size: 10px;">异常</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 11.25px;">数据库</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 10px;">消息队列</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/" style="font-size: 17.5px;">结构型</a> <a href="/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/" style="font-size: 18.75px;">行为型</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/10/10/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/29/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E4%BC%98%E5%8C%96/">Sql 优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/02/%E5%90%8E%E7%AB%AF/Spring/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/">spring 事务管理</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/30/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql-%E4%BA%8B%E5%8A%A1/">MySql-事务</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/29/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">数据库事务</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
