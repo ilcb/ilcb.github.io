@@ -42,6 +42,8 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
                     <span class="logo-span">✨ Ilcb&#39;s Blog</span>
                 </a>
             </div>
@@ -105,6 +107,28 @@
     
   </li>
   
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -116,6 +140,8 @@
 <div id="mobile-nav" class="side-nav sidenav">
 
     <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">✨ Ilcb&#39;s Blog</div>
         <div class="logo-desc">
@@ -180,6 +206,28 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
 		</a>
           
         </li>
@@ -422,24 +470,9 @@
                 
 
                 
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-05-29
-                </div>
-                
 
                 
-                <div class="info-break-policy">
-                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
-                </div>
-                
 
-                
-                <div class="info-break-policy">
-                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
-                </div>
                 
 
                 
@@ -460,7 +493,7 @@
 </ul>
 <p><img src="transaction.png" alt="transaction"></p>
 <h2 id="PlatformTransactionManager"><a href="#PlatformTransactionManager" class="headerlink" title="PlatformTransactionManager"></a>PlatformTransactionManager</h2><p>Spring 事务管理器的接口是 org.springframework.transaction.PlatformTransactionManager，如上图所示，Spring 并不直接管理事务，通过这个接口，Spring 为各个平台如 JDBC、Hibernate 等都提供了对应的事务管理器，也就是将事务管理的职责委托给 Hibernate 或者 JTA 等持久化机制所提供的相关平台框架的事务来实现。<br>PlatformTransactionManager 源码：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PlatformTransactionManager</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PlatformTransactionManager</span> <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">/**
        * 根据指定的传播行为，返回当前活动的事务或创建一个新事务
        */</span>
@@ -473,7 +506,7 @@
        * 回滚事务
        */</span>
     <span class="token keyword">void</span> <span class="token function">rollback</span><span class="token punctuation">(</span>TransactionStatus var1<span class="token punctuation">)</span> <span class="token keyword">throws</span> TransactionException<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>实现类有：</p>
 <ul>
@@ -483,7 +516,7 @@
 <li>JtaTransactionManager：使用 Jta 管理事务</li>
 </ul>
 <h2 id="TransactionStatus"><a href="#TransactionStatus" class="headerlink" title="TransactionStatus"></a>TransactionStatus</h2><p>TransactionStatus 接口描述的是一些处理事务提供简单的控制事务执行和查询事务状态的方法，在回滚或提交的时候需要应用对应的事务状态；</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TransactionStatus</span> <span class="token keyword">extends</span> <span class="token class-name">SavepointManager</span><span class="token punctuation">,</span> Flushable <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TransactionStatus</span> <span class="token keyword">extends</span> <span class="token class-name">SavepointManager</span><span class="token punctuation">,</span> Flushable <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">/**
        * 是否为新的事务
        */</span>
@@ -506,7 +539,7 @@
        * 是否完成
        */</span>
     <span class="token keyword">boolean</span> <span class="token function">isCompleted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="TransactionDefinition"><a href="#TransactionDefinition" class="headerlink" title="TransactionDefinition"></a>TransactionDefinition</h2><p>事务管理器接口 PlatformTransactionManager 通过 getTransaction(TransactionDefinition definition) 方法来得到一个事务，TransactionDefinition 定义了一些基本的事务属性。<br>什么是事务属性呢？事务属性可以理解成事务的一些基本配置，描述了事务策略如何应用到方法上，包括：</p>
 <ul>
@@ -517,7 +550,7 @@
 <li>事务超时</li>
 </ul>
 <p>TransactionDefinition 接口定义如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TransactionDefinition</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TransactionDefinition</span> <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">/**
        * 事务传播
        */</span>
@@ -551,7 +584,7 @@
 
     <span class="token annotation punctuation">@Nullable</span>
     String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h3><p>并发情况下访问数据库可能会存在以下问题：</p>
 <ul>
@@ -579,14 +612,14 @@
 <li>PROPAGATION_NESTED：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与 PROPAGATION_REQUIRED 类似的操作</li>
 </ul>
 <p>举例说明：</p>
-<pre class=" language-java"><code class="language-java">ServiceA <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">methodA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<pre class=" language-java"><code class="language-java">ServiceA <span class="token punctuation">{</span>
+  <span class="token keyword">void</span> <span class="token function">methodA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     ServiceB<span class="token punctuation">.</span><span class="token function">methodB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-ServiceB <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">methodB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+ServiceB <span class="token punctuation">{</span>
+  <span class="token keyword">void</span> <span class="token function">methodB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h4 id="PROPAGATION-REQUIRED"><a href="#PROPAGATION-REQUIRED" class="headerlink" title="PROPAGATION_REQUIRED"></a>PROPAGATION_REQUIRED</h4><p>假如当前正要执行的事务不在另外一个事务里，那么就起一个新的事务<br>比如说，ServiceB.methodB 的事务级别定义为 PROPAGATION_REQUIRED，执行 ServiceA.methodA 的时候有 2 种情况：</p>
 <ol>
@@ -835,33 +868,6 @@ ServiceB <span class="token operator">&amp;</span>#<span class="token number">12
             
         </div>
     </div>
-
-    
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
-</div>
-
-<script src="/libs/gitalk/gitalk.min.js"></script>
-<script>
-    let gitalk = new Gitalk({
-        clientID: 'c442983490ea7856ad4f',
-        clientSecret: 'df60789e33233df618d1f6e74c468ae11ebe7296',
-        repo: 'ilcb.github.io',
-        owner: 'ilcb',
-        admin: "ilcb",
-        id: '2019-05-02T19-16-00',
-        distractionFreeMode: false  // Facebook-like distraction free mode
-    });
-
-    gitalk.render('gitalk-container');
-</script>
 
     
 
@@ -1180,16 +1186,13 @@ ServiceB <span class="token operator">&amp;</span>#<span class="token number">12
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2021</span>
+                <span id="year">2019-2022</span>
             
             <span id="year">2019</span>
             <a href="/about" target="_blank">lee.ilcb</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
-            
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">103.6k</span>&nbsp;字
             
             
             
