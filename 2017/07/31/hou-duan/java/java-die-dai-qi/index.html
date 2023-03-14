@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="✨ Ilcb's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="✨ Ilcb's Blog" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -103,17 +103,6 @@
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
       
       <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
     </a>
     
   </li>
@@ -206,17 +195,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
 		</a>
           
         </li>
@@ -466,14 +444,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    3.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    14 分
                 </div>
                 
 
@@ -495,8 +473,8 @@
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>function<span class="token punctuation">.</span>Consumer<span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">/**
- * An iterator over a collection.  {@code Iterator} takes the place of
- * {@link Enumeration} in the Java Collections Framework.  Iterators
+ * An iterator over a collection.  &amp;#123;@code Iterator&amp;#125; takes the place of
+ * &amp;#123;@link Enumeration&amp;#125; in the Java Collections Framework.  Iterators
  * differ from enumerations in two ways:
  *
  * &lt;ul>
@@ -506,13 +484,13 @@
  *      &lt;li> Method names have been improved.
  * &lt;/ul>
  **/</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Iterator</span><span class="token operator">&lt;</span>E<span class="token operator">></span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Iterator</span><span class="token operator">&lt;</span>E<span class="token operator">></span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">/**
-     * Returns {@code true} if the iteration has more elements.
-     * (In other words， returns {@code true} if {@link #next} would
+     * Returns &amp;#123;@code true&amp;#125; if the iteration has more elements.
+     * (In other words， returns &amp;#123;@code true&amp;#125; if &amp;#123;@link #next&amp;#125; would
      * return an element rather than throwing an exception.)
      *
-     * @return {@code true} if the iteration has more elements
+     * @return &amp;#123;@code true&amp;#125; if the iteration has more elements
      **/</span>
     <span class="token keyword">boolean</span> <span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -527,26 +505,26 @@
     <span class="token comment" spellcheck="true">/**
      * Removes from the underlying collection the last element returned
      * by this iterator (optional operation).  This method can be called
-     * only once per call to {@link #next}.  The behavior of an iterator
+     * only once per call to &amp;#123;@link #next&amp;#125;.  The behavior of an iterator
      * is unspecified if the underlying collection is modified while the
      * iteration is in progress in any way other than by calling this
      * method.
      *
      * @implSpec
      * The default implementation throws an instance of
-     * {@link UnsupportedOperationException} and performs no other action.
+     * &amp;#123;@link UnsupportedOperationException&amp;#125; and performs no other action.
      *
-     * @throws UnsupportedOperationException if the {@code remove}
+     * @throws UnsupportedOperationException if the &amp;#123;@code remove&amp;#125;
      *         operation is not supported by this iterator
      *
-     * @throws IllegalStateException if the {@code next} method has not
-     *         yet been called， or the {@code remove} method has already
-     *         been called after the last call to the {@code next}
+     * @throws IllegalStateException if the &amp;#123;@code next&amp;#125; method has not
+     *         yet been called， or the &amp;#123;@code remove&amp;#125; method has already
+     *         been called after the last call to the &amp;#123;@code next&amp;#125;
      *         method
      **/</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
         <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UnsupportedOperationException</span><span class="token punctuation">(</span><span class="token string">"remove"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
     <span class="token comment" spellcheck="true">/**
      * Performs the given action for each remaining element until all elements
@@ -556,21 +534,21 @@
      *
      * @implSpec
      * &lt;p>The default implementation behaves as if:
-     * &lt;pre>{@code
+     * &lt;pre>&amp;#123;@code
      *     while (hasNext())
      *         action.accept(next());
-     * }&lt;/pre>
+     * &amp;#125;&lt;/pre>
      *
      * @param action The action to be performed for each element
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      **/</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">forEachRemaining</span><span class="token punctuation">(</span>Consumer<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> E<span class="token operator">></span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">forEachRemaining</span><span class="token punctuation">(</span>Consumer<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> E<span class="token operator">></span> action<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
         Objects<span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
             action<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="Iterable"><a href="#Iterable" class="headerlink" title="Iterable"></a>Iterable</h2><p>Java 中还提供了一个 Iterable 接口，Iterable 接口实现后的功能是”返回”一个迭代器，我们常用<br>的实现了该接口的子接口有： Collection<E>， Deque<E>，List<E>， Queue<E>， Set<E> 等。<br>该接口的 iterator()方法返回一个标准的 Iterator 实现，实现这个接口允许对象成为 foreach 语句的目标，就可以通过 foreach 语法遍历你的底层序列。<br>Iterable 接口包含一个能够产生 Iterator 的 iterator()方法，并且 Iterable 接口被 foreach 用来在序列中移动。因此如果创建了任何实现 Iterable 接口的类，都可以将它用于 foreach 语句中。</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">;</span>
@@ -585,36 +563,36 @@
  * Implementing this interface allows an object to be the target of
  * the "for-each loop" statement. See
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Iterable</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Iterable</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">/**
-     * Returns an iterator over elements of type {@code T}.
+     * Returns an iterator over elements of type &amp;#123;@code T&amp;#125;.
      * @return an Iterator.
      **/</span>
     Iterator<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment" spellcheck="true">/**
-     * Performs the given action for each element of the {@code Iterable}
+     * Performs the given action for each element of the &amp;#123;@code Iterable&amp;#125;
      * until all elements have been processed or the action throws an
      * exception.  Unless otherwise specified by the implementing class，
      * actions are performed in the order of iteration (if an iteration order
      * is specified).  Exceptions thrown by the action are relayed to the
      * caller.
      **/</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">foreach</span><span class="token punctuation">(</span>Consumer<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> T<span class="token operator">></span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">foreach</span><span class="token punctuation">(</span>Consumer<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> T<span class="token operator">></span> action<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
         Objects<span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span>T t <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>T t <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
             action<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
     <span class="token comment" spellcheck="true">/**
-     * Creates a {@link Spliterator} over the elements described by this
-     * {@code Iterable}.
+     * Creates a &amp;#123;@link Spliterator&amp;#125; over the elements described by this
+     * &amp;#123;@code Iterable&amp;#125;.
      *
      * @implSpec
      * The default implementation creates an
      * &lt;em>&lt;a href="Spliterator.html#binding">early-binding&lt;/a>&lt;/em>
-     * spliterator from the iterable's {@code Iterator}.  The spliterator
+     * spliterator from the iterable's &amp;#123;@code Iterator&amp;#125;.  The spliterator
      * inherits the &lt;em>fail-fast&lt;/em> properties of the iterable's iterator.
      *
      * @implNote
@@ -624,50 +602,50 @@
      * characteristics. Implementing classes can nearly always provide a
      * better implementation.
      **/</span>
-    <span class="token keyword">default</span> Spliterator<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">spliterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">default</span> Spliterator<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">spliterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> Spliterators<span class="token punctuation">.</span><span class="token function">spliteratorUnknownSize</span><span class="token punctuation">(</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span>， <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Iterator 示例:</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IteratorTest</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IteratorTest</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
         List<span class="token operator">&lt;</span>String<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         Map<span class="token operator">&lt;</span>Integer， String<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span>Integer， String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
             list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"list"</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>i， <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"map"</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
         Iterator iter <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>iter<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>iter<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
             String element <span class="token operator">=</span> <span class="token punctuation">(</span>String<span class="token punctuation">)</span> iter<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
         Iterator iterator <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
             Map<span class="token punctuation">.</span>Entry<span class="token operator">&lt;</span>Integer， String<span class="token operator">></span> entry <span class="token operator">=</span> <span class="token punctuation">(</span>Map<span class="token punctuation">.</span>Entry<span class="token operator">&lt;</span>Integer， String<span class="token operator">></span><span class="token punctuation">)</span> iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"key: "</span> <span class="token operator">+</span> entry<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"， value: "</span> <span class="token operator">+</span> entry<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <p><strong>接口 Iterator 在不同的子接口中会根据情况进行功能的扩展，例如针对 List 的迭代器 ListIterator，该迭代器只能用于各种 List 类的访问。ListIterator 可以双向移动，添加了 previous()等方法。</strong></p>
 <h2 id="Iterator-与泛型搭配"><a href="#Iterator-与泛型搭配" class="headerlink" title="Iterator 与泛型搭配"></a>Iterator 与泛型搭配</h2><p>Iterator 对集合类中的任何一个实现类，都可以返回这样一个 Iterator 对象，适用于任何一个类。<br>因为集合类(List 和 Set 等)可以装入的对象的类型是不确定的，从集合中取出时都是 Object 类型，用时都需要进行强制转化，用上泛型，提前告诉集合确定要装入集合的类型，这样就可以直接使用而不用显示类型转换。</p>
 <h2 id="foreach-和-Iterator-的关系"><a href="#foreach-和-Iterator-的关系" class="headerlink" title="foreach 和 Iterator 的关系"></a>foreach 和 Iterator 的关系</h2><p>foreach 是 jdk5.0 新增加的一个循环结构，可以用来处理集合中的每个元素而不用考虑集合定下标。其实 foreach 循环内部也是依赖于 Iterator 迭代器，只不过 Java 提供的语法糖，Java 编译器会将其转化为 Iterator 迭代器方式遍历。对以下 foreach 循环进行反编译：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">for</span><span class="token punctuation">(</span>Integer i <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">for</span><span class="token punctuation">(</span>Integer i <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
   System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <p>反编译后：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">for</span><span class="token punctuation">(</span>Iterator iterator <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iterator<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">for</span><span class="token punctuation">(</span>Iterator iterator <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iterator<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
   Integer i <span class="token operator">=</span> <span class="token punctuation">(</span>Integer<span class="token punctuation">)</span>iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <p>使用 foreach 循环语句的优势在于更加简洁，更不容易出错，不必关心下标的起始值和终止值。<br>foreach 不是关键字，关键字还是 for，语句是由 iterator 实现的，他们最大的不同之处就在于 remove()方法上。<br>一般调用删除和添加方法都是具体集合的方法，例如：<br>List list = new ArrayList();<br>list.add(…);<br>list.remove(…);<br>但是，如果在循环的过程中调用集合的 remove()方法，就会导致循环出错，因为循环过程 list.size()的大小变化了，就导致了错误。 所以，如果想在循环语句中删除集合中的某个元素，就要用迭代器 iterator 的 remove()方法，因为它的 remove()方法不仅会删除元素，还会维护一个标志，用来记录目前是不是可删除状态，例如，你不能连续两次调用它的 remove()方法，调用之前至少有一次 next()方法的调用。<br>foreach 就是为了让用 iterator 循环访问的形式简单，写起来更方便。当然功能不太全，所以但如有删除操作，还是要用它原来的形式。</p>
 <h2 id="使用-for-循环与使用迭代器-iterator-的对比"><a href="#使用-for-循环与使用迭代器-iterator-的对比" class="headerlink" title="使用 for 循环与使用迭代器 iterator 的对比"></a>使用 for 循环与使用迭代器 iterator 的对比</h2><h3 id="效率上"><a href="#效率上" class="headerlink" title="效率上"></a>效率上</h3><p>采用 ArrayList 对随机访问比较快，而 for 循环中的 get()方法，采用的即是随机访问的方法，因此在 ArrayList 里，for 循环较快；<br>采用 LinkedList 则是顺序访问比较快，iterator 中的 next()方法，采用的即是顺序访问的方法，因此在 LinkedList 里，使用 iterator 较快；</p>
@@ -681,22 +659,22 @@
 * progress may yield incorrect results.
 *
 * &lt;p>This field is used by the iterator and list iterator implementation
-* returned by the {@code iterator} and {@code listIterator} methods.
+* returned by the &amp;#123;@code iterator&amp;#125; and &amp;#123;@code listIterator&amp;#125; methods.
 * If the value of this field changes unexpectedly, the iterator (or list
-* iterator) will throw a {@code ConcurrentModificationException} in
-* response to the {@code next}, {@code remove}, {@code previous},
-* {@code set} or {@code add} operations.  This provides
+* iterator) will throw a &amp;#123;@code ConcurrentModificationException&amp;#125; in
+* response to the &amp;#123;@code next&amp;#125;, &amp;#123;@code remove&amp;#125;, &amp;#123;@code previous&amp;#125;,
+* &amp;#123;@code set&amp;#125; or &amp;#123;@code add&amp;#125; operations.  This provides
 * &lt;i>fail-fast&lt;/i> behavior, rather than non-deterministic behavior in
 * the face of concurrent modification during iteration.
 *
 * &lt;p>&lt;b>Use of this field by subclasses is optional.&lt;/b> If a subclass
 * wishes to provide fail-fast iterators (and list iterators), then it
-* merely has to increment this field in its {@code add(int, E)} and
-* {@code remove(int)} methods (and any other methods that it overrides
+* merely has to increment this field in its &amp;#123;@code add(int, E)&amp;#125; and
+* &amp;#123;@code remove(int)&amp;#125; methods (and any other methods that it overrides
 * that result in structural modifications to the list).  A single call to
-* {@code add(int, E)} or {@code remove(int)} must add no more than
+* &amp;#123;@code add(int, E)&amp;#125; or &amp;#123;@code remove(int)&amp;#125; must add no more than
 * one to this field, or the iterators (and list iterators) will throw
-* bogus {@code ConcurrentModificationExceptions}.  If an implementation
+* bogus &amp;#123;@code ConcurrentModificationExceptions&amp;#125;.  If an implementation
 * does not wish to provide fail-fast iterators, this field may be
 * ignored.
 */</span>
@@ -704,7 +682,7 @@
 </code></pre>
 <p>翻译过来就是 modCount 是这个 list 被结构性修改的次数。结构性修改是指：改变 list 的 size 大小，或者，以其他方式改变他导致正在进行迭代时出现错误的结果。这个字段用于迭代器和列表迭代器的实现类中，由迭代器和列表迭代器方法返回。如果这个值被意外改变，这个迭代器将会抛出 ConcurrentModificationException 的异常来响应：next，remove，previous，set，add 这些操作。在迭代过程中，提供了 fail-fast 行为而不是不确定行为来处理并发修改。子类使用这个字段是可选的，如果子类希望提供 fail-fast 迭代器，它仅仅需要在 add(int, E)，remove(int)方法（或者它重写的其他任何会结构性修改这个列表的方法）中添加这个字段。调用 add(int,E)或者 remove(int)方法时必须且仅仅给这个字段加 1，否则迭代器会抛出 ConcurrentModificationExceptions 错误。如果一个实现类不希望提供 fail-fast 迭代器，则可以忽略这个字段。</p>
 <p>当使用 ArrayList.iterator()返回一个迭代器对象时，迭代器对象有一个属性 expectedModCount，它被赋值为该方法调用时 modCount 的值。<strong>这个值是 modCount 在这个时间点的快照值，expectedModCount 值在 iterator 对象内部不会再发送变化！</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">Itr</span> <span class="token keyword">implements</span> <span class="token class-name">Iterator</span><span class="token operator">&lt;</span>E<span class="token operator">></span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">Itr</span> <span class="token keyword">implements</span> <span class="token class-name">Iterator</span><span class="token operator">&lt;</span>E<span class="token operator">></span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
    <span class="token comment" spellcheck="true">/**
     * Index of element to be returned by subsequent call to next.
     */</span>
@@ -724,49 +702,49 @@
     */</span>
    <span class="token keyword">int</span> expectedModCount <span class="token operator">=</span> modCount<span class="token punctuation">;</span>
 
-   <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
        <span class="token keyword">return</span> cursor <span class="token operator">!=</span> <span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token punctuation">}</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-   <span class="token keyword">public</span> E <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">public</span> E <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
        <span class="token function">checkForComodification</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token keyword">try</span> <span class="token punctuation">{</span>
+       <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
            <span class="token keyword">int</span> i <span class="token operator">=</span> cursor<span class="token punctuation">;</span>
            E next <span class="token operator">=</span> <span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
            lastRet <span class="token operator">=</span> i<span class="token punctuation">;</span>
            cursor <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
            <span class="token keyword">return</span> next<span class="token punctuation">;</span>
-       <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IndexOutOfBoundsException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IndexOutOfBoundsException</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
            <span class="token function">checkForComodification</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NoSuchElementException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span>
-   <span class="token punctuation">}</span>
+       <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
        <span class="token keyword">if</span> <span class="token punctuation">(</span>lastRet <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
        <span class="token function">checkForComodification</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-       <span class="token keyword">try</span> <span class="token punctuation">{</span>
+       <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
            AbstractList<span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>lastRet<span class="token punctuation">)</span><span class="token punctuation">;</span>
            <span class="token keyword">if</span> <span class="token punctuation">(</span>lastRet <span class="token operator">&lt;</span> cursor<span class="token punctuation">)</span>
                cursor<span class="token operator">--</span><span class="token punctuation">;</span>
            lastRet <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
            expectedModCount <span class="token operator">=</span> modCount<span class="token punctuation">;</span>
-       <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IndexOutOfBoundsException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IndexOutOfBoundsException</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentModificationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span>
-   <span class="token punctuation">}</span>
+       <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
    <span class="token comment" spellcheck="true">/**
     * 检查modCount和expectedModCount是否相等，即modCount是否发生了变化
     * 如果modCount相比获取迭代器的时候发生了变化就抛出ConcurrentModificationException
     */</span>
-   <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">checkForComodification</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">checkForComodification</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
        <span class="token keyword">if</span> <span class="token punctuation">(</span>modCount <span class="token operator">!=</span> expectedModCount<span class="token punctuation">)</span>
            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentModificationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <p>获取到迭代器之后，如果使用 ArrayList 的 add、remove 等方法，会使得 modCount 的值自增（<strong>发生了变化</strong>），而 iterator 内部的 expectedModCount 值却还是之前的快照值。而 iterator 在调用 next 方法时，<strong>第一步就是检查 modCount 值和迭代器内部的 expectedModCount 值是否相等</strong>！这个时候确定值是不等的，所以在调用 next 方法的时候，就抛出了 ConcurrentModificationException 异常。</p>
 <p>获取到迭代器之后，如果使用 ArrayList 的 remove 方法时，会对 expectedModCount 重新赋值为 modCount，保证了下一次迭代的正确。</p>
@@ -1312,7 +1290,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2022</span>
+                <span id="year">2019-2023</span>
             
             <span id="year">2019</span>
             <a href="/about" target="_blank">lee.ilcb</a>
@@ -1321,7 +1299,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">96.9k</span>&nbsp;字
+                class="white-color">101.4k</span>&nbsp;字
             
             
             
