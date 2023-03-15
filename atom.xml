@@ -6,7 +6,7 @@
   <link href="http://ilcb.github.io/atom.xml" rel="self"/>
   
   <link href="http://ilcb.github.io/"/>
-  <updated>2023-03-15T16:36:12.284Z</updated>
+  <updated>2023-03-15T16:43:52.306Z</updated>
   <id>http://ilcb.github.io/</id>
   
   <author>
@@ -17,11 +17,500 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>设计模式-状态模式</title>
+    <link href="http://ilcb.github.io/2022/12/30/she-ji-mo-shi/xing-wei-xing/zhuang-tai-mo-shi-state/"/>
+    <id>http://ilcb.github.io/2022/12/30/she-ji-mo-shi/xing-wei-xing/zhuang-tai-mo-shi-state/</id>
+    <published>2022-12-29T16:00:00.000Z</published>
+    <updated>2023-03-15T16:43:52.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在软件开发过程中，应用程序可能会根据不同的情况作出不同的处理，最直接的解决方案是将这些所有可能发生的情况全都考虑到，然后使用</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-中介者模式</title>
+    <link href="http://ilcb.github.io/2022/12/18/she-ji-mo-shi/xing-wei-xing/zhong-jie-zhe-mo-shi-mediator/"/>
+    <id>http://ilcb.github.io/2022/12/18/she-ji-mo-shi/xing-wei-xing/zhong-jie-zhe-mo-shi-mediator/</id>
+    <published>2022-12-17T16:00:00.000Z</published>
+    <updated>2023-03-15T16:43:40.615Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;面对一系列的相交互对象。怎么样保证使各对象不需要显式地相互引用，使其耦合松散？&lt;/p&gt;
+&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-责任链模式</title>
+    <link href="http://ilcb.github.io/2022/12/05/she-ji-mo-shi/xing-wei-xing/ze-ren-lian-mo-shi-chain/"/>
+    <id>http://ilcb.github.io/2022/12/05/she-ji-mo-shi/xing-wei-xing/ze-ren-lian-mo-shi-chain/</id>
+    <published>2022-12-04T16:00:00.000Z</published>
+    <updated>2023-03-15T16:43:26.349Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-模板方法模式</title>
+    <link href="http://ilcb.github.io/2022/11/29/she-ji-mo-shi/xing-wei-xing/mo-ban-fang-fa-mo-shi-template/"/>
+    <id>http://ilcb.github.io/2022/11/29/she-ji-mo-shi/xing-wei-xing/mo-ban-fang-fa-mo-shi-template/</id>
+    <published>2022-11-28T16:00:00.000Z</published>
+    <updated>2023-03-15T16:43:12.685Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-命令模式</title>
+    <link href="http://ilcb.github.io/2022/11/25/she-ji-mo-shi/xing-wei-xing/ming-ling-mo-shi-command/"/>
+    <id>http://ilcb.github.io/2022/11/25/she-ji-mo-shi/xing-wei-xing/ming-ling-mo-shi-command/</id>
+    <published>2022-11-24T16:00:00.000Z</published>
+    <updated>2023-03-15T16:43:02.590Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-解释器模式</title>
+    <link href="http://ilcb.github.io/2022/11/23/she-ji-mo-shi/xing-wei-xing/jie-shi-qi-mo-shi-interpreter/"/>
+    <id>http://ilcb.github.io/2022/11/23/she-ji-mo-shi/xing-wei-xing/jie-shi-qi-mo-shi-interpreter/</id>
+    <published>2022-11-22T16:00:00.000Z</published>
+    <updated>2023-03-15T16:42:48.763Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;解释器模式（Interpreter</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-观察者模式</title>
+    <link href="http://ilcb.github.io/2022/11/19/she-ji-mo-shi/xing-wei-xing/guan-cha-zhe-mo-shi-observer/"/>
+    <id>http://ilcb.github.io/2022/11/19/she-ji-mo-shi/xing-wei-xing/guan-cha-zhe-mo-shi-observer/</id>
+    <published>2022-11-18T16:00:00.000Z</published>
+    <updated>2023-03-15T16:42:34.813Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;观察者模式&quot;&gt;&lt;a href=&quot;#观察者模式&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-访问者模式</title>
+    <link href="http://ilcb.github.io/2022/11/14/she-ji-mo-shi/xing-wei-xing/fang-wen-zhe-mo-shi-visitor/"/>
+    <id>http://ilcb.github.io/2022/11/14/she-ji-mo-shi/xing-wei-xing/fang-wen-zhe-mo-shi-visitor/</id>
+    <published>2022-11-13T16:00:00.000Z</published>
+    <updated>2023-03-15T16:42:21.978Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在软件开发过程中，对于系统中的某些对象，它们存储在同一个集合 collection</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-迭代器模式</title>
+    <link href="http://ilcb.github.io/2022/11/11/she-ji-mo-shi/xing-wei-xing/die-dai-qi-mo-shi-iterator/"/>
+    <id>http://ilcb.github.io/2022/11/11/she-ji-mo-shi/xing-wei-xing/die-dai-qi-mo-shi-iterator/</id>
+    <published>2022-11-10T16:00:00.000Z</published>
+    <updated>2023-03-15T16:42:09.939Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-策略模式</title>
+    <link href="http://ilcb.github.io/2022/11/08/she-ji-mo-shi/xing-wei-xing/ce-lue-mo-shi-strategy/"/>
+    <id>http://ilcb.github.io/2022/11/08/she-ji-mo-shi/xing-wei-xing/ce-lue-mo-shi-strategy/</id>
+    <published>2022-11-07T16:00:00.000Z</published>
+    <updated>2023-03-15T16:41:56.835Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在实现某一个功能有多种算法或者策略，可以根据环境或者条件的不同选择不同的算法或者策略来完成该功能。</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-备忘录模式</title>
+    <link href="http://ilcb.github.io/2022/11/03/she-ji-mo-shi/xing-wei-xing/bei-wang-lu-mo-shi-memento/"/>
+    <id>http://ilcb.github.io/2022/11/03/she-ji-mo-shi/xing-wei-xing/bei-wang-lu-mo-shi-memento/</id>
+    <published>2022-11-02T16:00:00.000Z</published>
+    <updated>2023-03-15T16:41:45.063Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-组合模式</title>
+    <link href="http://ilcb.github.io/2022/08/30/she-ji-mo-shi/jie-gou-xing/zu-he-mo-shi-composite/"/>
+    <id>http://ilcb.github.io/2022/08/30/she-ji-mo-shi/jie-gou-xing/zu-he-mo-shi-composite/</id>
+    <published>2022-08-29T16:00:00.000Z</published>
+    <updated>2023-03-15T16:41:08.077Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在数据结构里面，树结构是很重要，可以把树的结构应用到设计模式里面。&lt;br&gt;例子 1：就是多级树形菜单。&lt;br&gt;例子</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-装饰模式</title>
+    <link href="http://ilcb.github.io/2022/08/23/she-ji-mo-shi/jie-gou-xing/zhuang-shi-qi-mo-shi-decorator/"/>
+    <id>http://ilcb.github.io/2022/08/23/she-ji-mo-shi/jie-gou-xing/zhuang-shi-qi-mo-shi-decorator/</id>
+    <published>2022-08-22T16:00:00.000Z</published>
+    <updated>2023-03-15T16:40:44.970Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;装饰器模式：动态地给一个对象添加一些额外的职责或者行为，就增加功能来说，Decorator</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-享元模式</title>
+    <link href="http://ilcb.github.io/2022/08/21/she-ji-mo-shi/jie-gou-xing/xiang-yuan-mo-shi-flyweight/"/>
+    <id>http://ilcb.github.io/2022/08/21/she-ji-mo-shi/jie-gou-xing/xiang-yuan-mo-shi-flyweight/</id>
+    <published>2022-08-20T16:00:00.000Z</published>
+    <updated>2023-03-15T16:40:28.946Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-外观模式</title>
+    <link href="http://ilcb.github.io/2022/08/18/she-ji-mo-shi/jie-gou-xing/wai-guan-mo-shi-fecade/"/>
+    <id>http://ilcb.github.io/2022/08/18/she-ji-mo-shi/jie-gou-xing/wai-guan-mo-shi-fecade/</id>
+    <published>2022-08-17T16:00:00.000Z</published>
+    <updated>2023-03-15T16:40:15.427Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;外观模式为子系统中的一组接口提供一个一致的界面，外观模式隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-适配器模式</title>
+    <link href="http://ilcb.github.io/2022/08/15/she-ji-mo-shi/jie-gou-xing/gua-pei-qi-mo-shi-adapter/"/>
+    <id>http://ilcb.github.io/2022/08/15/she-ji-mo-shi/jie-gou-xing/gua-pei-qi-mo-shi-adapter/</id>
+    <published>2022-08-14T16:00:00.000Z</published>
+    <updated>2023-03-15T16:39:57.714Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;适配器模式-Adapter（结构型&quot;&gt;&lt;a href=&quot;#适配器模式-Adapter（结构型&quot; class=&quot;headerlink&quot; title=&quot;适配器模式 Adapter（结构型)&quot;&gt;&lt;/a&gt;适配器模式 Adapter（结构型)&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-桥接模式</title>
+    <link href="http://ilcb.github.io/2022/08/08/she-ji-mo-shi/jie-gou-xing/qiao-jie-mo-shi-bridge/"/>
+    <id>http://ilcb.github.io/2022/08/08/she-ji-mo-shi/jie-gou-xing/qiao-jie-mo-shi-bridge/</id>
+    <published>2022-08-07T16:00:00.000Z</published>
+    <updated>2023-03-15T16:39:44.295Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;桥接模式(Bridge</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-代理模式</title>
+    <link href="http://ilcb.github.io/2022/08/05/she-ji-mo-shi/jie-gou-xing/dai-li-mo-shi-proxy/"/>
+    <id>http://ilcb.github.io/2022/08/05/she-ji-mo-shi/jie-gou-xing/dai-li-mo-shi-proxy/</id>
+    <published>2022-08-04T16:00:00.000Z</published>
+    <updated>2023-03-15T16:39:24.310Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;因为某个对象消耗太多资源，而且的代码并不是每个逻辑路径都需要此对象，曾有过延迟创建对象的想法吗(if 和 else</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>设计模式-原型模式</title>
     <link href="http://ilcb.github.io/2022/06/15/she-ji-mo-shi/chuang-jian-xing/yuan-xing-mo-shi-prototype/"/>
     <id>http://ilcb.github.io/2022/06/15/she-ji-mo-shi/chuang-jian-xing/yuan-xing-mo-shi-prototype/</id>
     <published>2022-06-14T16:00:00.000Z</published>
-    <updated>2023-03-15T16:36:12.284Z</updated>
+    <updated>2023-03-15T16:38:37.828Z</updated>
     
     
       
@@ -67,503 +556,6 @@
     <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     <category term="创建型" scheme="http://ilcb.github.io/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-抽象工厂模式</title>
-    <link href="http://ilcb.github.io/2022/06/08/she-ji-mo-shi/chuang-jian-xing/chou-xiang-gong-han-mo-shi/"/>
-    <id>http://ilcb.github.io/2022/06/08/she-ji-mo-shi/chuang-jian-xing/chou-xiang-gong-han-mo-shi/</id>
-    <published>2022-06-07T16:00:00.000Z</published>
-    <updated>2023-03-15T16:35:42.752Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="创建型" scheme="http://ilcb.github.io/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-工厂方法模式</title>
-    <link href="http://ilcb.github.io/2022/06/06/she-ji-mo-shi/chuang-jian-xing/gong-han-fang-fa-mo-shi/"/>
-    <id>http://ilcb.github.io/2022/06/06/she-ji-mo-shi/chuang-jian-xing/gong-han-fang-fa-mo-shi/</id>
-    <published>2022-06-05T16:00:00.000Z</published>
-    <updated>2023-03-15T16:35:30.967Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="创建型" scheme="http://ilcb.github.io/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-简单工厂模式</title>
-    <link href="http://ilcb.github.io/2022/06/03/she-ji-mo-shi/chuang-jian-xing/jian-dan-gong-han-mo-shi/"/>
-    <id>http://ilcb.github.io/2022/06/03/she-ji-mo-shi/chuang-jian-xing/jian-dan-gong-han-mo-shi/</id>
-    <published>2022-06-02T16:00:00.000Z</published>
-    <updated>2023-03-15T16:35:13.942Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="创建型" scheme="http://ilcb.github.io/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-单例模式</title>
-    <link href="http://ilcb.github.io/2022/06/01/she-ji-mo-shi/chuang-jian-xing/dan-li-mo-shi/"/>
-    <id>http://ilcb.github.io/2022/06/01/she-ji-mo-shi/chuang-jian-xing/dan-li-mo-shi/</id>
-    <published>2022-05-31T16:00:00.000Z</published>
-    <updated>2023-03-15T16:34:56.649Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;单例模式&quot;&gt;&lt;a href=&quot;#单例模式&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="创建型" scheme="http://ilcb.github.io/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式六大原则</title>
-    <link href="http://ilcb.github.io/2022/03/12/she-ji-mo-shi/she-ji-mo-shi-liu-da-yuan-ze/"/>
-    <id>http://ilcb.github.io/2022/03/12/she-ji-mo-shi/she-ji-mo-shi-liu-da-yuan-ze/</id>
-    <published>2022-03-11T16:00:00.000Z</published>
-    <updated>2023-03-15T16:05:02.369Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;设计模式六大原则&quot;&gt;&lt;a href=&quot;#设计模式六大原则&quot; class=&quot;headerlink&quot; title=&quot;设计模式六大原则&quot;&gt;&lt;/a&gt;设计模式六大原则&lt;/h1&gt;&lt;h2 id=&quot;一、单一职责&quot;&gt;&lt;a href=&quot;#一、单一职责&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SQL 优化</title>
-    <link href="http://ilcb.github.io/2021/05/29/shu-ju-ku/sql-you-hua/"/>
-    <id>http://ilcb.github.io/2021/05/29/shu-ju-ku/sql-you-hua/</id>
-    <published>2021-05-29T07:25:42.000Z</published>
-    <updated>2022-11-07T12:00:07.458Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引；&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="数据库" scheme="http://ilcb.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="MySQL" scheme="http://ilcb.github.io/tags/MySQL/"/>
-    
-    <category term="SQL" scheme="http://ilcb.github.io/tags/SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring 事务管理</title>
-    <link href="http://ilcb.github.io/2019/05/02/hou-duan/spring/spring-shi-wu-guan-li/"/>
-    <id>http://ilcb.github.io/2019/05/02/hou-duan/spring/spring-shi-wu-guan-li/</id>
-    <published>2019-05-02T11:16:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;Spring-事务管理接口&quot;&gt;&lt;a href=&quot;#Spring-事务管理接口&quot; class=&quot;headerlink&quot; title=&quot;Spring 事务管理接口&quot;&gt;&lt;/a&gt;Spring</summary>
-        
-      
-    
-    
-    
-    <category term="Spring" scheme="http://ilcb.github.io/categories/Spring/"/>
-    
-    <category term="事务" scheme="http://ilcb.github.io/categories/Spring/%E4%BA%8B%E5%8A%A1/"/>
-    
-    
-    <category term="事务" scheme="http://ilcb.github.io/tags/%E4%BA%8B%E5%8A%A1/"/>
-    
-    <category term="Spring" scheme="http://ilcb.github.io/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL-事务</title>
-    <link href="http://ilcb.github.io/2019/04/30/shu-ju-ku/mysql-shi-wu/"/>
-    <id>http://ilcb.github.io/2019/04/30/shu-ju-ku/mysql-shi-wu/</id>
-    <published>2019-04-29T16:00:00.000Z</published>
-    <updated>2022-11-07T11:55:11.071Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;MySQL-中怎么实现事务&quot;&gt;&lt;a href=&quot;#MySQL-中怎么实现事务&quot; class=&quot;headerlink&quot; title=&quot;MySQL 中怎么实现事务&quot;&gt;&lt;/a&gt;MySQL 中怎么实现事务&lt;/h2&gt;&lt;h3 id=&quot;MySQL-中事务相关的语句&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="数据库" scheme="http://ilcb.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="MySQL" scheme="http://ilcb.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="http://ilcb.github.io/tags/MySQL/"/>
-    
-    <category term="事务" scheme="http://ilcb.github.io/tags/%E4%BA%8B%E5%8A%A1/"/>
-    
-    <category term="数据库" scheme="http://ilcb.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库事务</title>
-    <link href="http://ilcb.github.io/2019/04/29/shu-ju-ku/shu-ju-ku-shi-wu/"/>
-    <id>http://ilcb.github.io/2019/04/29/shu-ju-ku/shu-ju-ku-shi-wu/</id>
-    <published>2019-04-28T16:00:00.000Z</published>
-    <updated>2022-11-07T12:01:31.239Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;什么是事务&quot;&gt;&lt;a href=&quot;#什么是事务&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="数据库" scheme="http://ilcb.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="MySQL" scheme="http://ilcb.github.io/tags/MySQL/"/>
-    
-    <category term="事务" scheme="http://ilcb.github.io/tags/%E4%BA%8B%E5%8A%A1/"/>
-    
-    <category term="数据库" scheme="http://ilcb.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java 异常</title>
-    <link href="http://ilcb.github.io/2019/04/29/hou-duan/java/java-yi-chang/"/>
-    <id>http://ilcb.github.io/2019/04/29/hou-duan/java/java-yi-chang/</id>
-    <published>2019-04-28T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;Java-异常体系&quot;&gt;&lt;a href=&quot;#Java-异常体系&quot; class=&quot;headerlink&quot; title=&quot;Java 异常体系&quot;&gt;&lt;/a&gt;Java 异常体系&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;exception.jpg&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="http://ilcb.github.io/categories/Java/"/>
-    
-    
-    <category term="Java" scheme="http://ilcb.github.io/tags/Java/"/>
-    
-    <category term="异常" scheme="http://ilcb.github.io/tags/%E5%BC%82%E5%B8%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-享元模式</title>
-    <link href="http://ilcb.github.io/2019/01/15/she-ji-mo-shi/jie-gou-xing/xiang-yuan-mo-shi-flyweight/"/>
-    <id>http://ilcb.github.io/2019/01/15/she-ji-mo-shi/jie-gou-xing/xiang-yuan-mo-shi-flyweight/</id>
-    <published>2019-01-14T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-桥接模式</title>
-    <link href="http://ilcb.github.io/2019/01/05/she-ji-mo-shi/jie-gou-xing/qiao-jie-mo-shi-bridge/"/>
-    <id>http://ilcb.github.io/2019/01/05/she-ji-mo-shi/jie-gou-xing/qiao-jie-mo-shi-bridge/</id>
-    <published>2019-01-04T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;桥接模式(Bridge</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="结构型" scheme="http://ilcb.github.io/tags/%E7%BB%93%E6%9E%84%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RabbitMQ 原理</title>
-    <link href="http://ilcb.github.io/2018/12/01/fen-bu-shi/xiao-xi-dui-lie/rabbitmq-yuan-li/"/>
-    <id>http://ilcb.github.io/2018/12/01/fen-bu-shi/xiao-xi-dui-lie/rabbitmq-yuan-li/</id>
-    <published>2018-11-30T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;RabbitMQ 是一个由 erlang 开发的 AMQP（Advanced Message Queue ）的开源实现&lt;/p&gt;
-&lt;h2 id=&quot;什么是-AMQP&quot;&gt;&lt;a href=&quot;#什么是-AMQP&quot; class=&quot;headerlink&quot; title=&quot;什么是</summary>
-        
-      
-    
-    
-    
-    <category term="消息队列" scheme="http://ilcb.github.io/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
-    
-    
-    <category term="RabbitMQ" scheme="http://ilcb.github.io/tags/RabbitMQ/"/>
-    
-    <category term="消息队列" scheme="http://ilcb.github.io/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
-    
-    <category term="分布式" scheme="http://ilcb.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-访问者模式</title>
-    <link href="http://ilcb.github.io/2018/07/20/she-ji-mo-shi/xing-wei-xing/fang-wen-zhe-mo-shi-visitor/"/>
-    <id>http://ilcb.github.io/2018/07/20/she-ji-mo-shi/xing-wei-xing/fang-wen-zhe-mo-shi-visitor/</id>
-    <published>2018-07-19T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在软件开发过程中，对于系统中的某些对象，它们存储在同一个集合 collection</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-备忘录模式</title>
-    <link href="http://ilcb.github.io/2018/07/15/she-ji-mo-shi/xing-wei-xing/bei-wang-lu-mo-shi-memento/"/>
-    <id>http://ilcb.github.io/2018/07/15/she-ji-mo-shi/xing-wei-xing/bei-wang-lu-mo-shi-memento/</id>
-    <published>2018-07-14T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-状态模式</title>
-    <link href="http://ilcb.github.io/2018/07/15/she-ji-mo-shi/xing-wei-xing/zhuang-tai-mo-shi-state/"/>
-    <id>http://ilcb.github.io/2018/07/15/she-ji-mo-shi/xing-wei-xing/zhuang-tai-mo-shi-state/</id>
-    <published>2018-07-14T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在软件开发过程中，应用程序可能会根据不同的情况作出不同的处理，最直接的解决方案是将这些所有可能发生的情况全都考虑到，然后使用</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-解释器模式</title>
-    <link href="http://ilcb.github.io/2018/07/15/she-ji-mo-shi/xing-wei-xing/jie-shi-qi-mo-shi-interpreter/"/>
-    <id>http://ilcb.github.io/2018/07/15/she-ji-mo-shi/xing-wei-xing/jie-shi-qi-mo-shi-interpreter/</id>
-    <published>2018-07-14T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;解释器模式（Interpreter</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-中介者模式</title>
-    <link href="http://ilcb.github.io/2018/07/11/she-ji-mo-shi/xing-wei-xing/zhong-jie-zhe-mo-shi-mediator/"/>
-    <id>http://ilcb.github.io/2018/07/11/she-ji-mo-shi/xing-wei-xing/zhong-jie-zhe-mo-shi-mediator/</id>
-    <published>2018-07-10T16:00:00.000Z</published>
-    <updated>2021-05-29T07:25:42.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;面对一系列的相交互对象。怎么样保证使各对象不需要显式地相互引用，使其耦合松散？&lt;/p&gt;
-&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="设计模式" scheme="http://ilcb.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="行为型" scheme="http://ilcb.github.io/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/"/>
     
   </entry>
   
