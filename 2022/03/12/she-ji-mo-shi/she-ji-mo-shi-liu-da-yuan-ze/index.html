@@ -467,12 +467,16 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h1><h2 id="一、单一职责"><a href="#一、单一职责" class="headerlink" title="一、单一职责"></a>一、单一职责</h2><p>单一职责原则规定一个类应该有且仅有一个引起它变化的原因，否则类应该被拆分。一个类只负责一项职责，不要存在 一个以上导致类发生变更的原因。</p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ol>
-<li>降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单得多；</li>
-<li>提高类的可读性，复杂性降低，可读性会提高;</li>
-<li>提高系统的可维护性，可读性提高，更易于维护；</li>
-<li>因需求变更引起的风险更低，降低对其它功能的影响；</li>
-</ol>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul>
+<li><p>降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单得多；</p>
+</li>
+<li><p>提高类的可读性，复杂性降低，可读性会提高;</p>
+</li>
+<li><p>提高系统的可维护性，可读性提高，更易于维护；</p>
+</li>
+<li><p>因需求变更引起的风险更低，降低对其它功能的影响；</p>
+</li>
+</ul>
 <h2 id="二、开闭原则"><a href="#二、开闭原则" class="headerlink" title="二、开闭原则"></a>二、开闭原则</h2><p>软件中的对象（类、模块、函数等）应该对于扩展是开放的，对于修改是封闭的。用抽象构建框架，用实现扩展细节。</p>
 <p>当需求发生变化时，尽量通过扩展实体的行为来实现变化，而不是通过修改已有的代码来实现变化。</p>
 <h2 id="三、里式替换"><a href="#三、里式替换" class="headerlink" title="三、里式替换"></a>三、里式替换</h2><p>子类可以扩展父类的功能，不能改变父类原有的功能，子类可以替换父类，方法或者行为也没有改变。也就是说：子类继承父类时，除添加新的方法完成新增功能外，尽量不要重写父类的方法。</p>
@@ -508,7 +512,6 @@
 <h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
 <li>将臃肿庞大的接口分解为多个粒度小的接口，可以预防外来变更的扩散，提高系统的灵活性和可维护性。</li>
 <li>接口隔离提高了系统的内聚性，减少了对外交互，降低了系统的耦合性。</li>
-<li></li>
 <li>使用多个专门的接口还能够体现对象的层次，可以通过接口的继承，实现对总接口的定义。</li>
 <li>能减少项目工程中的代码冗余。过大的大接口里面通常放置许多不用的方法，当实现这个接口的时候，被迫设计冗余的代码。</li>
 </ul>
@@ -522,7 +525,7 @@
 <li>依赖倒置原则告诉我们要面向接口编程；</li>
 <li>接口隔离原则告诉我们在设计接口的时候要精简单一；</li>
 <li>迪米特法则告诉我们要降低耦合；</li>
-<li>而开闭原则是总纲，他告诉我们要对扩展开放，对修改关闭。</li>
+<li>而开闭原则是总纲，他告诉我们要对扩展开放，对修改关闭;</li>
 </ul>
 
                 
@@ -759,18 +762,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/12/she-ji-mo-shi/she-ji-mo-shi-liu-da-yuan-ze/">
+                <a href="/2022/06/01/she-ji-mo-shi/chuang-jian-xing/dan-li-mo-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="设计模式六大原则">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="设计模式-单例模式">
                         
-                        <span class="card-title">设计模式六大原则</span>
+                        <span class="card-title">设计模式-单例模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -780,9 +782,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -795,12 +797,15 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
                         <span class="chip bg-color">设计模式</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B/">
+                        <span class="chip bg-color">创建型</span>
                     </a>
                     
                 </div>
@@ -1056,7 +1061,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">98.4k</span>&nbsp;字
+                class="white-color">96.7k</span>&nbsp;字
             
             
             
