@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    540
+                    541
                 </div>
                 
 
@@ -478,21 +478,23 @@
 <h2 id="3-启动-zookeeper"><a href="#3-启动-zookeeper" class="headerlink" title="3.启动 zookeeper"></a>3.启动 zookeeper</h2><pre class=" language-bash"><code class="language-bash">docker run -d \
            --name zookeeper \
            --privileged<span class="token operator">=</span>true \
+           --restart<span class="token operator">=</span>always \
            -p 2181:2181 \
-           -v /opt/AppData/zookeeper/data:/data \
-           -v /opt/AppData/zookeeper/conf:/conf \
-           -v /opt/AppData/zookeeper/logs:/datalog \
+           -v ~/AppData/zookeeper/data:/data \
+           -v ~/AppData/zookeeper/conf:/conf \
+           -v ~/AppData/zookeeper/logs:/datalog \
            zookeeper
 </code></pre>
 <p>4.启动 kafka</p>
-<pre class=" language-plain"><code class="language-plain">docker run -d \
+<pre class=" language-bash"><code class="language-bash">docker run -d \
            --name kafka \
            -p 9092:9092 \
-           -e KAFKA_BROKER_ID=0 \
-           -e KAFKA_ZOOKEEPER_CONNECT=docker.for.mac.host.internal:2181/kafka \
-           -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://docker.for.mac.host.internal:9092 \
-           -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 \
-           -e ALLOW_PLAINTEXT_LISTENER=yes \
+           --restart<span class="token operator">=</span>always \
+           -e KAFKA_BROKER_ID<span class="token operator">=</span>0 \
+           -e KAFKA_ZOOKEEPER_CONNECT<span class="token operator">=</span>docker.for.mac.host.internal:2181/kafka \
+           -e KAFKA_ADVERTISED_LISTENERS<span class="token operator">=</span>PLAINTEXT://docker.for.mac.host.internal:9092 \
+           -e KAFKA_LISTENERS<span class="token operator">=</span>PLAINTEXT://0.0.0.0:9092 \
+           -e ALLOW_PLAINTEXT_LISTENER<span class="token operator">=</span>yes \
            bitnami/kafka
 </code></pre>
 <h3 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h3><blockquote>
@@ -783,18 +785,17 @@ First Message!
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/04/01/docker/docker-gou-jian-kafka/">
+                <a href="/2023/04/01/docker/docker-gou-jian-jenkins/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Docker 构建 Kafka">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Docker构建Jenkins">
                         
-                        <span class="card-title">Docker 构建 Kafka</span>
+                        <span class="card-title">Docker构建Jenkins</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -804,9 +805,9 @@ First Message!
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-01
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -819,7 +820,6 @@ First Message!
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1084,7 +1084,7 @@ First Message!
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99.2k</span>&nbsp;字
+                class="white-color">105k</span>&nbsp;字
             
             
             

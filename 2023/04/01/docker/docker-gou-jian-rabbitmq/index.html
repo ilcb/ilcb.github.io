@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    262
+                    264
                 </div>
                 
 
@@ -476,6 +476,7 @@
 <h2 id="2-拉取镜像"><a href="#2-拉取镜像" class="headerlink" title="2.拉取镜像"></a>2.拉取镜像</h2><pre class=" language-bash"><code class="language-bash">docker pull rabbitmq
 </code></pre>
 <h2 id="创建并运行-RabbitMQ-容器"><a href="#创建并运行-RabbitMQ-容器" class="headerlink" title="创建并运行 RabbitMQ 容器"></a>创建并运行 RabbitMQ 容器</h2><pre class=" language-bash"><code class="language-bash">docker run -id --name rabbitmq \
+           --restart<span class="token operator">=</span>always \
            -p 15672:15672 \
            -p 5672:5672 \
            -e RABBITMQ_DEFAULT_VHOST<span class="token operator">=</span>/ \
@@ -1049,7 +1050,7 @@ rabbitmq-plugins <span class="token function">enable</span> rabbitmq_management
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99.2k</span>&nbsp;字
+                class="white-color">105k</span>&nbsp;字
             
             
             

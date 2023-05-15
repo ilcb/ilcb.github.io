@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    462
+                    458
                 </div>
                 
 
@@ -483,15 +483,15 @@
 </li>
 </ul>
 <p>本人的配置文件是放在</p>
-<p>redis.conf 文件位置： /opt/AppData/redis/conf/redis.conf</p>
-<p>redis 的 data 文件位置 ： /opt/AppData/redis/data</p>
+<p>redis.conf 文件位置： ~/AppData/redis/conf/redis.conf</p>
+<p>redis 的 data 文件位置 ： ~/AppData/redis/data</p>
 <h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2><pre class=" language-plain"><code class="language-plain">docker run -itd \
            --name redis \
            --restart=always \
            --log-opt max-size=100m --log-opt max-file=2 \
            -p 6379:6379 \
-           -v /opt/AppData/redis/conf/redis.conf:/etc/redis/redis.conf \
-           -v /opt/AppData/redis/data:/data \
+           -v ~/AppData/redis/conf/redis.conf:/etc/redis/redis.conf \
+           -v ~/AppData/redis/data:/data \
            -d redis redis-server /etc/redis/redis.conf \
            --appendonly yes
 </code></pre>
@@ -1054,7 +1054,7 @@ get key
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99.2k</span>&nbsp;字
+                class="white-color">105k</span>&nbsp;字
             
             
             

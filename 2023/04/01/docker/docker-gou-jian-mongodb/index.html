@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    338
+                    336
                 </div>
                 
 
@@ -478,24 +478,25 @@
 <h2 id="3-挂载配置目录"><a href="#3-挂载配置目录" class="headerlink" title="3.挂载配置目录"></a>3.挂载配置目录</h2><p>将 redis 的配置文件进行挂载，以配置文件方式启动 redis 容器。(挂载：即将宿主的文件和容器内部目录相关联，相互绑定，在宿主机内修改文件的话也随之修改容器内部文件）</p>
 <ul>
 <li><p>数据挂载目录</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /opt/AppData/mongodb
-<span class="token function">sudo</span> <span class="token function">mkdir</span> /opt/AppData/mongodb/data
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> ~/AppData/mongodb
+<span class="token function">sudo</span> <span class="token function">mkdir</span> ~/AppData/mongodb/data
 </code></pre>
 </li>
 </ul>
-<h2 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h2><pre class=" language-bash"><code class="language-bash">docker run -d \
+<h2 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h2><pre class=" language-bash"><code class="language-bash">docker run -itd \
            --name mongo \
-           -v /opt/AppData/mongodb/data:/data/db \
+           --restart<span class="token operator">=</span>always \
+           -v ~/AppData/mongodb/data:/data/db \
            -p 27017:27017 \
            --privileged<span class="token operator">=</span>true \
-           --auth \
-           mongo
+           mongo \
+           --auth 
 </code></pre>
 <h3 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h3><blockquote>
 <p>-d：表示后台启动 mongo；</p>
 <p>–-name 给容器命名</p>
 <p>-p 27017:27017: 将宿主机 27017 端口与容器内 27017 端口进行映射，冒号之前为物理机端口</p>
-<p>-v: 将宿主机目录或文件与容器内目录或文件进行挂载映射，将宿主机的/opt/AppData/mongodb/data 映射到容器的/data/db 目录，将数据持久化到宿主机，以防止删除容器后，容器内的数据丢失</p>
+<p>-v: 将宿主机目录或文件与容器内目录或文件进行挂载映射，将宿主机的~/AppData/mongodb/data 映射到容器的/data/db 目录，将数据持久化到宿主机，以防止删除容器后，容器内的数据丢失</p>
 <p>–auth: 需要密码才能访问容器服务</p>
 </blockquote>
 <h2 id="4-创建用户并设置密码"><a href="#4-创建用户并设置密码" class="headerlink" title="4.创建用户并设置密码"></a>4.创建用户并设置密码</h2><pre class=" language-bash"><code class="language-bash">docker <span class="token function">exec</span> -it  mongo mongosh
@@ -1053,7 +1054,7 @@ test<span class="token operator">></span> db.auth<span class="token punctuation"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99.2k</span>&nbsp;字
+                class="white-color">105k</span>&nbsp;字
             
             
             

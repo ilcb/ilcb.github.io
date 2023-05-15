@@ -444,7 +444,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    206
+                    207
                 </div>
                 
 
@@ -471,10 +471,11 @@
 <p><img src="%E6%9F%A5%E8%AF%A2%E9%95%9C%E5%83%8F.jpg" alt="查询镜像"></p>
 <h2 id="2-拉取镜像"><a href="#2-拉取镜像" class="headerlink" title="2.拉取镜像"></a>2.拉取镜像</h2><pre class=" language-bash"><code class="language-bash">docker pull postgres
 </code></pre>
-<h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2><pre class=" language-plain"><code class="language-plain">docker run --name postgres \
-           -e POSTGRES_PASSWORD=123456 \
+<h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2><pre class=" language-bash"><code class="language-bash">docker run --name postgres \
+           --restart<span class="token operator">=</span>always \
+           -e POSTGRES_PASSWORD<span class="token operator">=</span>123456 \
            -p 5432:5432 \
-           -v /opt/AppData/postgres/data:/var/lib/postgresql/data \
+           -v ~/AppData/postgres/data:/var/lib/postgresql/data \
            -d postgres
 </code></pre>
 <blockquote>
@@ -1018,7 +1019,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99.2k</span>&nbsp;字
+                class="white-color">105k</span>&nbsp;字
             
             
             

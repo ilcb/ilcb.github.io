@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    367
+                    358
                 </div>
                 
 
@@ -479,24 +479,24 @@
 <ul>
 <li><p>挂载 mysql 的配置文件</p>
 </li>
-<li><p>sudo mkdir /opt/AppData/mysql/conf/</p>
+<li><p>sudo mkdir ~/AppData/mysql/conf/</p>
 </li>
 <li><p>挂载 mysql 的数据库</p>
 </li>
-<li><p>sudo mkdir /opt/AppData/mysql/data</p>
+<li><p>sudo mkdir ~/AppData/mysql/data</p>
 </li>
 <li><p>挂在 mysql 的日志</p>
 </li>
-<li><p>sudo mkdir /opt/AppData/mysql/logs</p>
+<li><p>sudo mkdir ~/AppData/mysql/logs</p>
 </li>
 </ul>
 <h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2><pre class=" language-plain"><code class="language-plain">docker run -d \
            -p 3306:3306 \
            --privileged=true \
            --restart=unless-stopped \
-           -v /opt/AppData/mysql/logs:/var/log/mysql \
-           -v /opt/AppData/mysql/data:/var/lib/mysql \
-           -v /opt/AppData/mysql/conf:/etc/mysql/conf.d \
+           -v ~/AppData/mysql/logs:/var/log/mysql \
+           -v ~/AppData/mysql/data:/var/lib/mysql \
+           -v ~/AppData/mysql/conf:/etc/mysql/conf.d \
            -e MYSQL_ROOT_PASSWORD=root1234 \
            --name mysql mysql
 </code></pre>
@@ -505,9 +505,9 @@
 <p>-p 3306:3306: 将宿主机 3306 端口与容器内 3306 端口进行映射，冒号之前为物理机端口</p>
 <p>–privileged=true</p>
 <p>–restart=unless-stopped: 容器重启策略</p>
-<p>-v /opt/AppData/mysql/logs:/var/log/mysql: 将日志文件夹挂载到宿主机（宿主机路径:容器路径</p>
-<p>-v /opt/AppData/mysql/data:/var/lib/mysql: 将 mysql 储存文件夹挂载到主机（宿主机路径:容器路径）</p>
-<p>-v /opt/AppData/mysql/conf:/etc/mysql/conf.d 将配置文件夹挂载到主机（宿主机路径:容器路径）</p>
+<p>-v ~/AppData/mysql/logs:/var/log/mysql: 将日志文件夹挂载到宿主机（宿主机路径:容器路径</p>
+<p>-v ~/AppData/mysql/data:/var/lib/mysql: 将 mysql 储存文件夹挂载到主机（宿主机路径:容器路径）</p>
+<p>-v ~/AppData/mysql/conf:/etc/mysql/conf.d 将配置文件夹挂载到主机（宿主机路径:容器路径）</p>
 <p>-e MYSQL_ROOT_PASSWORD=root1234: 设置 root 用户密码</p>
 <p> –name mysql: 设置容器名称</p>
 </blockquote>
@@ -1052,7 +1052,7 @@ mysql -h localhost -u root -p
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99.2k</span>&nbsp;字
+                class="white-color">105k</span>&nbsp;字
             
             
             
