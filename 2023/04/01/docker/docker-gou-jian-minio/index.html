@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="✨ Ilcb&#39;s Blog">
+    <meta name="keywords" content="Docker 构建 Minio, ✨ Ilcb&#39;s Blog">
     <meta name="description" content="Stay hungry, Stay foolish!">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>✨ Ilcb&#39;s Blog</title>
+    <title>Docker 构建 Minio | ✨ Ilcb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -289,12 +289,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Docker 构建 Minio</h1>
                 </div>
             </div>
         </div>
@@ -408,12 +408,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Docker/" class="post-category">
+                                Docker
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -422,7 +435,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-05-04
+                    2023-04-01
                 </div>
                 
 
@@ -431,14 +444,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    208
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    1 分
                 </div>
                 
 
@@ -453,242 +466,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Jenkins安装使用"><a href="#Jenkins安装使用" class="headerlink" title="Jenkins安装使用"></a>Jenkins安装使用</h2><h2 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>jdk-1.8.0_232</td>
-</tr>
-<tr>
-<td>SUSE Linux</td>
-</tr>
-</tbody></table>
-<h2 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h2><h3 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h3><p>下载安装jdk环境</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> https://www.oracle.com/java/technologies/downloads/<span class="token comment" spellcheck="true">#license-lightbox</span>
+                <h2 id="Docker-构建-Minio"><a href="#Docker-构建-Minio" class="headerlink" title="Docker 构建 Minio"></a>Docker 构建 Minio</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>MinIO是世界上最快的对象存储服务器，在标准硬件上，读写速度分贝为183GB/s 和 171GB/s，对象存储可以作为主要存储层，用于Spark，Presto，TensorFlow，H20.ai 以及替代产品等各种工作负载用于Hadoop HDFS</p>
+<p>MinIO是一种高性能的分布式对象存储系统，它是软件定义的，可在行业标准硬件上运行，并且在Apache 2.0许可下，百分百开放源代码。</p>
+<p>文档地址：<a target="_blank" rel="noopener" href="https://docs.min.io/cn/">https://docs.min.io/cn/</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h4><pre class=" language-bash"><code class="language-bash">docker search minio/minio
+docker pull minio/minio
 </code></pre>
-<p>安装jdk</p>
-<pre class=" language-bash"><code class="language-bash">rpm -ivh jdk-8u371-linux-aarch64.rpm
+<h4 id="挂载数据及配置"><a href="#挂载数据及配置" class="headerlink" title="挂载数据及配置"></a>挂载数据及配置</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /app/minio/<span class="token punctuation">{</span>config,data<span class="token punctuation">}</span>
 </code></pre>
-<p>配置环境变量</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">vi</span> /etc/profile
+<h4 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h4><pre class=" language-bash"><code class="language-bash">docker run -p 9000:9000 -p 9090:9090 \
+     --net<span class="token operator">=</span>host \
+     --name minio \
+     -d --restart<span class="token operator">=</span>always \
+     -e <span class="token string">"MINIO_ACCESS_KEY=minioadmin"</span> \
+     -e <span class="token string">"MINIO_SECRET_KEY=minioadmin"</span> \
+     -v /app/minio/data:/data \
+     -v /app/minio/config:/root/.minio \
+     minio/minio server \
+     /data --console-address <span class="token string">":9090"</span> -address <span class="token string">":9000"</span>
 </code></pre>
-<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#配置jdk环境</span>
-<span class="token function">export</span> JAVA_HOME<span class="token operator">=</span>/opt/oracle-jdk-8u371
-<span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$JAVA_HOME</span>/bin:<span class="token variable">$PATH</span>
-<span class="token function">export</span> CLASSPATH<span class="token operator">=</span>.:<span class="token variable">$JAVA_HOME</span>/lib/dt.jar:<span class="token variable">$JAVA_HOME</span>/lib/tools.jar
-</code></pre>
-<h3 id="安装Maven"><a href="#安装Maven" class="headerlink" title="安装Maven"></a>安装Maven</h3><p>下载maven安装包</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.tar.gz
-</code></pre>
-<p>安装maven</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">tar</span> -zxvf apache-maven-3.9.1-bin.tar.gz
-<span class="token function">mv</span> apache-maven-3.9.1 opt/apache-maven-3.9.1 
-</code></pre>
-<p>配置Maven环境</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">vi</span> /etc/profile
-</code></pre>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> MAVEN_HOME<span class="token operator">=</span>/opt/apache-maven-3.9.1
-<span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$PATH</span><span class="token keyword">:</span><span class="token variable">$MAVEN_HOME</span>/bin
-</code></pre>
-<h2 id="Jenkins安装"><a href="#Jenkins安装" class="headerlink" title="Jenkins安装"></a>Jenkins安装</h2><h3 id="通过rpm安装jenkins"><a href="#通过rpm安装jenkins" class="headerlink" title="通过rpm安装jenkins"></a>通过rpm安装jenkins</h3><p>从 Jenkins 2.164（2019年2月10日发布）和 LTS 2.164.1（ETA：3月14日）开始，在 Jenkins 中全面支持 Java 11，后续支持Java 17，需要按照jdk版本来适配jenkins版本</p>
-<pre class=" language-bash"><code class="language-bash">https://pkg.origin.jenkins.io/opensuse-stable/
-</code></pre>
-<p>由于项目jdk版本为8，故此处选择版本2.346.1</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E6%9F%A5%E8%AF%A2%E7%89%88%E6%9C%AC.png" alt="查询版本"></p>
-<h4 id="下载rpm软件包"><a href="#下载rpm软件包" class="headerlink" title="下载rpm软件包"></a>下载rpm软件包</h4><p>进入清华源，下载对应版本的rpm包</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> https://mirrors.tuna.tsinghua.edu.cn/jenkins/opensuse-stable/jenkins-2.346.3-1.2.noarch.rpm
-</code></pre>
-<h4 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h4><pre class=" language-bash"><code class="language-bash">rpm -ivh jenkins-2.346.3-1.2.noarch.rpm
-</code></pre>
-<h4 id="启动jenkins"><a href="#启动jenkins" class="headerlink" title="启动jenkins"></a>启动jenkins</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">service</span> jenkins start
-</code></pre>
-<h4 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h4><ul>
-<li>如果需要修改端口号</li>
-</ul>
-<pre class=" language-bash"><code class="language-bash">vim /etc/sysconfig/jenkins
-</code></pre>
-<p>安装完成后，与jenkins相关的几个文件目录</p>
-<blockquote>
-<p>/usr/lib/jenkins 文件夹下存放的安装的jenkins jar包</p>
-</blockquote>
-<blockquote>
-<p>/etc/sysconfig/jenkins 该文件是 jenkins的配置文件，可以配置用户，端口号等</p>
-</blockquote>
-<blockquote>
-<p>/var/log/jenkins 文件夹下的jenkins.log是jenkins的日志文件</p>
-</blockquote>
-<h3 id="通过zypper安装jenkins"><a href="#通过zypper安装jenkins" class="headerlink" title="通过zypper安装jenkins"></a>通过zypper安装jenkins</h3><h4 id="添加Jenkins-repository"><a href="#添加Jenkins-repository" class="headerlink" title="添加Jenkins repository"></a>添加Jenkins repository</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> zypper addrepo -f https://pkg.jenkins.io/opensuse-stable/ jenkins
-</code></pre>
-<h4 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> zypper <span class="token function">install</span> jenkins
-</code></pre>
-<h4 id="启动jenkins-1"><a href="#启动jenkins-1" class="headerlink" title="启动jenkins"></a>启动jenkins</h4><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 检查Jenkins服务状态</span>
-<span class="token function">sudo</span> systemctl status jenkins
-<span class="token comment" spellcheck="true"># 设置为开机自启动</span>
-<span class="token function">sudo</span> systemctl <span class="token function">enable</span> jenkins
-<span class="token comment" spellcheck="true"># 启动Jenkins服务</span>
-<span class="token function">sudo</span> systemctl start jenkins
-</code></pre>
-<h2 id="Jenkins启动"><a href="#Jenkins启动" class="headerlink" title="Jenkins启动"></a>Jenkins启动</h2><p>jenkins默认端口8080，浏览器访问 http://{jenkinsServerIP}:8080 访问</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%90%AF%E5%8A%A8web%E6%8E%A7%E5%88%B6%E5%8F%B0.png" alt="启动web控制台"></p>
-<h4 id="验证密钥"><a href="#验证密钥" class="headerlink" title="验证密钥"></a>验证密钥</h4><p>打开/var/lib/jenkins/secrets/initialAdminPassword文件，复制其内容粘贴到<code>管理员密码</code>处，点击<code>继续</code></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E9%AA%8C%E8%AF%81%E5%AF%86%E9%92%A5.jpg" alt="验证密钥"></p>
-<h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6.jpg" alt="安装插件"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B61.jpg" alt="安装插件1"></p>
-<h4 id="创建管理员账户"><a href="#创建管理员账户" class="headerlink" title="创建管理员账户"></a>创建管理员账户</h4><p>使用默认admin账户</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7.jpg" alt="创建管理员账户"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E9%85%8D%E7%BD%AEjenkinsurl.jpg" alt="配置jenkinsurl"></p>
-<h2 id="Jenkins配置"><a href="#Jenkins配置" class="headerlink" title="Jenkins配置"></a>Jenkins配置</h2><h3 id="全局安全配置"><a href="#全局安全配置" class="headerlink" title="全局安全配置"></a>全局安全配置</h3><p>默认情况下，jenkins允许匿名用户做任何事情，这也就意味着谁都可以使用jenkins进行发布，这显然不够安全，jenkins支持多种安全认证机制。进入下图设置页面，这里采用jenkins内置的用户名、密码认证机制，同时允许用户注册，匿名用户有管理权（首次配置时，建议允许匿名用户有管理权限，等其它用户权限都设置好以后，再去掉匿名用户的管理权）<br><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE.jpg" alt="安全配置"></p>
-<h3 id="全局工具配置"><a href="#全局工具配置" class="headerlink" title="全局工具配置"></a>全局工具配置</h3><p>进入：系统管理 / 全局工具设置（Global Tool Configuration）</p>
-<h4 id="maven设置"><a href="#maven设置" class="headerlink" title="maven设置"></a>maven设置</h4><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE-maven%E9%85%8D%E7%BD%AE.jpg" alt="全局配置-maven配置"></p>
-<h4 id="jdk配置"><a href="#jdk配置" class="headerlink" title="jdk配置"></a>jdk配置</h4><p>JDK 下不勾选“自动安装”，指定别名=oracle-jdk-8u371, JAVA_HOME=/opt/oracle-jdk-8u371</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE-jdk.jpg" alt="全局配置-jdk"></p>
-<h4 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h4><p>Maven 下不勾选“自动安装”，指定别名=apache-maven-3.9.1, MAVEN_HOME=/opt/apache-maven-3.9.1</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE-maven.jpg" alt="全局配置-maven"></p>
-<h3 id="插件管理"><a href="#插件管理" class="headerlink" title="插件管理"></a>插件管理</h3><p>首页 &gt;&gt; Manager Jenkins(系统管理)  &gt;&gt; Manage Plugins(插件管理)</p>
-<p>安装以下插件</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Subversion</td>
-<td>版本管理 SVN 的插件</td>
-</tr>
-<tr>
-<td>Maven Integration</td>
-<td>项目构建 Maven 的插件</td>
-</tr>
-</tbody></table>
-<p>示例: 安装Subversion插件</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%AE%89%E8%A3%85Subversion%E6%8F%92%E4%BB%B6.jpg" alt="安装Subversion插件"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E5%AE%89%E8%A3%85Subversion%E6%8F%92%E4%BB%B61.jpg" alt="安装Subversion插件1"></p>
-<h2 id="Java项目构建"><a href="#Java项目构建" class="headerlink" title="Java项目构建"></a>Java项目构建</h2><h3 id="新建Java任务"><a href="#新建Java任务" class="headerlink" title="新建Java任务"></a>新建Java任务</h3><p>首页 &gt;&gt; 新建Item(新建任务)  &gt;&gt; FreeStyle Project</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/new-java-item.jpg" alt="new-java-item"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/new-test-idm-item.jpg" alt="new-test-idm-item"></p>
-<h3 id="General-配置"><a href="#General-配置" class="headerlink" title="General 配置"></a>General 配置</h3><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/new-java-discard-old-build.jpg" alt="new-java-discard-old-build"></p>
-<h3 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h3><p>指定源代码下载方式为<code>Subversion</code>，输入项目代码地址</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/idm-source-manage.jpg" alt="idm-source-manage"></p>
-<h3 id="创建凭据"><a href="#创建凭据" class="headerlink" title="创建凭据"></a>创建凭据</h3><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/new-credentials.jpg" alt="new-credentials"></p>
-<p>填写Svn的登录名和密码</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/create-credentials.jpg" alt="create-credentials"></p>
-<h3 id="Build-Triggers-构建触发器-配置"><a href="#Build-Triggers-构建触发器-配置" class="headerlink" title="Build Triggers(构建触发器)配置"></a>Build Triggers(构建触发器)配置</h3><p>选中Build periodically：周期性进行项目构建，这个是到指定的时间必须触发构建任务</p>
-<p>选中Poll SCM:定时检查源码变更，如果有更新就checkout最新code下来，然后执行构建动作</p>
-<p>注：定时构建语法如下：(五颗星，中间用空格隔开）</p>
-<p>* * * * *</p>
-<p>第一颗*表示分钟，取值0~59</p>
-<p>第二颗*表示小时，取值0~23</p>
-<p>第三颗*表示一个月的第几天，取值1~31</p>
-<p>第四颗*表示第几月，取值1~12</p>
-<p>第五颗*表示一周中的第几天，取值0~7，其中0和7代表的都是周日</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/java-trigger.jpg" alt="java-trigger"></p>
-<h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><p>添加构建步骤<code>Invoker top-level Maven targets</code></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/invoke-top-maven.jpg" alt="invoke-top-maven"></p>
-<p>指定mvn构建相关操作</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/idm-maven-config.jpg" alt="idm-maven-config"></p>
-<h3 id="执行构建"><a href="#执行构建" class="headerlink" title="执行构建"></a>执行构建</h3><p>首页 &gt;&gt; 新建Item(新建任务)  &gt;&gt; FreeStyle Project</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E6%9F%A5%E7%9C%8BJava%E6%9E%84%E5%BB%BA%E7%BB%93%E6%9E%9C.jpg" alt="查看Java构建结果"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E6%9F%A5%E7%9C%8BJava%E6%9E%84%E5%BB%BA%E7%BB%93%E6%9E%9C%E8%AF%A6%E6%83%85.jpg" alt="查看Java构建结果详情"></p>
-<h2 id="集成SonarQube"><a href="#集成SonarQube" class="headerlink" title="集成SonarQube"></a>集成SonarQube</h2><h3 id="SonarQube简介"><a href="#SonarQube简介" class="headerlink" title="SonarQube简介"></a>SonarQube简介</h3><p>SonarQube是一个开源的代码质量管理系统，用于检测代码中的错误，漏洞和代码规范。它可以现有的Gitlab、Jenkins集成，以便在项目拉取后进行连续的代码检查。</p>
-<p>Sonar的安装分两个步骤：</p>
-<p>　　第一步安装sonarqube server端</p>
-<p>　　第二步，jenkins集成sonarqube-scanner（需要连接sonar服务端）</p>
-<h3 id="SonarQube安装"><a href="#SonarQube安装" class="headerlink" title="SonarQube安装"></a>SonarQube安装</h3><p>SonarQube 7.8 是最后一个支持 MySQL 的版本，最后一个支持 jdk1.8 的版本，也就是说如果要使用 7.9 及以上的版本，SonarQube </p>
-<p>的数据库就不能为 MySQL，并且需要 jdk11，目前公司使用的是jdk1.8的版本 ，所以选择了 SonarQube 7.8，下面是具体的安装步骤。</p>
-<p>注意 SonarQube 7.8 只支持数据库 5.6 以及上 8.0 以下的版本，其他版本的MySQL不支持。</p>
-<h4 id="安装MySQL-5-6"><a href="#安装MySQL-5-6" class="headerlink" title="安装MySQL 5.6"></a>安装MySQL 5.6</h4><h5 id="检查是否已安装-MySQL"><a href="#检查是否已安装-MySQL" class="headerlink" title="检查是否已安装 MySQL"></a>检查是否已安装 MySQL</h5><pre class=" language-bash"><code class="language-bash">rpm -qa <span class="token operator">|</span> <span class="token function">grep</span> mysql
-</code></pre>
-<h5 id="下载mysql安装包"><a href="#下载mysql安装包" class="headerlink" title="下载mysql安装包"></a>下载mysql安装包</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.42-1.sles12.x86_64.rpm-bundle.tar
-</code></pre>
-<h5 id="解压下载文件"><a href="#解压下载文件" class="headerlink" title="解压下载文件"></a>解压下载文件</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">tar</span> -xvf mysql-5.7.42-1.sles12.x86_64.rpm-bundle.tar
-</code></pre>
-<h5 id="安装依赖libatomic1"><a href="#安装依赖libatomic1" class="headerlink" title="安装依赖libatomic1"></a>安装依赖libatomic1</h5><pre class=" language-bash"><code class="language-bash">zypper search libatomic1
-zypper <span class="token keyword">in</span> libatomic1
-</code></pre>
-<h5 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h5><p>安装以下四个即可提供数据库服务。另外四个rpm包非必须安装。安装有依赖关系，必须按如下顺序安装</p>
-<pre class=" language-bash"><code class="language-bash">rpm -ivh mysql-community-common-5.7.42-1.sles12.x86_64.rpm
-rpm -ivh mysql-community-libs-5.7.42-1.sles12.x86_64.rpm
-rpm -ivh mysql-community-client-5.7.42-1.sles12.x86_64.rpm --nodeps
-pm -ivh mysql-community-server-5.7.42-1.sles12.x86_64.rpm
-</code></pre>
-<p><strong>注：ivh中， i-install安装；v-verbose进度条；h-hash哈希校验</strong></p>
-<h5 id="启动MySQL"><a href="#启动MySQL" class="headerlink" title="启动MySQL"></a>启动MySQL</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">service</span> mysql start 
-</code></pre>
-<h5 id="查找临时密码"><a href="#查找临时密码" class="headerlink" title="查找临时密码"></a>查找临时密码</h5><pre><code>cat  /var/log/mysql/mysqld.log
-</code></pre>
-<pre class=" language-bash"><code class="language-bash">2023-05-06T03:24:20.815265Z 1 <span class="token punctuation">[</span>Note<span class="token punctuation">]</span> A temporary password is generated <span class="token keyword">for</span> root@localhost: E<span class="token punctuation">(</span>BX?V<span class="token punctuation">;</span>7t<span class="token operator">&lt;</span>.<span class="token comment" spellcheck="true">#</span>
-</code></pre>
-<h5 id="登录mysql"><a href="#登录mysql" class="headerlink" title="登录mysql"></a>登录mysql</h5><pre class=" language-bash"><code class="language-bash">mysql -uroot -p
-</code></pre>
-<p>输入密码: E(BX?V;7t&lt;.#</p>
-<h5 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h5><pre class=" language-bash"><code class="language-bash">SET PASSWORD <span class="token operator">=</span> PASSWORD<span class="token punctuation">(</span><span class="token string">'Root@123'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<h4 id="SonarQube服务端安装"><a href="#SonarQube服务端安装" class="headerlink" title="SonarQube服务端安装"></a>SonarQube服务端安装</h4><h5 id="下载SonarQube安装包"><a href="#下载SonarQube安装包" class="headerlink" title="下载SonarQube安装包"></a>下载SonarQube安装包</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
-</code></pre>
-<h5 id="解压到-opt"><a href="#解压到-opt" class="headerlink" title="解压到/opt"></a>解压到/opt</h5><pre class=" language-bash"><code class="language-bash">unzip -d /opt sonarqube-7.8.zip
-</code></pre>
-<h5 id="修改数据库配置"><a href="#修改数据库配置" class="headerlink" title="修改数据库配置"></a>修改数据库配置</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">vi</span> /opt/sonarqube-7.8/conf/sonar.properties
-</code></pre>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/sonar-jdbc-config.jpg" alt="sonar-jdbc-config"></p>
-<h5 id="修改系统进程最大打开文件数"><a href="#修改系统进程最大打开文件数" class="headerlink" title="修改系统进程最大打开文件数"></a>修改系统进程最大打开文件数</h5><p>打开<code>vim /etc/security/limits.conf</code>在尾部添加</p>
-<pre class=" language-bash"><code class="language-bash">* soft nofile 65536
-* hard nofile 131072
-* soft nproc 65535
-* hard nproc 65535
-</code></pre>
-<h5 id="修改-vm-max-map-count-的大小"><a href="#修改-vm-max-map-count-的大小" class="headerlink" title="修改 vm.max_map_count 的大小"></a>修改 vm.max_map_count 的大小</h5><p><code>vim /etc/sysctl.conf</code><br>在尾部添加以下内容：</p>
-<pre><code>vm.max_map_count=655360
-</code></pre>
-<p>执行<code>sysctl -p</code>让配置生效</p>
-<h5 id="创建sonar用户"><a href="#创建sonar用户" class="headerlink" title="创建sonar用户"></a>创建sonar用户</h5><p>不能使root用户启动SonarQube，否则无法启动，创建一个sonar普通用户</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 新建用户组</span>
-<span class="token function">groupadd</span> sonar
-<span class="token comment" spellcheck="true"># 新建用户</span>
-<span class="token function">sudo</span> <span class="token function">useradd</span> -m -g sonar sonar
-
-<span class="token function">chown</span> -R sonar:sonar /opt/sonarqube-7.8/
-</code></pre>
-<h5 id="启动SonarQube"><a href="#启动SonarQube" class="headerlink" title="启动SonarQube"></a>启动SonarQube</h5><p>以sonar用户启动服务</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">su</span> sonar -c <span class="token string">"/opt/sonarqube-7.8/bin/linux-x86-64/sonar.sh start"</span>
-</code></pre>
-<blockquote>
-<p>SonarQube默认访问端口号为 9000，开放该端口号，如果是云服务器，那就就请在安全组中放行 9000 端口。<br>firewall-cmd –permanent –add-port=9000/tcp<br>firewall-cmd –reload</p>
-</blockquote>
-<h5 id="访问web控制台"><a href="#访问web控制台" class="headerlink" title="访问web控制台"></a>访问web控制台</h5><p>使用IP+端口进行访问，登录的用户名和密码都是: admin</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/sonar-dashboard.jpg" alt="sonar-dashboard"></p>
-<h4 id="Jenkins整合SonarQube"><a href="#Jenkins整合SonarQube" class="headerlink" title="Jenkins整合SonarQube"></a>Jenkins整合SonarQube</h4><h5 id="Jenkins安装SonarQube-Scanner-for-Jenkins插件"><a href="#Jenkins安装SonarQube-Scanner-for-Jenkins插件" class="headerlink" title="Jenkins安装SonarQube Scanner for Jenkins插件"></a>Jenkins安装SonarQube Scanner for Jenkins插件</h5><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/install-sonarqube-scanner.jpg" alt="install-sonarqube-scanner"></p>
-<h5 id="生成SonarQube令牌"><a href="#生成SonarQube令牌" class="headerlink" title="生成SonarQube令牌"></a>生成SonarQube令牌</h5><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/sonar-token-generate.jpg" alt="sonar-token-generate"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/sonar-token-generate1.jpg" alt="sonar-token-generate1"></p>
-<p>复制并保存token，后续不可见，此处生成的token值为: <code>bc3198df1dcc47416f5bd2e99c7737e1a48b1f3f</code></p>
-<h5 id="配置Jenkins的Sonar-Qube信息"><a href="#配置Jenkins的Sonar-Qube信息" class="headerlink" title="配置Jenkins的Sonar Qube信息"></a>配置Jenkins的Sonar Qube信息</h5><p>Dashboard &gt; Config System</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/jenkins-sonarqube-config.jpg" alt="jenkins-sonarqube-config"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/jenkins-sonarqube-token-create.jpg" alt="jenkins-sonarqube-token-create"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/jenkins-sonarqube-token-generate1.jpg" alt="jenkins-sonarqube-token-generate1"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/jenkins-sonarqube-config1.jpg" alt="jenkins-sonarqube-config1"></p>
-<h4 id="配置Sonar-scanner"><a href="#配置Sonar-scanner" class="headerlink" title="配置Sonar-scanner"></a>配置Sonar-scanner</h4><p>Dashboard &gt; Global Tool Configuration</p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/jenkins-sonarqube-scanner-config.jpg" alt="jenkins-sonarqube-scanner-config"></p>
-<h5 id="配置Jenkins构建任务的Sonar-Scanner"><a href="#配置Jenkins构建任务的Sonar-Scanner" class="headerlink" title="配置Jenkins构建任务的Sonar Scanner"></a>配置Jenkins构建任务的Sonar Scanner</h5><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/projects-sonar-scanner-config.jpg" alt="projects-sonar-scanner-config"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/project-sonar-scanner-config1.jpg" alt="project-sonar-scanner-config1"></p>
-<h5 id="执行构建-1"><a href="#执行构建-1" class="headerlink" title="执行构建"></a>执行构建</h5><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/execute-build.jpg" alt="execute-build"></p>
-<h5 id="查看sonar扫描结果"><a href="#查看sonar扫描结果" class="headerlink" title="查看sonar扫描结果"></a>查看sonar扫描结果</h5><p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/%E6%9F%A5%E7%9C%8Bsonar%E6%89%AB%E6%8F%8F%E7%BB%93%E6%9E%9C.jpg" alt="查看sonar扫描结果"></p>
-<p><img src="/Users/lichengbin/Desktop/jenkins%E4%BD%BF%E7%94%A8/sonar%E6%89%AB%E6%8F%8F%E8%AF%A6%E6%83%85.jpg" alt="sonar扫描详情"></p>
-<h3 id="自动化测试"><a href="#自动化测试" class="headerlink" title="自动化测试"></a>自动化测试</h3><p>jenkins安装过后会默认创建jenkins用户，用来构建maven时遇到报错</p>
-<pre class=" language-text"><code class="language-text">[ERROR] Could not create local repository at /root/.m2/repository -> [Help 1]
-org.apache.maven.repository.LocalRepositoryNotAccessibleException: Could not create local repository at /root/.m2/repository
-</code></pre>
-<p>需要修改jenkins为root权限，修改文件</p>
-<pre class=" language-bash"><code class="language-bash">vim /usr/lib/systemd/system/jenkins.service
-</code></pre>
-<p>修改内容</p>
-<pre class=" language-bash"><code class="language-bash">User<span class="token operator">=</span>root
-Group<span class="token operator">=</span>root
-</code></pre>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xujingyang/p/16863221.html">https://www.cnblogs.com/xujingyang/p/16863221.html</a></p>
 
                 
             </div>
@@ -715,7 +511,7 @@ Group<span class="token operator">=</span>root
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://ilcb.github.io/2023/05/04/docker/jenkins-shi-yong/">http://ilcb.github.io/2023/05/04/docker/jenkins-shi-yong/</a>
+                    <a href="http://ilcb.github.io/2023/04/01/docker/docker-gou-jian-minio/">http://ilcb.github.io/2023/04/01/docker/docker-gou-jian-minio/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -752,7 +548,11 @@ Group<span class="token operator">=</span>root
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -924,13 +724,13 @@ Group<span class="token operator">=</span>root
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/10/docker/an-zhuang-prometheus/">
+                <a href="/2023/04/01/docker/docker-gou-jian-kafka/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Docker 构建 Kafka">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Docker 构建 Kafka</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -941,15 +741,31 @@ Group<span class="token operator">=</span>root
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-01
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            lee.ilcb
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -961,13 +777,13 @@ Group<span class="token operator">=</span>root
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/04/09/docker/docker-gou-jian-nginx/">
+                <a href="/2023/04/01/docker/docker-gou-jian-mongodb/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Docker构建Nginx">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Docker 构建 MongoDB">
                         
-                        <span class="card-title">Docker构建Nginx</span>
+                        <span class="card-title">Docker 构建 MongoDB</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -978,7 +794,7 @@ Group<span class="token operator">=</span>root
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-01
                             </span>
                         <span class="publish-author">
                             
@@ -997,6 +813,10 @@ Group<span class="token operator">=</span>root
                     
                     <a href="/tags/Docker/">
                         <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
                     </a>
                     
                 </div>
