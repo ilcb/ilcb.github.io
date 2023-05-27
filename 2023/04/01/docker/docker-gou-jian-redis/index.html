@@ -483,15 +483,15 @@
 </li>
 </ul>
 <p>本人的配置文件是放在</p>
-<p>redis.conf 文件位置： ~/AppData/redis/conf/redis.conf</p>
-<p>redis 的 data 文件位置 ： ~/AppData/redis/data</p>
+<p>redis.conf 文件位置： <code>/app/redis/conf/redis.conf</code></p>
+<p>redis 的 data 文件位置 ： <code>/app/redis/data</code></p>
 <h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2><pre class=" language-plain"><code class="language-plain">docker run -itd \
            --name redis \
            --restart=always \
            --log-opt max-size=100m --log-opt max-file=2 \
            -p 6379:6379 \
-           -v ~/AppData/redis/conf/redis.conf:/etc/redis/redis.conf \
-           -v ~/AppData/redis/data:/data \
+           -v /app/redis/conf/redis.conf:/etc/redis/redis.conf \
+           -v /app/redis/data:/data \
            -d redis redis-server /etc/redis/redis.conf \
            --appendonly yes
 </code></pre>
@@ -759,13 +759,13 @@ get key
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/04/01/docker/docker-gou-jian-jenkins/">
+                <a href="/2023/04/01/docker/docker-gou-jian-rabbitmq/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Docker构建Jenkins">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Docker 构建 RabbitMQ">
                         
-                        <span class="card-title">Docker构建Jenkins</span>
+                        <span class="card-title">Docker 构建 RabbitMQ</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -812,13 +812,13 @@ get key
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/30/she-ji-mo-shi/xing-wei-xing/zhuang-tai-mo-shi-state/">
+                <a href="/2023/04/01/docker/docker-gou-jian-zookeeper/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="设计模式-状态模式">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Docker 构建 ZooKeeper">
                         
-                        <span class="card-title">设计模式-状态模式</span>
+                        <span class="card-title">Docker 构建 ZooKeeper</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -829,14 +829,14 @@ get key
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
                                 </a>
                             
                             
@@ -846,12 +846,12 @@ get key
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <span class="chip bg-color">设计模式</span>
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B/">
-                        <span class="chip bg-color">行为型</span>
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
                     </a>
                     
                 </div>
@@ -1054,7 +1054,7 @@ get key
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.2k</span>&nbsp;字
             
             
             

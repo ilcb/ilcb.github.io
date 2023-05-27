@@ -485,35 +485,35 @@
 <tbody><tr>
 <td align="left">存储网站网页的目录</td>
 <td align="left">/usr/share/nginx/html</td>
-<td align="left">~/AppData/nginx/html</td>
+<td align="left">/app/nginx/html</td>
 </tr>
 <tr>
 <td align="left">日志目录</td>
 <td align="left">/etc/nginx/nginx.conf</td>
-<td align="left">~/AppData/nginx/conf/</td>
+<td align="left">/app/nginx/conf/</td>
 </tr>
 <tr>
 <td align="left">nginx配置文件目录</td>
 <td align="left">/var/log/nginx</td>
-<td align="left">~/AppData/nginx/logs</td>
+<td align="left">/app/nginx/logs</td>
 </tr>
 <tr>
 <td align="left">证书存放目录</td>
 <td align="left">/etc/nginx/cert/</td>
-<td align="left">~/AppData/nginx/cert</td>
+<td align="left">/app/nginx/cert</td>
 </tr>
 <tr>
 <td align="left">子配置项存放处</td>
 <td align="left">/etc/nginx/conf.d</td>
-<td align="left">~/AppData/nginx/</td>
+<td align="left">/app/nginx/</td>
 </tr>
 </tbody></table>
 <h3 id="4-2-将容器中的文件copy到宿主机中"><a href="#4-2-将容器中的文件copy到宿主机中" class="headerlink" title="4.2 将容器中的文件copy到宿主机中"></a>4.2 将容器中的文件copy到宿主机中</h3><p>将nginx配置文件copy到宿主机中</p>
-<pre><code>docker cp nginx:/etc/nginx/nginx.conf ~/AppData/nginx/conf
-docker cp nginx:/etc/nginx/conf.d ~/AppData/nginx/
-docker cp nginx:/usr/share/nginx/html/ ~/AppData/nginx/html/
-docker cp nginx:/var/log/nginx/ ~/AppData/nginx/logs/
-docker cp nginx:/etc/nginx/cert/ ~/AppData/nginx/cert/
+<pre><code>docker cp nginx:/etc/nginx/nginx.conf /app/nginx/conf
+docker cp nginx:/etc/nginx/conf.d /app/nginx/
+docker cp nginx:/usr/share/nginx/html/ /app/nginx/html/
+docker cp nginx:/var/log/nginx/ /app/nginx/logs/
+docker cp nginx:/etc/nginx/cert/ /app/nginx/cert/
 </code></pre>
 <h2 id="5-停止并移除容器"><a href="#5-停止并移除容器" class="headerlink" title="5.停止并移除容器"></a>5.停止并移除容器</h2><pre class=" language-bash"><code class="language-bash">docker stop nginx
 docker <span class="token function">rm</span> nginx
@@ -523,11 +523,11 @@ docker <span class="token function">rm</span> nginx
            --restart=always \
            -p 80:80 \
            -p 443:443 \
-           -v ~/AppData/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
-           -v ~/AppData/nginx/html/:/usr/share/nginx/html/ \
-           -v ~/AppData/nginx/logs/:/var/log/nginx/ \
-           -v ~/AppData/nginx/conf.d/:/etc/nginx/conf.d \
-           -v ~/AppData/nginx/cert/:/etc/nginx/cert \
+           -v /app/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+           -v /app/nginx/html/:/usr/share/nginx/html/ \
+           -v /app/nginx/logs/:/var/log/nginx/ \
+           -v /app/nginx/conf.d/:/etc/nginx/conf.d \
+           -v /app/nginx/cert/:/etc/nginx/cert \
            --privileged=true \
            nginx
            
@@ -808,13 +808,13 @@ docker <span class="token function">rm</span> nginx
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/04/09/docker/spring-boot-zheng-he-docker/">
+                <a href="/2023/04/01/docker/docker-gou-jian-kafka/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Spring Boot整合Docker">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Docker 构建 Kafka">
                         
-                        <span class="card-title">Spring Boot整合Docker</span>
+                        <span class="card-title">Docker 构建 Kafka</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -825,7 +825,7 @@ docker <span class="token function">rm</span> nginx
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-01
                             </span>
                         <span class="publish-author">
                             
@@ -844,6 +844,10 @@ docker <span class="token function">rm</span> nginx
                     
                     <a href="/tags/Docker/">
                         <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
                     </a>
                     
                 </div>
@@ -1046,7 +1050,7 @@ docker <span class="token function">rm</span> nginx
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.2k</span>&nbsp;字
             
             
             

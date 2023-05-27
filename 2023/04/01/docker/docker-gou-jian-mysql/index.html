@@ -477,27 +477,24 @@
 </code></pre>
 <h2 id="3-挂载配置文件"><a href="#3-挂载配置文件" class="headerlink" title="3.挂载配置文件"></a>3.挂载配置文件</h2><p>将 redis 的配置文件进行挂载，以配置文件方式启动 redis 容器。(挂载：即将宿主的文件和容器内部目录相关联，相互绑定，在宿主机内修改文件的话也随之修改容器内部文件）</p>
 <ul>
-<li><p>挂载 mysql 的配置文件</p>
+<li>挂载 mysql 的配置文件 <pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /app/mysql/conf/
+</code></pre>
 </li>
-<li><p>sudo mkdir ~/AppData/mysql/conf/</p>
+<li>挂载 mysql 的数据库<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /app/mysql/data
+</code></pre>
 </li>
-<li><p>挂载 mysql 的数据库</p>
-</li>
-<li><p>sudo mkdir ~/AppData/mysql/data</p>
-</li>
-<li><p>挂在 mysql 的日志</p>
-</li>
-<li><p>sudo mkdir ~/AppData/mysql/logs</p>
-</li>
+<li>挂在 mysql 的日志<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /app/mysql/logs
+</code></pre>
+<h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2></li>
 </ul>
-<h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2><pre class=" language-plain"><code class="language-plain">docker run -d \
+<pre class=" language-bash"><code class="language-bash">docker run -d \
            -p 3306:3306 \
-           --privileged=true \
-           --restart=unless-stopped \
-           -v ~/AppData/mysql/logs:/var/log/mysql \
-           -v ~/AppData/mysql/data:/var/lib/mysql \
-           -v ~/AppData/mysql/conf:/etc/mysql/conf.d \
-           -e MYSQL_ROOT_PASSWORD=root1234 \
+           --privileged<span class="token operator">=</span>true \
+           --restart<span class="token operator">=</span>unless-stopped \
+           -v /app/mysql/logs:/var/log/mysql \
+           -v /app/mysql/data:/var/lib/mysql \
+           -v /app/mysql/conf:/etc/mysql/conf.d \
+           -e MYSQL_ROOT_PASSWORD<span class="token operator">=</span>root1234 \
            --name mysql mysql
 </code></pre>
 <h3 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h3><blockquote>
@@ -505,9 +502,9 @@
 <p>-p 3306:3306: 将宿主机 3306 端口与容器内 3306 端口进行映射，冒号之前为物理机端口</p>
 <p>–privileged=true</p>
 <p>–restart=unless-stopped: 容器重启策略</p>
-<p>-v ~/AppData/mysql/logs:/var/log/mysql: 将日志文件夹挂载到宿主机（宿主机路径:容器路径</p>
-<p>-v ~/AppData/mysql/data:/var/lib/mysql: 将 mysql 储存文件夹挂载到主机（宿主机路径:容器路径）</p>
-<p>-v ~/AppData/mysql/conf:/etc/mysql/conf.d 将配置文件夹挂载到主机（宿主机路径:容器路径）</p>
+<p>-v /app/mysql/logs:/var/log/mysql: 将日志文件夹挂载到宿主机（宿主机路径:容器路径</p>
+<p>-v /app/mysql/data:/var/lib/mysql: 将 mysql 储存文件夹挂载到主机（宿主机路径:容器路径）</p>
+<p>-v /app/mysql/conf:/etc/mysql/conf.d 将配置文件夹挂载到主机（宿主机路径:容器路径）</p>
 <p>-e MYSQL_ROOT_PASSWORD=root1234: 设置 root 用户密码</p>
 <p> –name mysql: 设置容器名称</p>
 </blockquote>
@@ -1052,7 +1049,7 @@ mysql -h localhost -u root -p
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.2k</span>&nbsp;字
             
             
             

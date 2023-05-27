@@ -480,9 +480,9 @@
            --privileged<span class="token operator">=</span>true \
            --restart<span class="token operator">=</span>always \
            -p 2181:2181 \
-           -v ~/AppData/zookeeper/data:/data \
-           -v ~/AppData/zookeeper/conf:/conf \
-           -v ~/AppData/zookeeper/logs:/datalog \
+           -v /app/zookeeper/data:/data \
+           -v /app/zookeeper/conf:/conf \
+           -v /app/zookeeper/logs:/datalog \
            zookeeper
 </code></pre>
 <p>4.启动 kafka</p>
@@ -789,13 +789,13 @@ First Message!
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/04/09/docker/spring-boot-zheng-he-docker/">
+                <a href="/2023/04/09/docker/docker-gou-jian-nginx/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Spring Boot整合Docker">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Docker构建Nginx">
                         
-                        <span class="card-title">Spring Boot整合Docker</span>
+                        <span class="card-title">Docker构建Nginx</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1080,7 +1080,7 @@ First Message!
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.2k</span>&nbsp;字
             
             
             

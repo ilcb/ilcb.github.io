@@ -1,0 +1,1866 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Docker 构建 MongoDB, ✨ Ilcb&#39;s Blog">
+    <meta name="description" content="Stay hungry, Stay foolish!">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Docker 构建 MongoDB | ✨ Ilcb&#39;s Blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="✨ Ilcb's Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">✨ Ilcb&#39;s Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">✨ Ilcb&#39;s Blog</div>
+        <div class="logo-desc">
+            
+            Stay hungry, Stay foolish!
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Docker 构建 MongoDB</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Docker/" class="post-category">
+                                Docker
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-05-27
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    23 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Docker构建OnlyOffice集群"><a href="#Docker构建OnlyOffice集群" class="headerlink" title="Docker构建OnlyOffice集群"></a>Docker构建OnlyOffice集群</h1><h1 id="1-选型"><a href="#1-选型" class="headerlink" title="1.选型"></a>1.选型</h1><p>因为项目需要，需要在内网的环境下部署一套office的在线编辑软件。综合对比了一下网上的几种主流的解决方案，感觉onlyoffice比较合适。<br>对比如下，摘自<a target="_blank" rel="noopener" href="http://www.dzzoffice.com/">http://www.dzzoffice.com/</a></p>
+<table>
+<thead>
+<tr>
+<th>解决方案</th>
+<th>在线预览</th>
+<th>在线编辑</th>
+<th>本地依赖</th>
+<th>内网使用</th>
+<th>私有化部署</th>
+<th>免费使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onlyoffice</td>
+<td>√</td>
+<td>√</td>
+<td>无</td>
+<td>√</td>
+<td>√</td>
+<td>√ 最大20连接数</td>
+</tr>
+<tr>
+<td>collabora</td>
+<td>√</td>
+<td>√</td>
+<td>无</td>
+<td>√</td>
+<td>√</td>
+<td>√ 最大20连接数</td>
+</tr>
+<tr>
+<td>MS Office Online</td>
+<td>√</td>
+<td>√</td>
+<td>无</td>
+<td>√</td>
+<td>√</td>
+<td>预览免费编辑需购买</td>
+</tr>
+<tr>
+<td>google Doc</td>
+<td>√</td>
+<td>√</td>
+<td>无</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>永中Office</td>
+<td>√</td>
+<td>×</td>
+<td>无</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>pageOffice</td>
+<td>√</td>
+<td>√</td>
+<td>Office软件</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<h2 id="1-1-onlyOffice优点："><a href="#1-1-onlyOffice优点：" class="headerlink" title="1.1 onlyOffice优点："></a>1.1 onlyOffice优点：</h2><ol>
+<li>文档还原度非常高，复杂文档还原度最好。</li>
+<li>安装部署方便，不需要独立服务器，支持docker容器安装，支持windows下部署。</li>
+<li>有社区版可免费使用（限制20连接数），同时提供多种版本可供企业购买使用，价格较便宜，按每服务器收取。</li>
+<li>有详尽开发文档，二次开发方便。</li>
+<li>提供贴牌服务。</li>
+</ol>
+<h2 id="1-2-OnlyOffice项目信息"><a href="#1-2-OnlyOffice项目信息" class="headerlink" title="1.2 OnlyOffice项目信息"></a>1.2 OnlyOffice项目信息</h2><p>onlyofficeAPI文档：<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/editors/basic">https://api.onlyoffice.com/editors/basic</a><br>onlyoffice项目地址：<a target="_blank" rel="noopener" href="https://github.com/ONLYOFFICE/Docker-DocumentServer">https://github.com/ONLYOFFICE/Docker-DocumentServer</a><br>官方示例：<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/basic">https://api.onlyoffice.com/zh/editors/basic</a></p>
+<h1 id="2-依赖环境安装"><a href="#2-依赖环境安装" class="headerlink" title="2 依赖环境安装"></a>2 依赖环境安装</h1><h2 id="2-1-安装Docker"><a href="#2-1-安装Docker" class="headerlink" title="2.1 安装Docker"></a>2.1 安装Docker</h2><h3 id="2-1-1-安装Docker"><a href="#2-1-1-安装Docker" class="headerlink" title="2.1.1 安装Docker"></a>2.1.1 安装Docker</h3><pre class=" language-bash"><code class="language-bash">curl -fsSL https://get.docker.com <span class="token operator">|</span><span class="token function">bash</span> -s docker --mirror Aliyun
+</code></pre>
+<h3 id="2-1-2-检测Docker是否安装成功"><a href="#2-1-2-检测Docker是否安装成功" class="headerlink" title="2.1.2 检测Docker是否安装成功"></a>2.1.2 检测Docker是否安装成功</h3><pre class=" language-bash"><code class="language-bash">docker <span class="token function">ps</span>
+</code></pre>
+<h3 id="2-1-3-设置docker开机启动"><a href="#2-1-3-设置docker开机启动" class="headerlink" title="2.1.3 设置docker开机启动"></a>2.1.3 设置docker开机启动</h3><pre class=" language-bash"><code class="language-bash">systemctl <span class="token function">enable</span> docker.service
+</code></pre>
+<h3 id="2-1-4-设置docker镜像源"><a href="#2-1-4-设置docker镜像源" class="headerlink" title="2.1.4 设置docker镜像源"></a>2.1.4 设置docker镜像源</h3><p>docker镜像从官方dockerHub下载会很慢，可以设置国内镜像源来加速下载</p>
+<p><strong>编辑如下文件:</strong></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">vi</span> /etc/docker/daemon.json
+</code></pre>
+<p><strong>内容为</strong></p>
+<pre class=" language-plain"><code class="language-plain">{
+  "registry-mirrors": ["https://awkamezj.mirror.aliyuncs.com"]
+}
+</code></pre>
+<p>修改完成后重启docker</p>
+<pre class=" language-plain"><code class="language-plain">sudo systemctl daemon-reload
+
+sudo systemctl restart docker
+</code></pre>
+<h2 id="2-2-安装nginx"><a href="#2-2-安装nginx" class="headerlink" title="2.2 安装nginx"></a>2.2 安装nginx</h2><p>nginx在构建集群时需要用来做负载，也可以使用<code>HAProxy</code>来做负载均衡</p>
+<h3 id="2-2-1-docker安装nginx"><a href="#2-2-1-docker安装nginx" class="headerlink" title="2.2.1 docker安装nginx"></a>2.2.1 docker安装nginx</h3><pre class=" language-plain"><code class="language-plain">#1.查询镜像
+docker search nginx
+
+#2.下载镜像
+docker pull nginx
+</code></pre>
+<h3 id="2-2-2-nginx服务配置及启动"><a href="#2-2-2-nginx服务配置及启动" class="headerlink" title="2.2.2 nginx服务配置及启动"></a>2.2.2 nginx服务配置及启动</h3><p>容器中的文件内容是可以被修改的，但是<strong>一旦容器重启，所有写入到容器中的，针对数据文件、配置文件的修改都将丢失</strong>。所以为了保存容器的运行状态，执行结果，我们需要将容器内的一些重要的数据文件、日志文件、配置文件映射到宿主机上。</p>
+<h3 id="2-2-3-启动容器"><a href="#2-2-3-启动容器" class="headerlink" title="2.2.3 启动容器"></a>2.2.3 启动容器</h3><pre class=" language-plain"><code class="language-plain">docker run --name nginx -p 80:80 -d nginx
+</code></pre>
+<h3 id="2-2-4-目录映射"><a href="#2-2-4-目录映射" class="headerlink" title="2.2.4 目录映射"></a>2.2.4 目录映射</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>容器中路径</strong></th>
+<th><strong>宿主机中自定义映射路径</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储网站网页的目录</td>
+<td>/usr/share/nginx/html</td>
+<td>/app/nginx/html</td>
+</tr>
+<tr>
+<td>日志目录</td>
+<td>/etc/nginx/nginx.conf</td>
+<td>/app/nginx/conf/nginx.conf</td>
+</tr>
+<tr>
+<td>nginx配置文件目录</td>
+<td>/var/log/nginx</td>
+<td>/app/nginx/logs</td>
+</tr>
+<tr>
+<td>证书存放目录</td>
+<td>/etc/nginx/cert/</td>
+<td>/app/nginx/cert</td>
+</tr>
+<tr>
+<td>子配置项存放处</td>
+<td>/etc/nginx/conf.d</td>
+<td>/app/nginx/conf.d</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-5-创建挂载目录"><a href="#2-2-5-创建挂载目录" class="headerlink" title="2.2.5 创建挂载目录"></a>2.2.5 创建挂载目录</h3><pre class=" language-plain"><code class="language-plain">mkdir -p /app/nginx/{conf,conf.d,html,logs,cert}
+</code></pre>
+<h3 id="2-2-6-复制配置到宿主机"><a href="#2-2-6-复制配置到宿主机" class="headerlink" title="2.2.6 复制配置到宿主机"></a>2.2.6 复制配置到宿主机</h3><p>将nginx配置文件copy到宿主机中</p>
+<pre class=" language-plain"><code class="language-plain">docker cp nginx:/etc/nginx/nginx.conf /app/nginx/conf
+docker cp nginx:/etc/nginx/conf.d /app/nginx/
+docker cp nginx:/usr/share/nginx/html/ /app/nginx/html/
+docker cp nginx:/var/log/nginx/ /app/nginx/logs/
+docker cp nginx:/etc/nginx/cert/ /app/nginx/cert/
+</code></pre>
+<h3 id="2-2-7-停止并移除容器"><a href="#2-2-7-停止并移除容器" class="headerlink" title="2.2.7 停止并移除容器"></a>2.2.7 停止并移除容器</h3><pre class=" language-plain"><code class="language-plain">docker stop nginx
+docker rm nginx
+</code></pre>
+<h3 id="2-2-8-启动容器"><a href="#2-2-8-启动容器" class="headerlink" title="2.2.8 启动容器"></a>2.2.8 启动容器</h3><pre class=" language-plain"><code class="language-plain">docker run -d \
+           --name nginx \
+           --restart=always \
+           -p 80:80 \
+           -p 443:443 \
+           -v /app/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+           -v /app/nginx/html/:/usr/share/nginx/html/ \
+           -v /app/nginx/logs/:/var/log/nginx/ \
+           -v /app/nginx/conf.d/:/etc/nginx/conf.d \
+           -v /app/nginx/cert/:/etc/nginx/cert \
+           --privileged=true \
+           nginx
+</code></pre>
+<h1 id="3-重制OnlyOffice镜像"><a href="#3-重制OnlyOffice镜像" class="headerlink" title="3.重制OnlyOffice镜像"></a>3.重制OnlyOffice镜像</h1><h2 id="3-1-特殊需求"><a href="#3-1-特殊需求" class="headerlink" title="3.1 特殊需求"></a>3.1 特殊需求</h2><p>目前OnlyOffice官方镜像并不能满足业务需求，考虑对官方镜像进行改造并重新提供适合需求的镜像，的需求目前收集到的如下:</p>
+<p>1.需要适配<code>WOPI</code>协议(官方镜像默认不支持，需要修改镜像配置)</p>
+<p>2.OnlyOffice在线编辑器的logo字样为<code>ONLYOFFICE</code>，需要进行修改</p>
+<h2 id="3-2-docker镜像安装"><a href="#3-2-docker镜像安装" class="headerlink" title="3.2 docker镜像安装"></a>3.2 docker镜像安装</h2><pre class=" language-plain"><code class="language-plain">#1.查找镜像
+docker search onlyoffice/documentserver
+
+#2.下载镜像
+docker pull onlyoffice/documentserver
+</code></pre>
+<h2 id="3-3-重构Docker镜像"><a href="#3-3-重构Docker镜像" class="headerlink" title="3.3 重构Docker镜像"></a>3.3 重构Docker镜像</h2><p>以下为文件目录结构</p>
+<p>├── Dockerfile<br>├── build-image.sh<br>├── header<br>│   ├── dark-logo_s.svg<br>│   ├── header-logo_s.svg<br>│   └── icons.svg<br>└── local.json</p>
+<p>下面是相关文件及配置的一些说明</p>
+<h3 id="3-3-1-Dockerfile"><a href="#3-3-1-Dockerfile" class="headerlink" title="3.3.1 Dockerfile"></a>3.3.1 Dockerfile</h3><pre class=" language-dockerfile"><code class="language-dockerfile">#指定基础镜像
+FROM onlyoffice/documentserver:latest
+
+LABEL maintainer = "xxx@126.com"
+LABEL build_date = "2023-05-25"
+LABEL comments = "1.开启WOPI协议;2.更换编辑器logo"
+
+#镜像操作指令安装vim
+RUN apt-get update
+RUN apt-get install -y vim
+
+#暴露程序端口80
+EXPOSE 80 443
+
+#更换编辑器logo
+COPY ./header /var/www/onlyoffice/documentserver/web-apps/apps/common/main/resources/img/header/
+
+COPY ./local.json /etc/onlyoffice/documentserver/
+
+ENTRYPOINT ["/app/ds/run-document-server.sh"]
+</code></pre>
+<h3 id="3-3-2-local-json"><a href="#3-3-2-local-json" class="headerlink" title="3.3.2 local.json"></a>3.3.2 local.json</h3><p>local.json 文件为OnlyOffice/documentserver的容器配置，来源于容器内的 <code>/etc/onlyoffice/documentserver/local.json</code></p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"services"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"CoAuthoring"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"sql"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"postgres"</span><span class="token punctuation">,</span>
+        <span class="token property">"dbHost"</span><span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+        <span class="token property">"dbPort"</span><span class="token operator">:</span> <span class="token string">"5432"</span><span class="token punctuation">,</span>
+        <span class="token property">"dbName"</span><span class="token operator">:</span> <span class="token string">"onlyoffice"</span><span class="token punctuation">,</span>
+        <span class="token property">"dbUser"</span><span class="token operator">:</span> <span class="token string">"onlyoffice"</span><span class="token punctuation">,</span>
+        <span class="token property">"dbPass"</span><span class="token operator">:</span> <span class="token string">"onlyoffice"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"token"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"enable"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"request"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"inbox"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+            <span class="token property">"outbox"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token property">"browser"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"inbox"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"header"</span><span class="token operator">:</span> <span class="token string">"Authorization"</span><span class="token punctuation">,</span>
+          <span class="token property">"inBody"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"outbox"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"header"</span><span class="token operator">:</span> <span class="token string">"Authorization"</span><span class="token punctuation">,</span>
+          <span class="token property">"inBody"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"secret"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"inbox"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"string"</span><span class="token operator">:</span> <span class="token string">"m0SnCOYxU9SoLOV2zGqKgiq6ARBBxc4i"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"outbox"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"string"</span><span class="token operator">:</span> <span class="token string">"m0SnCOYxU9SoLOV2zGqKgiq6ARBBxc4i"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"session"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"string"</span><span class="token operator">:</span> <span class="token string">"m0SnCOYxU9SoLOV2zGqKgiq6ARBBxc4i"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"rabbitmq"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"amqp://guest:guest@localhost"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"wopi"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"enable"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"ipfilter"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"rules"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"address"</span><span class="token operator">:</span> <span class="token string">"*"</span><span class="token punctuation">,</span>
+            <span class="token property">"allowed"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"useforrequest"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"errorcode"</span><span class="token operator">:</span> <span class="token number">403</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="3-3-2-1-开启WOPI协议"><a href="#3-3-2-1-开启WOPI协议" class="headerlink" title="3.3.2.1 开启WOPI协议"></a>3.3.2.1 开启WOPI协议</h4><p>开启WOPI协议，需要修改local.json，新增如下配置</p>
+<pre><code>&quot;wopi&quot;: &#123;
+    &quot;enable&quot;: true
+  &#125;,
+  &quot;ipfilter&quot;: &#123;
+    &quot;rules&quot;: [
+        &#123;
+            &quot;address&quot;: &quot;*&quot;,
+            &quot;allowed&quot;: true
+        &#125;
+    ],
+    &quot;useforrequest&quot;: true,
+    &quot;errorcode&quot;: 403
+  &#125;
+</code></pre>
+<h3 id="3-3-3-header"><a href="#3-3-3-header" class="headerlink" title="3.3.3 header"></a>3.3.3 header</h3><p>header目录为onlyoffice编辑器样式中logo部分引用的图片，下边有2个文件<code>header-logo_s.svg</code>和<code>header-logo_s.svg</code>，为了实现对logo的自定义，需要修改这2个文件</p>
+<h3 id="3-3-4-build-image-sh"><a href="#3-3-4-build-image-sh" class="headerlink" title="3.3.4 build-image.sh"></a>3.3.4 build-image.sh</h3><p>按照Dockerfile重新构建镜像，镜像名称为<code>exfoide/onlyoffice:7.3.3</code>，其中<code>7.3.3</code>是<code>onlyoffce/documentserver</code>官方镜像的版本，表示<code>exfoide/onlyoffice:7.3.3</code>是基于<code>onlyoffce/documentserver:7.3.3</code>版本构建而成</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#/bin/bash</span>
+docker build --no-cache -f ./Dockerfile -t exfoide/onlyoffice:7.3.3 <span class="token keyword">.</span>
+</code></pre>
+<p>执行<code>build-image.sh</code>脚本后，docker中新创建了容器:</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22370594/1685000007506-2cbfc63a-39a2-4210-89b7-a63b2f4d9d1d.png" alt="image.png"></p>
+<h2 id="3-4-替换logo方法-参考"><a href="#3-4-替换logo方法-参考" class="headerlink" title="3.4 替换logo方法(参考)"></a>3.4 替换logo方法(参考)</h2><h3 id="3-4-1-将容器内的logo图片拷贝到本地"><a href="#3-4-1-将容器内的logo图片拷贝到本地" class="headerlink" title="3.4.1 将容器内的logo图片拷贝到本地"></a>3.4.1 将容器内的logo图片拷贝到本地</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> docker <span class="token function">cp</span> <span class="token punctuation">$(</span>docker <span class="token function">ps</span><span class="token operator">|</span><span class="token function">grep</span> onlyoffice/documentserver <span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'{print <span class="token variable">$1</span>}'</span><span class="token punctuation">)</span>:/var/www/onlyoffice/documentserver/web-apps/apps/common/main/resources/img/header ~/Desktop/header
+</code></pre>
+<h3 id="3-4-2-修改logo图片"><a href="#3-4-2-修改logo图片" class="headerlink" title="3.4.2 修改logo图片"></a>3.4.2 修改logo图片</h3><h3 id="3-4-3-修改完成后将图片信息拷贝到容器"><a href="#3-4-3-修改完成后将图片信息拷贝到容器" class="headerlink" title="3.4.3 修改完成后将图片信息拷贝到容器"></a>3.4.3 修改完成后将图片信息拷贝到容器</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> docker <span class="token function">cp</span> ~/Desktop/header <span class="token punctuation">$(</span>docker <span class="token function">ps</span><span class="token operator">|</span><span class="token function">grep</span> onlyoffice/documentserver <span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'{print <span class="token variable">$1</span>}'</span><span class="token punctuation">)</span>:/var/www/onlyoffice/documentserver/web-apps/apps/common/main/resources/img/
+</code></pre>
+<h1 id="4-OnlyOffice伪集群部署"><a href="#4-OnlyOffice伪集群部署" class="headerlink" title="4.OnlyOffice伪集群部署"></a>4.OnlyOffice伪集群部署</h1><p>本例中准备3台服务器，机器环境如下</p>
+<table>
+<thead>
+<tr>
+<th><strong>服务器</strong></th>
+<th><strong>ip</strong></th>
+<th><strong>部署服务</strong></th>
+<th>端口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>localhost</td>
+<td>127.0.0.1</td>
+<td>OnlyOffice</td>
+<td>8091</td>
+</tr>
+<tr>
+<td>localhost</td>
+<td>127.0.0.1</td>
+<td>OnlyOffice</td>
+<td>8092</td>
+</tr>
+<tr>
+<td>localhost</td>
+<td>127.0.0.1</td>
+<td>OnlyOffice</td>
+<td>8093</td>
+</tr>
+<tr>
+<td>localhost</td>
+<td>127.0.0.1</td>
+<td>nginx</td>
+<td>80</td>
+</tr>
+</tbody></table>
+<h2 id="4-1-安装PostgreSQL"><a href="#4-1-安装PostgreSQL" class="headerlink" title="4.1 安装PostgreSQL"></a>4.1 安装PostgreSQL</h2><h3 id="4-1-1-获取镜像"><a href="#4-1-1-获取镜像" class="headerlink" title="4.1.1 获取镜像"></a>4.1.1 获取镜像</h3><pre class=" language-bash"><code class="language-bash">docker pull postgres
+</code></pre>
+<h3 id="4-1-2-启动容器"><a href="#4-1-2-启动容器" class="headerlink" title="4.1.2 启动容器"></a>4.1.2 启动容器</h3><pre class=" language-bash"><code class="language-bash">docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD<span class="token operator">=</span>123456 --restart<span class="token operator">=</span>always -v /app/postgres/data:/var/lib/postgresql/data -d postgres
+           
+</code></pre>
+<h2 id="4-2-准备PostgreSQL数据库环境"><a href="#4-2-准备PostgreSQL数据库环境" class="headerlink" title="4.2 准备PostgreSQL数据库环境"></a>4.2 准备PostgreSQL数据库环境</h2><p>通过 &lt;&lt;**4.1安装PostgreSQL**&gt;&gt; 已经安装了PostgreSQL数据库，接下来需要初始化OnlyOffice数据库及数据表</p>
+<h3 id="4-2-1-创建数据库"><a href="#4-2-1-创建数据库" class="headerlink" title="4.2.1 创建数据库"></a>4.2.1 创建数据库</h3><pre class=" language-bash"><code class="language-bash">docker <span class="token function">exec</span> -it <span class="token punctuation">$(</span>docker <span class="token function">ps</span><span class="token operator">|</span><span class="token function">grep</span> postgres <span class="token operator">|</span><span class="token function">awk</span> <span class="token string">'{print <span class="token variable">$1</span>}'</span><span class="token punctuation">)</span> <span class="token function">bash</span>
+</code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 连接数据库</span>
+psql -h 127.0.0.1 -U postgres
+
+<span class="token comment" spellcheck="true">#Password for user postgres:</span>
+输入: 123456
+
+<span class="token comment" spellcheck="true">#创建用户</span>
+CREATE USER onlyoffice WITH PASSWORD <span class="token string">'onlyoffice'</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">#创建数据库</span>
+CREATE DATABASE onlyoffice OWNER onlyoffice<span class="token punctuation">;</span>
+</code></pre>
+<h3 id="4-2-2-创建数据表"><a href="#4-2-2-创建数据表" class="headerlink" title="4.2.2 创建数据表"></a>4.2.2 创建数据表</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token string">"public"</span><span class="token punctuation">.</span><span class="token string">"doc_changes"</span> <span class="token punctuation">(</span>
+<span class="token string">"tenant"</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"id"</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"change_id"</span> int4 <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"user_id"</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"user_id_original"</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"user_name"</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"change_data"</span> <span class="token keyword">text</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"change_date"</span> <span class="token keyword">timestamp</span> without time zone <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token string">"tenant"</span><span class="token punctuation">,</span> <span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"change_id"</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">WITH</span> <span class="token punctuation">(</span>OIDS<span class="token operator">=</span><span class="token boolean">FALSE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">-- ----------------------------</span>
+<span class="token comment" spellcheck="true">-- Table structure for task_result</span>
+<span class="token comment" spellcheck="true">-- ----------------------------</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token string">"public"</span><span class="token punctuation">.</span><span class="token string">"task_result"</span> <span class="token punctuation">(</span>
+<span class="token string">"tenant"</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"id"</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"status"</span> int2 <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"status_info"</span> int4 <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"created_at"</span> <span class="token keyword">timestamp</span> without time zone <span class="token keyword">DEFAULT</span> <span class="token function">NOW</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token string">"last_open_date"</span> <span class="token keyword">timestamp</span> without time zone <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"user_index"</span> int4 <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token string">"change_id"</span> int4 <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token string">"callback"</span> <span class="token keyword">text</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"baseurl"</span> <span class="token keyword">text</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"password"</span> <span class="token keyword">text</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token string">"additional"</span> <span class="token keyword">text</span> <span class="token keyword">COLLATE</span> <span class="token string">"default"</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token string">"tenant"</span><span class="token punctuation">,</span> <span class="token string">"id"</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">WITH</span> <span class="token punctuation">(</span>OIDS<span class="token operator">=</span><span class="token boolean">FALSE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">CREATE</span> <span class="token operator">OR</span> REPLACE <span class="token keyword">FUNCTION</span> merge_db<span class="token punctuation">(</span>_tenant <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">,</span> _id <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">,</span> _status int2<span class="token punctuation">,</span> _status_info int4<span class="token punctuation">,</span> _last_open_date <span class="token keyword">timestamp</span> without time zone<span class="token punctuation">,</span> _user_index int4<span class="token punctuation">,</span> _change_id int4<span class="token punctuation">,</span> _callback <span class="token keyword">text</span><span class="token punctuation">,</span> _baseurl <span class="token keyword">text</span><span class="token punctuation">,</span> <span class="token keyword">OUT</span> isupdate char<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">OUT</span> userindex int4<span class="token punctuation">)</span> <span class="token keyword">AS</span>
+$$
+<span class="token keyword">DECLARE</span>
+    t_var <span class="token string">"public"</span><span class="token punctuation">.</span><span class="token string">"task_result"</span><span class="token punctuation">.</span><span class="token string">"user_index"</span><span class="token operator">%</span><span class="token keyword">TYPE</span><span class="token punctuation">;</span>
+<span class="token keyword">BEGIN</span>
+    LOOP
+        <span class="token comment" spellcheck="true">-- first try to update the key</span>
+        <span class="token comment" spellcheck="true">-- note that "a" must be unique</span>
+        <span class="token keyword">IF</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>_callback <span class="token operator">&lt;></span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token operator">IS</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span> <span class="token operator">AND</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>_baseurl <span class="token operator">&lt;></span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token operator">IS</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span> <span class="token keyword">THEN</span>
+            <span class="token keyword">UPDATE</span> <span class="token string">"public"</span><span class="token punctuation">.</span><span class="token string">"task_result"</span> <span class="token keyword">SET</span> last_open_date<span class="token operator">=</span>_last_open_date<span class="token punctuation">,</span> user_index<span class="token operator">=</span>user_index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>callback<span class="token operator">=</span>_callback<span class="token punctuation">,</span>baseurl<span class="token operator">=</span>_baseurl <span class="token keyword">WHERE</span> tenant <span class="token operator">=</span> _tenant <span class="token operator">AND</span> id <span class="token operator">=</span> _id RETURNING user_index <span class="token keyword">into</span> userindex<span class="token punctuation">;</span>
+        <span class="token keyword">ELSE</span>
+            <span class="token keyword">UPDATE</span> <span class="token string">"public"</span><span class="token punctuation">.</span><span class="token string">"task_result"</span> <span class="token keyword">SET</span> last_open_date<span class="token operator">=</span>_last_open_date<span class="token punctuation">,</span> user_index<span class="token operator">=</span>user_index<span class="token operator">+</span><span class="token number">1</span> <span class="token keyword">WHERE</span> tenant <span class="token operator">=</span> _tenant <span class="token operator">AND</span> id <span class="token operator">=</span> _id RETURNING user_index <span class="token keyword">into</span> userindex<span class="token punctuation">;</span>
+        <span class="token keyword">END</span> <span class="token keyword">IF</span><span class="token punctuation">;</span>
+        <span class="token keyword">IF</span> found <span class="token keyword">THEN</span>
+            isupdate :<span class="token operator">=</span> <span class="token string">'true'</span><span class="token punctuation">;</span>
+            <span class="token keyword">RETURN</span><span class="token punctuation">;</span>
+        <span class="token keyword">END</span> <span class="token keyword">IF</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">-- not there, so try to insert the key</span>
+        <span class="token comment" spellcheck="true">-- if someone else inserts the same key concurrently,</span>
+        <span class="token comment" spellcheck="true">-- we could get a unique-key failure</span>
+        <span class="token keyword">BEGIN</span>
+            <span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token string">"public"</span><span class="token punctuation">.</span><span class="token string">"task_result"</span><span class="token punctuation">(</span>tenant<span class="token punctuation">,</span> id<span class="token punctuation">,</span> <span class="token keyword">status</span><span class="token punctuation">,</span> status_info<span class="token punctuation">,</span> last_open_date<span class="token punctuation">,</span> user_index<span class="token punctuation">,</span> change_id<span class="token punctuation">,</span> callback<span class="token punctuation">,</span> baseurl<span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span>_tenant<span class="token punctuation">,</span> _id<span class="token punctuation">,</span> _status<span class="token punctuation">,</span> _status_info<span class="token punctuation">,</span> _last_open_date<span class="token punctuation">,</span> _user_index<span class="token punctuation">,</span> _change_id<span class="token punctuation">,</span> _callback<span class="token punctuation">,</span> _baseurl<span class="token punctuation">)</span> RETURNING user_index <span class="token keyword">into</span> userindex<span class="token punctuation">;</span>
+            isupdate :<span class="token operator">=</span> <span class="token string">'false'</span><span class="token punctuation">;</span>
+            <span class="token keyword">RETURN</span><span class="token punctuation">;</span>
+        EXCEPTION <span class="token keyword">WHEN</span> unique_violation <span class="token keyword">THEN</span>
+            <span class="token comment" spellcheck="true">-- do nothing, and loop to try the UPDATE again</span>
+        <span class="token keyword">END</span><span class="token punctuation">;</span>
+    <span class="token keyword">END</span> LOOP<span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+$$
+LANGUAGE plpgsql<span class="token punctuation">;</span>
+</code></pre>
+<h2 id="4-3-Docker-compose启动集群"><a href="#4-3-Docker-compose启动集群" class="headerlink" title="4.3 Docker-compose启动集群"></a>4.3 Docker-compose启动集群</h2><h3 id="4-3-1-安装Docker-compose"><a href="#4-3-1-安装Docker-compose" class="headerlink" title="4.3.1 安装Docker-compose"></a>4.3.1 安装Docker-compose</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#从Docker官方网站下载Docker Compose最新版本的二进制文件</span>
+<span class="token function">sudo</span> curl -L <span class="token string">"https://github.com/docker/compose/releases/latest/download/docker-compose-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -s<span class="token variable">)</span></span>-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -m<span class="token variable">)</span></span>"</span> -o /usr/bin/docker-compose
+
+<span class="token comment" spellcheck="true">#授予Docker Compose二进制文件执行权限</span>
+<span class="token function">sudo</span> <span class="token function">chmod</span> +x /usr/bin/docker-compose 
+</code></pre>
+<h3 id="4-3-2-Docker-Compose配置"><a href="#4-3-2-Docker-Compose配置" class="headerlink" title="4.3.2 Docker-Compose配置"></a>4.3.2 Docker-Compose配置</h3><p>以下为文件目录结构<br>├── .env<br>├── delete-container.sh<br>├── docker-compose.yml<br>└── start.sh<br>下面是相关文件及配置的一些说明</p>
+<h4 id="4-3-2-1-env"><a href="#4-3-2-1-env" class="headerlink" title="4.3.2.1 .env"></a>4.3.2.1 .env</h4><p>指定docker-compose文件中的环境变量</p>
+<pre class=" language-.env"><code class="language-.env">#指定数据库
+DB_TYPE=postgres
+
+#数据库ip
+DB_HOST=127.0.0.1
+
+JWT_ENABLED=false
+
+#onlyoffice容器挂载到本地的目录
+MAPPING_LOCAL_DIR=/app/onlyoffice
+</code></pre>
+<h4 id="4-3-2-2-docker-compose-yml"><a href="#4-3-2-2-docker-compose-yml" class="headerlink" title="4.3.2.2 docker-compose.yml"></a>4.3.2.2 docker-compose.yml</h4><p>指定启动3个onlyoffice实例:onlyoffice-8091、onlyoffice-8092、onlyoffice-8093</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">version: '3'
+services:
+  onlyoffice-8091:
+    build:
+      context: .
+      dockerfile: ../docker-build/Dockerfile
+    image: exfoide/onlyoffice:7.3.3
+    container_name: onlyoffice-8091
+    environment:
+      - DB_TYPE
+      - DB_HOST
+      - DB_PORT=5432
+      - DB_NAME=onlyoffice
+      - DB_USER=onlyoffice
+      # Uncomment strings below to enable the JSON Web Token validation.
+      - JWT_ENABLED
+      #- JWT_SECRET=secret
+      #- JWT_HEADER=Authorization
+      #- JWT_IN_BODY=true
+    ports:
+      - '8091:80'
+    stdin_open: true
+    restart: always
+    stop_grace_period: 60s
+    volumes:
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/logs:/var/log/onlyoffice
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/data:/var/www/onlyoffice/Data
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/lib:/var/lib/onlyoffice
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/db:/var/lib/postgresql
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/cache/files:/var/lib/onlyoffice/documentserver/App_Data/cache/files
+      - /usr/share/fonts
+    privileged: true
+
+  onlyoffice-8092:
+    build:
+      context: .
+      dockerfile: ../docker-build/Dockerfile
+    image: exfoide/onlyoffice:7.3.3
+    container_name: onlyoffice-8092
+    environment:
+      - DB_TYPE
+      - DB_HOST
+      - DB_PORT=5432
+      - DB_NAME=onlyoffice
+      - DB_USER=onlyoffice
+      # Uncomment strings below to enable the JSON Web Token validation.
+      - JWT_ENABLED
+      #- JWT_SECRET=secret
+      #- JWT_HEADER=Authorization
+      #- JWT_IN_BODY=true
+    ports:
+      - '8092:80'
+    stdin_open: true
+    restart: always
+    stop_grace_period: 60s
+    volumes:
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/logs:/var/log/onlyoffice
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/data:/var/www/onlyoffice/Data
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/lib:/var/lib/onlyoffice
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/db:/var/lib/postgresql
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/cache/files:/var/lib/onlyoffice/documentserver/App_Data/cache/files
+      - /usr/share/fonts
+    privileged: true
+
+  onlyoffice-8093:
+    build:
+      context: .
+      dockerfile: ../docker-build/Dockerfile
+    image: exfoide/onlyoffice:7.3.3
+    container_name: onlyoffice-8093
+    environment:
+      - DB_TYPE
+      - DB_HOST
+      - DB_PORT=5432
+      - DB_NAME=onlyoffice
+      - DB_USER=onlyoffice
+      # Uncomment strings below to enable the JSON Web Token validation.
+      - JWT_ENABLED
+      #- JWT_SECRET=secret
+      #- JWT_HEADER=Authorization
+      #- JWT_IN_BODY=true
+    ports:
+      - '8093:80'
+    stdin_open: true
+    restart: always
+    stop_grace_period: 60s
+    volumes:
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/logs:/var/log/onlyoffice
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/data:/var/www/onlyoffice/Data
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/lib:/var/lib/onlyoffice
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/db:/var/lib/postgresql
+      - ${MAPPING_LOCAL_DIR}/DocumentServer/cache/files:/var/lib/onlyoffice/documentserver/App_Data/cache/files
+      - /usr/share/fonts
+    privileged: true
+</code></pre>
+<h4 id="4-3-2-3-start-sh"><a href="#4-3-2-3-start-sh" class="headerlink" title="4.3.2.3 start.sh"></a>4.3.2.3 start.sh</h4><p>通过docker-compose启动集群容器</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#/bin/bash</span>
+docker-compose down  --remove-orphans
+docker-compose -p onlyoffice -f ./docker-compose.yml up -d
+</code></pre>
+<h4 id="4-3-2-4-delete-container-sh"><a href="#4-3-2-4-delete-container-sh" class="headerlink" title="4.3.2.4 delete-container.sh"></a>4.3.2.4 delete-container.sh</h4><p>通过docker-compose停止并删除集群容器</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#/bin/bash</span>
+docker-compose -p onlyoffice down --remove-orphans
+</code></pre>
+<h3 id="4-3-3-启动集群"><a href="#4-3-3-启动集群" class="headerlink" title="4.3.3 启动集群"></a>4.3.3 启动集群</h3><p>执行start.sh 启动3个OnlyOffice实例</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22370594/1685002964009-e822b725-6ff3-48fe-b5be-7ad0d179d1c5.png" alt="image.png"></p>
+<h2 id="4-4-部署ngnix"><a href="#4-4-部署ngnix" class="headerlink" title="4.4 部署ngnix"></a>4.4 部署ngnix</h2><p>参照本文目录 &lt;&lt;**1.2 安装nginx**&gt;&gt;</p>
+<h3 id="4-4-1-配置负载配置"><a href="#4-4-1-配置负载配置" class="headerlink" title="4.4.1 配置负载配置"></a>4.4.1 配置负载配置</h3><p>配置nginx负载</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /app/nginx/conf.d
+<span class="token function">touch</span> office.conf
+<span class="token function">vi</span> office.conf
+</code></pre>
+<p>文件内容</p>
+<pre class=" language-plain"><code class="language-plain">upstream office {
+  hash $remote_addr consistent;
+  server 127.0.0.1:8091;
+  server 127.0.0.1:8092;
+  server 127.0.0.1:8093;
+}
+
+server {
+    listen       80;
+    listen  [::]:80;
+    server_name  localhost;
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        proxy_pass http://office;
+
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Nginx-Proxy true;
+
+        # WebSocker配置
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # 显示具体负载的机器的ip,X-Route-Ip随便命名
+        add_header X-Route-Ip $upstream_addr;
+        add_header X-Route-Status $upstream_status;
+    }
+}
+</code></pre>
+<h1 id="5-OnlyOffice集成WOPI协议"><a href="#5-OnlyOffice集成WOPI协议" class="headerlink" title="5.OnlyOffice集成WOPI协议"></a>5.OnlyOffice集成WOPI协议</h1><p>官方文档: <a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/">https://api.onlyoffice.com/zh/editors/wopi/</a></p>
+<h2 id="5-1-WOPI协议集成"><a href="#5-1-WOPI协议集成" class="headerlink" title="5.1 WOPI协议集成"></a>5.1 WOPI协议集成</h2><p>通过&lt;&lt;**4.OnlyOffice伪集群部署**&gt;&gt;我们已经部署了3个OnlyOffice实例的集群，并且已经开启了WOPI协议</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22370594/1685154630255-ef36d531-a51f-4720-aa76-c333643f048d.png?x-oss-process=image/resize,w_1500,limit_0" alt="image.png"></p>
+<h2 id="5-2-WOPI协议交互流程"><a href="#5-2-WOPI协议交互流程" class="headerlink" title="5.2 WOPI协议交互流程"></a>5.2 WOPI协议交互流程</h2><p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/22370594/1684546162673-72f1dd88-b451-4b60-821e-5fb1e6a5f0f1.jpeg" alt="img"></p>
+<ol>
+<li>浏览器请求编辑或查看Office文件</li>
+<li>WOPI Host服务返回调用wopi所需的信息，如<a target="_blank" rel="noopener" href="http://127.0.0.1/hosting/wopi/cell/edit?WOPISrc=http://127.0.0.1:8099/api/wopi/files/%E4%BA%A7%E5%93%81%E4%B8%AD%E5%BF%83%E5%91%A8%E6%8A%A520230503.xlsx">http://127.0.0.1/hosting/wopi/cell/edit?WOPISrc=http://127.0.0.1:8099/api/wopi/files/%E4%BA%A7%E5%93%81%E4%B8%AD%E5%BF%83%E5%91%A8%E6%8A%A520230503.xlsx</a>, 其中<a target="_blank" rel="noopener" href="http://127.0.0.1/hosting/wopi/cell/edit">http://127.0.0.1/hosting/wopi/cell/edit</a> 表示需要通过wopi协议对excel类文件做编辑操作,</li>
+</ol>
+<p>WOPISrc=<a target="_blank" rel="noopener" href="http://127.0.0.1:8099/api/wopi/files/%E4%BA%A7%E5%93%81%E4%B8%AD%E5%BF%83%E5%91%A8%E6%8A%A520230503.xlsx">http://127.0.0.1:8099/api/wopi/files/%E4%BA%A7%E5%93%81%E4%B8%AD%E5%BF%83%E5%91%A8%E6%8A%A520230503.xlsx</a> 表示编辑器中需要展示的文件链接</p>
+<ol>
+<li>浏览器请求OnlyOffice文档服务对文件进行操作</li>
+<li>OnlyOffice文档服务请求WOPI Host 服务查询文件信息，调用的WOPI协议接口为:<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi/checkfileinfo">CheckFileInfo</a></li>
+<li>WOPI Host 返回文件名称、大小、是否能修改、是否支持锁等信息</li>
+<li>OnlyOffice文档服务请求WOPI Host 服务查询文件信息，调用的WOPI协议接口为:<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi/getfile">GetFile</a></li>
+<li>WOPI Host 返回二进制格式的完整文件内容</li>
+<li>OnlyOffice文档服务将文件内容转换为 Office Open XML 格式, 返回给 js编辑器, js编辑器渲染Office文档内容</li>
+<li>用户在js编辑器对文档进行编辑等操作，在编辑过程中会调用一些WOPI协议接口，如<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi/lock">Lock</a>, <a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi/unlock">UnLock</a>, <a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi/refreshlock">RefreshLock</a>等</li>
+<li>用户编辑完成，保存文档</li>
+<li>OnlyOffice文档服务请求更新文件内容，调用的WOPI协议接口为:<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi/putfile">PutFile</a></li>
+</ol>
+<h3 id="5-2-1-协议核心理解"><a href="#5-2-1-协议核心理解" class="headerlink" title="5.2.1 协议核心理解"></a>5.2.1 协议核心理解</h3><h4 id="5-2-1-1-认证阶段"><a href="#5-2-1-1-认证阶段" class="headerlink" title="5.2.1.1 认证阶段"></a>5.2.1.1 认证阶段</h4><p>该阶段上面的交互流程图中的step1、2步骤，需要Server事先提供Host页面，用户通过Browser请求Host页面(用户感知到的只有Host页面，而不是Office页面)，Server内部生成两个重要信息：</p>
+<ul>
+<li>文档唯一ID：fileId</li>
+<li>认证信息：access_token、access_token_ttl 然后内部通过调用/hosting/discovery接口，返回一个可以访问Office服务的urlsrc。具体交互时序图如下：</li>
+</ul>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/baf9a4bd5745440ab20833f3681d7769~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp" alt="img"></p>
+<p>为何Browser不能跳过第1、2两步，直接进入Step3通过URL访问Office页面，这样Office客户端根据WOPISrc地址去Server执行file操作？理论上这样交互是可行，但是这么做相当于Server文档对任何外部请求都是可访问的，这对Server方是不能接受的，除非Server方信任并知道Client的地址情况下通过IP白名单机制来限制，但这样导致Server和Client存在耦合关系。</p>
+<p>步骤1、2就是从Server获取文档权限信息，这样保护文件安全。Server在页面初始化时生成access_token，access_token看成是一个认证凭证，代表用户是否有权访问文档：</p>
+<ul>
+<li>生成好的access_token返回给Browser，也就是上图step2返回内容之一</li>
+<li>然后接下来Browser向Client发出的请求带上access_token，即step3发出的请求</li>
+<li>Client收到后在后续和Server交互时，会原样在请求URL参数里带上access_token，这样Server会先校验请求携带的access_token是否合法，如果是说明Office有权限打开文档</li>
+</ul>
+<p>这个过程可以总结为Client和Server通过Browser这个中介来传递access_token。当然access_token值并不是一直有效，WOPI协议规定Server设置access_token_ttl，用来通知Client关于access_token值的有效期，默认是10h，超过这个时间后Client会取消本次会话。</p>
+<p>注意：step3中access_token是怎么传递给Server？如果开始时直接在URL参数里携带，URL在公网传输，就有提前泄漏access_token的风险，也就是说Browser不能主动在URL里写入access_token，但是Client是可以的，因为access_token有效性是由Server决定，Client只管在请求里原样返回并由Server校验。所以WOPI协议的demo建议step3通过POST方法访问Office平台，access_token通过表单提交，这样在https传输协议下access_token传输至少是安全的。</p>
+<h4 id="5-2-1-2-文档打开和编辑保存"><a href="#5-2-1-2-文档打开和编辑保存" class="headerlink" title="5.2.1.2 文档打开和编辑保存"></a>5.2.1.2 文档打开和编辑保存</h4><p>从文档生命周期来看，文档操作包括打开、查看/编辑和保存流程。</p>
+<p>查看和编辑是Office平台能力，打开文档请求Server获取文档内容，编辑文档后关闭页面，通知Server保存文档最新内容。WOPI协议定义了文件操作接口，其中CheckFileInfo、GetFile、PutFile接口实现上述打开和保存文件功能， GetFile、PutFile比较好理解，CheckFileInfo接口功能比较复杂，但是它决定Client端对文档的UI展示行为和后续允许的操作，这是由Server端提供属性信息决定，该接口返回包括：</p>
+<ul>
+<li><p>文件基本信息：比如大小、文件展示名字等，</p>
+</li>
+<li><p>用户权限属性，常见属性包括：</p>
+</li>
+<li><ul>
+<li>UserCanWrite：指示当前请求用户是否有权限更改文件，这决定Client后续是否允许调用PutFile接口</li>
+</ul>
+</li>
+<li><p>ReadOnly：文档是否只读</p>
+</li>
+<li><p>UserCanRename：文档是否允许重命名，为false时Client在UI展示时不会提供重命名按钮</p>
+</li>
+<li><p>指示Client，Server支持哪些功能属性（capabilities properties），列举几个常见属性</p>
+</li>
+<li><ul>
+<li>SupportsGetLock：为true说明Server支持GetLock操作</li>
+</ul>
+</li>
+<li><p>SupportsLocks：为true说明Server端支持Lock、Unlock等操作，Lock相关语义方面会提到</p>
+</li>
+<li><p>SupportsRename：为true说明Server端支持对文档重命名操作</p>
+</li>
+<li><p>SupportsUpdate：为true，说明Server支持更新文档操作 Server通知Client后，Client就可以在Server提供的属性决定后续操作是否允许调用，比如假设Server端通过checkFileInfo接口设置SupportsUpdate为false，那Client端知道Server不支持提供PutFile接口来更新文档，当文档关闭后Client不会把文档更新内容通知Server保存。</p>
+</li>
+</ul>
+<p>这些权限属性和access_token有什么关系？事实上，access_token充当对任何请求来源的认证机制，只有匹配Server端生成的值才是合法的，如果Server校验access_token不合法时，Client发出的任何操作请求被拒绝；而上述权限属性是在请求被认证通过的基础上，用来限制用户在Client端的操作能力。</p>
+<h4 id="5-2-1-3-锁机制"><a href="#5-2-1-3-锁机制" class="headerlink" title="5.2.1.3 锁机制"></a>5.2.1.3 锁机制</h4><p>如果用户有权限编辑文档内容，Server就要关心是否支持对文档的加解锁操作。锁的作用就像一把进入文档编辑的钥匙，只有拿到钥匙的合法用户才能编辑文档。锁机制判断文档是否允许多个用户同时编辑。</p>
+<p>锁信息用锁id（lockId）标识，lockId的生命周期由Client负责控制，Server存储指定文档的lockId，在Client获取文档内容之前开始加锁，调用文档保存接口后解锁：</p>
+<ul>
+<li>加锁操作时Client向Server发出lock请求，lockId放在请求头的X-WOPI-Lock字段中，Server获取该字段值后，判断文档是否被加锁或者校验请求lockId和已有是否匹配，匹配才能允许Client获取文档内容。</li>
+<li>解锁操作时Client向Server发出unlock请求，同样Server检查lockId是否匹配，匹配成功才能释放锁</li>
+</ul>
+<p>为何lockId还需要Server来存储，Server没必要感知到锁的存在？上面提到Server通过SupportsLocks属性通知Client是否支持对文档加解锁，Server虽然不负责lockId的生成，但是具体加解锁判断成功与否的策略由Server控制，举个例子，如果两个用户A、B操作同一个文档，A先加锁拿到lockID，B后续通过unlock请求解锁表示要提前保存文档，并且解锁请求头携带的lockId和A相同，这种情况下Client无法判断是否允许这样操作，Client生成的lockId和具体用户没有任何关联，只有Server有权决定不同用户拿到相同lockId时操作是否允许。</p>
+<h3 id="5-2-2-组成部分"><a href="#5-2-2-组成部分" class="headerlink" title="5.2.2 组成部分"></a>5.2.2 组成部分</h3><p>按照WOPI协议交互流程图所示，整个onlyoffice集成过程中有3个角色，分别是:</p>
+<ul>
+<li>Web Office编辑器: 通过js实现office编辑器，需要在浏览器中展现</li>
+<li>WOPI服务器(Host): 实现<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi">WOIPI REST API</a>的文件管理系统</li>
+<li>WOPI客户端(Client): 理解为提供Office查看和编辑能力的平台，比如前面安装的Onlyoffice</li>
+</ul>
+<h4 id="5-2-2-1-Web-Office编辑器集成"><a href="#5-2-2-1-Web-Office编辑器集成" class="headerlink" title="5.2.2.1 Web Office编辑器集成"></a>5.2.2.1 Web Office编辑器集成</h4><p>Web Office编辑器需要一个前端页面来承载，传送门<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/hostpage">主机页面</a></p>
+<p>其中actionUrl、token、tokenTtl需要传入，actionUrl指定需要Office编辑器执行的操作</p>
+<p>举例如下:</p>
+<p>http:{documentserverIP}/hosting/wopi/:documentType/:mode?WOPISrc=<a target="_blank" rel="noopener" href="http://serverhost/wopi/files/:fileId%EF%BC%9A%E6%A0%B9%E6%8D%AE%E6%8C%87%E5%AE%9A%E6%96%87%E6%A1%A3fileId%EF%BC%8C%E8%BF%94%E5%9B%9E%E7%94%A8%E6%88%B7%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E6%88%96%E8%80%85%E7%BC%96%E8%BE%91%E6%96%87%E6%A1%A3%E7%9A%84HTML%E5%86%85%E5%AE%B9%EF%BC%8C%E6%B8%B2%E6%9F%93%E5%99%A8%E6%9C%80%E7%BB%88%E6%B8%B2%E6%9F%93%E8%AF%A5%E9%A1%B5%E9%9D%A2%EF%BC%8C%E5%9F%9F%E5%90%8D%E5%92%8C%E8%B7%AF%E5%BE%84%E5%B0%B1%E6%98%AF/hosting/discovery%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84urlsrc%EF%BC%8C%E5%85%B6%E4%B8%AD">http://serverHost/wopi/files/:fileId：根据指定文档fileId，返回用户可以查看或者编辑文档的HTML内容，渲染器最终渲染该页面，域名和路径就是/hosting/discovery接口返回的urlsrc，其中</a></p>
+<ul>
+<li>documentserverIP表示部署only office/documentserver服务的地址</li>
+<li>documentType表示文档类型，包括xlsx、docx等</li>
+<li>mode表示查看或者编辑模式，包括show、edit。上图中step3通过该接口访问Office Client服务</li>
+<li>WOPISrc：协议约定的一个URL，需要Server提供，Browser根据该信息通知Client可以对Office文档执行WOPI规定的文档操作</li>
+</ul>
+<h4 id="5-2-2-2-WOPI服务器-Host"><a href="#5-2-2-2-WOPI服务器-Host" class="headerlink" title="5.2.2.2 WOPI服务器(Host):"></a>5.2.2.2 WOPI服务器(Host):</h4><p>实现了<a target="_blank" rel="noopener" href="https://api.onlyoffice.com/zh/editors/wopi/restapi">WOPI Rest Api</a>的后端应用，需要实现对文件的查看、下载、锁定等api接口。</p>
+<h4 id="5-2-2-3-WOPI客户端-Client"><a href="#5-2-2-3-WOPI客户端-Client" class="headerlink" title="5.2.2.3 WOPI客户端(Client)"></a>5.2.2.3 WOPI客户端(Client)</h4><p>理解为提供Office查看和编辑能力的平台，比如前面安装的onlyoffice/documentserver等，之前的步骤中已经安装好了onlyoffice/documentserver，并且开启了wopi协议，Client的所有配置及开发工作已经完成，后续操作中需要确保onlyoffice/documentserver保持运行</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">lee.ilcb</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://ilcb.github.io/2023/05/27/docker/docker-gou-jian-onlyoffice-ji-qun/">http://ilcb.github.io/2023/05/27/docker/docker-gou-jian-onlyoffice-ji-qun/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">lee.ilcb</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2023/05/27/docker/docker-gou-jian-onlyoffice-ji-qun/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Docker 构建 MongoDB">
+                        
+                        <span class="card-title">Docker 构建 MongoDB</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/05/15/docker/minio-an-zhuang-shi-yong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lee.ilcb
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">lee.ilcb</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">109.2k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/ilcb" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:ilcbba@126.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=976765156" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 976765156" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

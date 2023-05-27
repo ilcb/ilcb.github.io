@@ -459,7 +459,7 @@
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h4><pre class=" language-bash"><code class="language-bash">docker search minio/minio
 docker pull minio/minio
 </code></pre>
-<h4 id="挂载数据及配置"><a href="#挂载数据及配置" class="headerlink" title="挂载数据及配置"></a>挂载数据及配置</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p ~/AppData/minio/<span class="token punctuation">{</span>config,data<span class="token punctuation">}</span>
+<h4 id="挂载数据及配置"><a href="#挂载数据及配置" class="headerlink" title="挂载数据及配置"></a>挂载数据及配置</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /app/minio/<span class="token punctuation">{</span>config,data<span class="token punctuation">}</span>
 </code></pre>
 <h4 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h4><pre class=" language-bash"><code class="language-bash">docker run -p 9000:9000 -p 9090:9090 \
      --net<span class="token operator">=</span>host \
@@ -467,8 +467,8 @@ docker pull minio/minio
      -d --restart<span class="token operator">=</span>always \
      -e <span class="token string">"MINIO_ACCESS_KEY=minioadmin"</span> \
      -e <span class="token string">"MINIO_SECRET_KEY=minioadmin"</span> \
-     -v ~/AppData/minio/data:/data \
-     -v ~/AppData/minio/config:/root/.minio \
+     -v /app/minio/data:/data \
+     -v /app/minio/config:/root/.minio \
      minio/minio server \
      /data --console-address <span class="token string">":9090"</span> -address <span class="token string">":9000"</span>
 </code></pre>
@@ -703,18 +703,17 @@ docker pull minio/minio
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/15/docker/minio-an-zhuang-shi-yong/">
+                <a href="/2023/05/27/docker/docker-gou-jian-onlyoffice-ji-qun/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Docker 构建 MongoDB">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Docker 构建 MongoDB</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -724,18 +723,29 @@ docker pull minio/minio
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-15
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-27
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            lee.ilcb
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -746,7 +756,7 @@ docker pull minio/minio
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/10/docker/an-zhuang-onlyoffice/">
+                <a href="/2023/05/10/docker/an-zhuang-prometheus/">
                     <div class="card-image">
                         
                         
@@ -972,7 +982,7 @@ docker pull minio/minio
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.2k</span>&nbsp;字
             
             
             

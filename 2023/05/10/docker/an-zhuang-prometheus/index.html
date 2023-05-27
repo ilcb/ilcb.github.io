@@ -453,27 +453,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="安装Prometheus"><a href="#安装Prometheus" class="headerlink" title="安装Prometheus"></a>安装Prometheus</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>​        普罗米修斯是一个开源系统，Prometheus 收集其指标并将其存储为时间序列数据，即指标信息与记录它的时间戳一起存储，以及称为标签的可选键值对</p>
+                <h1 id="安装Prometheus"><a href="#安装Prometheus" class="headerlink" title="安装Prometheus"></a>安装Prometheus</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>普罗米修斯是一个开源系统，Prometheus 收集其指标并将其存储为时间序列数据，即指标信息与记录它的时间戳一起存储，以及称为标签的可选键值对</p>
 <h2 id="2-什么是指标"><a href="#2-什么是指标" class="headerlink" title="2.什么是指标"></a>2.什么是指标</h2><p>通俗地说，指标是数字度量，时间序列意味着随时间记录更改，用户想要测量的内容因应用程序而异。对于Web服务器，它可能是请求时间，对于数据库，它可能是活动连接数或活动查询数等。</p>
 <p>指标在理解应用程序以某种方式工作的原因方面起着重要作用。假设您正在运行一个 Web 应用程序，发现该应用程序很慢，您将需要一些信息来了解您的应用程序发生了什么。例如，当请求数很高时，应用程序可能会变慢。如果您有请求计数指标，则可以找出原因并增加处理负载的服务器数量。</p>
-<h2 id="3-组件概述"><a href="#3-组件概述" class="headerlink" title="3.组件概述"></a>3.组件概述</h2><h3 id="3-1-Prometheus-Server"><a href="#3-1-Prometheus-Server" class="headerlink" title="3.1 Prometheus Server"></a>3.1 Prometheus Server</h3><p>​        收集和存储时间序列数据，Prometheus Server 是 Prometheus 组件中的核心部分，负责实现对监控数据的获取，存储以及查询。 Prometheus Server 可以通过静态配置管理监控目标，也可以配合使用 Service Discovery 的方式动态管理监控目标，并从这些监控目标中获取数据。其次 Prometheus Server 需要对采集到的监控数据进行存储，Prometheus Server 本身就是一个时序数据库，将采集到的监控数据按照时间序列的方式存储在本地磁盘当中。最后Prometheus Server 对外提供了自定义的 PromQL 语言，实现对数据的查询以及</p>
-<h3 id="3-2-Node-Exporter"><a href="#3-2-Node-Exporter" class="headerlink" title="3.2 Node-Exporter"></a>3.2 Node-Exporter</h3><p>​        用于暴露已有的第三方服务的 metrics 给 Prometheus。Exporter 将监控数据采集的端点通过 HTTP 服务的形式暴露给 Prometheus Server，Prometheus Server 通过访问该 Exporter 提供的 Endpoint 端点，即可获取到需要采集的监控数据。</p>
-<h3 id="3-3-Grafana"><a href="#3-3-Grafana" class="headerlink" title="3.3 Grafana"></a>3.3 Grafana</h3><p>​        第三方展示工具，可以编写 PromQL 查询语句，通过 http 协议与 prometheus 集成</p>
-<h3 id="3-4-AlertManager"><a href="#3-4-AlertManager" class="headerlink" title="3.4 AlertManager"></a>3.4 AlertManager</h3><p>​        从 Prometheus Server 端接收到 alerts 后，会进行去除重复数据，分组，并路由到对方的接受方式，发出报警。常见的接收方式有：电子邮件，钉钉、企业微信，pagerduty等</p>
-<h3 id="3-5-Push-Gateway"><a href="#3-5-Push-Gateway" class="headerlink" title="3.5 Push Gateway"></a>3.5 Push Gateway</h3><p>​        主要用于短期的 jobs。由于这类 jobs 存在时间较短，可能在 Prometheus 来 pull 之前就消失了。为此，这些 jobs 可以直接向 Prometheus server 端推送它们的 metrics。</p>
-<h2 id="4-Prometheus工作流程"><a href="#4-Prometheus工作流程" class="headerlink" title="4. Prometheus工作流程"></a>4. Prometheus工作流程</h2><h3 id="4-1-指标采集"><a href="#4-1-指标采集" class="headerlink" title="4.1 指标采集"></a>4.1 指标采集</h3><p>​        prometheus server 通过 pull 形式采集监控指标，可以直接拉取监控指标，也可以通过 pushgateway 做中间环节，监控目标先 push 形式上报数据到 pushgateway；</p>
-<h3 id="4-2-指标处理"><a href="#4-2-指标处理" class="headerlink" title="4.2 指标处理"></a>4.2 指标处理</h3><p>​        prometheus server 将采集的数据存储在自身 db 或者第三方 db；</p>
-<h3 id="4-3-指标展示"><a href="#4-3-指标展示" class="headerlink" title="4.3 指标展示"></a>4.3 指标展示</h3><p>​        prometheus server 通过提供 http 接口，提供自带或者第三方展示系统；</p>
-<h3 id="4-4-指标告警"><a href="#4-4-指标告警" class="headerlink" title="4.4 指标告警"></a>4.4 指标告警</h3><p>​        prometheus server 通过 push 告警信息到 alert-manager，alert-manager 通过”静默-抑制-整合-下发”4个阶段处理通知到观察者</p>
-<h2 id="5-Prometheus指标分类"><a href="#5-Prometheus指标分类" class="headerlink" title="5. Prometheus指标分类"></a>5. Prometheus指标分类</h2><h3 id="5-1-Counter"><a href="#5-1-Counter" class="headerlink" title="5.1 Counter"></a>5.1 Counter</h3><p>​        计数器类型，只增不减，如机器的启动时间，HTTP 访问量等。机器重启不会置零，在使用这种指标类型时，通常会结合rate()方法获取该指标在某个时间段的变化率。</p>
-<h3 id="5-2-Gauge"><a href="#5-2-Gauge" class="headerlink" title="5.2 Gauge"></a>5.2 Gauge</h3><p>​        仪表盘，可增可减，如CPU使用率，大部分监控数据都是这种类型的。</p>
-<h3 id="5-3-Summary"><a href="#5-3-Summary" class="headerlink" title="5.3 Summary"></a>5.3 Summary</h3><p>​        客户端定义，Summary，Histogram 都属于高级指标，用于凸显数据的分布情况。</p>
+<h2 id="3-组件概述"><a href="#3-组件概述" class="headerlink" title="3.组件概述"></a>3.组件概述</h2><h3 id="3-1-Prometheus-Server"><a href="#3-1-Prometheus-Server" class="headerlink" title="3.1 Prometheus Server"></a>3.1 Prometheus Server</h3><p>收集和存储时间序列数据，Prometheus Server 是 Prometheus 组件中的核心部分，负责实现对监控数据的获取，存储以及查询。 Prometheus Server 可以通过静态配置管理监控目标，也可以配合使用 Service Discovery 的方式动态管理监控目标，并从这些监控目标中获取数据。其次 Prometheus Server 需要对采集到的监控数据进行存储，Prometheus Server 本身就是一个时序数据库，将采集到的监控数据按照时间序列的方式存储在本地磁盘当中。最后Prometheus Server 对外提供了自定义的 PromQL 语言，实现对数据的查询以及</p>
+<h3 id="3-2-Node-Exporter"><a href="#3-2-Node-Exporter" class="headerlink" title="3.2 Node-Exporter"></a>3.2 Node-Exporter</h3><p>用于暴露已有的第三方服务的 metrics 给 Prometheus。Exporter 将监控数据采集的端点通过 HTTP 服务的形式暴露给 Prometheus Server，Prometheus Server 通过访问该 Exporter 提供的 Endpoint 端点，即可获取到需要采集的监控数据。</p>
+<h3 id="3-3-Grafana"><a href="#3-3-Grafana" class="headerlink" title="3.3 Grafana"></a>3.3 Grafana</h3><p>第三方展示工具，可以编写 PromQL 查询语句，通过 http 协议与 prometheus 集成</p>
+<h3 id="3-4-AlertManager"><a href="#3-4-AlertManager" class="headerlink" title="3.4 AlertManager"></a>3.4 AlertManager</h3><p>从 Prometheus Server 端接收到 alerts 后，会进行去除重复数据，分组，并路由到对方的接受方式，发出报警。常见的接收方式有：电子邮件，钉钉、企业微信，pagerduty等</p>
+<h3 id="3-5-Push-Gateway"><a href="#3-5-Push-Gateway" class="headerlink" title="3.5 Push Gateway"></a>3.5 Push Gateway</h3><p>主要用于短期的 jobs。由于这类 jobs 存在时间较短，可能在 Prometheus 来 pull 之前就消失了。为此，这些 jobs 可以直接向 Prometheus server 端推送它们的 metrics。</p>
+<h2 id="4-Prometheus工作流程"><a href="#4-Prometheus工作流程" class="headerlink" title="4. Prometheus工作流程"></a>4. Prometheus工作流程</h2><h3 id="4-1-指标采集"><a href="#4-1-指标采集" class="headerlink" title="4.1 指标采集"></a>4.1 指标采集</h3><p>prometheus server 通过 pull 形式采集监控指标，可以直接拉取监控指标，也可以通过 pushgateway 做中间环节，监控目标先 push 形式上报数据到 pushgateway；</p>
+<h3 id="4-2-指标处理"><a href="#4-2-指标处理" class="headerlink" title="4.2 指标处理"></a>4.2 指标处理</h3><p>prometheus server 将采集的数据存储在自身 db 或者第三方 db；</p>
+<h3 id="4-3-指标展示"><a href="#4-3-指标展示" class="headerlink" title="4.3 指标展示"></a>4.3 指标展示</h3><p>prometheus server 通过提供 http 接口，提供自带或者第三方展示系统；</p>
+<h3 id="4-4-指标告警"><a href="#4-4-指标告警" class="headerlink" title="4.4 指标告警"></a>4.4 指标告警</h3><p>prometheus server 通过 push 告警信息到 alert-manager，alert-manager 通过”静默-抑制-整合-下发”4个阶段处理通知到观察者</p>
+<h2 id="5-Prometheus指标分类"><a href="#5-Prometheus指标分类" class="headerlink" title="5. Prometheus指标分类"></a>5. Prometheus指标分类</h2><h3 id="5-1-Counter"><a href="#5-1-Counter" class="headerlink" title="5.1 Counter"></a>5.1 Counter</h3><p>计数器类型，只增不减，如机器的启动时间，HTTP 访问量等。机器重启不会置零，在使用这种指标类型时，通常会结合rate()方法获取该指标在某个时间段的变化率。</p>
+<h3 id="5-2-Gauge"><a href="#5-2-Gauge" class="headerlink" title="5.2 Gauge"></a>5.2 Gauge</h3><p>仪表盘，可增可减，如CPU使用率，大部分监控数据都是这种类型的。</p>
+<h3 id="5-3-Summary"><a href="#5-3-Summary" class="headerlink" title="5.3 Summary"></a>5.3 Summary</h3><p>客户端定义，Summary，Histogram 都属于高级指标，用于凸显数据的分布情况。</p>
 <h2 id="6-安装prometheus"><a href="#6-安装prometheus" class="headerlink" title="6. 安装prometheus"></a>6. 安装prometheus</h2><h3 id="6-1-获取镜像"><a href="#6-1-获取镜像" class="headerlink" title="6.1 获取镜像"></a>6.1 获取镜像</h3><pre class=" language-bash"><code class="language-bash">docker search prometheus
 docker pull bitnami/prometheus
 </code></pre>
-<h3 id="6-2-创建持久化路径"><a href="#6-2-创建持久化路径" class="headerlink" title="6.2 创建持久化路径"></a>6.2 创建持久化路径</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p ~/AppData/prometheus/<span class="token punctuation">{</span>config,data,rules<span class="token punctuation">}</span>
+<h3 id="6-2-创建持久化路径"><a href="#6-2-创建持久化路径" class="headerlink" title="6.2 创建持久化路径"></a>6.2 创建持久化路径</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /app/prometheus/<span class="token punctuation">{</span>config,data,rules<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="6-3-写主配置文件"><a href="#6-3-写主配置文件" class="headerlink" title="6.3 写主配置文件"></a>6.3 写主配置文件</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> ~/AppData/prometheus/config
+<h3 id="6-3-写主配置文件"><a href="#6-3-写主配置文件" class="headerlink" title="6.3 写主配置文件"></a>6.3 写主配置文件</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /app/prometheus/config
 <span class="token function">touch</span> prometheus.yml
 <span class="token function">vi</span> prometheus.yml
 </code></pre>
@@ -514,7 +514,7 @@ scrape_configs:
         labels:
           instance: localhost
 </code></pre>
-<h3 id="6-4-创建rule告警阈值"><a href="#6-4-创建rule告警阈值" class="headerlink" title="6.4 创建rule告警阈值"></a>6.4 创建rule告警阈值</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> ~/AppData/prometheus/rules
+<h3 id="6-4-创建rule告警阈值"><a href="#6-4-创建rule告警阈值" class="headerlink" title="6.4 创建rule告警阈值"></a>6.4 创建rule告警阈值</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /app/prometheus/rules
 <span class="token function">touch</span> rule.yml
 <span class="token function">vi</span> rule.yml
 </code></pre>
@@ -533,16 +533,16 @@ scrape_configs:
 <span class="token comment" spellcheck="true">## 注意==0为报警条件，当有服务宕机测会告警，如果测试需改为1</span>
 注：- alert: HostDown这个数据本机基本数据类，如果要监控其他的可以设置例外的名字
 </code></pre>
-<h3 id="6-5-运行容器"><a href="#6-5-运行容器" class="headerlink" title="6.5 运行容器"></a>6.5 运行容器</h3><p>将对应的rules 文件上传到 ~/AppData//prometheus/rules下</p>
+<h3 id="6-5-运行容器"><a href="#6-5-运行容器" class="headerlink" title="6.5 运行容器"></a>6.5 运行容器</h3><p>将对应的rules 文件上传到 /app//prometheus/rules下</p>
 <pre class=" language-bash"><code class="language-bash">docker run -d \
            -u root \
            --restart<span class="token operator">=</span>always \
            --name prometheus \
            -p 9090:9090 \
            -v /etc/localtime:/etc/localtime \
-           -v ~/AppData/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml \
-           -v ~/AppData/prometheus/data:/prometheus \
-           -v ~/AppData/prometheus/rules:/usr/local/prometheus/rules \
+           -v /app/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml \
+           -v /app/prometheus/data:/prometheus \
+           -v /app/prometheus/rules:/usr/local/prometheus/rules \
            bitnami/prometheus \
            --storage.tsdb.retention.time<span class="token operator">=</span>100d \
            --config.file<span class="token operator">=</span>/etc/prometheus/prometheus.yml
@@ -572,10 +572,10 @@ docker pull prom/node-exporter
 <h2 id="8-安装alertmanager"><a href="#8-安装alertmanager" class="headerlink" title="8. 安装alertmanager"></a>8. 安装alertmanager</h2><h3 id="8-1-获取镜像"><a href="#8-1-获取镜像" class="headerlink" title="8.1 获取镜像"></a>8.1 获取镜像</h3><pre class=" language-bash"><code class="language-bash">docker search alertmanager
 docker pull prom/alertmanager
 </code></pre>
-<h3 id="8-2-创建持久化目录"><a href="#8-2-创建持久化目录" class="headerlink" title="8.2 创建持久化目录"></a>8.2 创建持久化目录</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p ~/AppData/prometheus/alertmanager/<span class="token punctuation">{</span>config,template<span class="token punctuation">}</span>
-<span class="token function">chmod</span> -R 777 ~/AppData/prometheus/alertmanager
+<h3 id="8-2-创建持久化目录"><a href="#8-2-创建持久化目录" class="headerlink" title="8.2 创建持久化目录"></a>8.2 创建持久化目录</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /app/prometheus/alertmanager/<span class="token punctuation">{</span>config,template<span class="token punctuation">}</span>
+<span class="token function">chmod</span> -R 777 /app/prometheus/alertmanager
 </code></pre>
-<h3 id="8-2-告警邮件配置"><a href="#8-2-告警邮件配置" class="headerlink" title="8.2 告警邮件配置"></a>8.2 告警邮件配置</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> ~/AppData/prometheus/alertmanager/config
+<h3 id="8-2-告警邮件配置"><a href="#8-2-告警邮件配置" class="headerlink" title="8.2 告警邮件配置"></a>8.2 告警邮件配置</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /app/prometheus/alertmanager/config
 <span class="token function">touch</span> <span class="token function">vi</span> alertmanager.yml
 <span class="token function">vi</span> alertmanager.yml
 </code></pre>
@@ -613,7 +613,7 @@ receivers:
 <p>接收人（receivers）：接收人是一个抽象的概念，它可以是一个邮箱也可以是微信，Slack或者Webhook等，接收人一般配合告警路由使用；</p>
 <p>抑制规则（inhibit_rules）：合理设置抑制规则可以减少垃圾告警的产生</p>
 </blockquote>
-<h3 id="8-3-准备预警内容模板文件"><a href="#8-3-准备预警内容模板文件" class="headerlink" title="8.3 准备预警内容模板文件"></a>8.3 准备预警内容模板文件</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> ~/AppData/prometheus/alertmanager/template
+<h3 id="8-3-准备预警内容模板文件"><a href="#8-3-准备预警内容模板文件" class="headerlink" title="8.3 准备预警内容模板文件"></a>8.3 准备预警内容模板文件</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /app/prometheus/alertmanager/template
 <span class="token function">touch</span> email.tmpl
 <span class="token function">vi</span> email.tmpl
 </code></pre>
@@ -641,21 +641,21 @@ receivers:
 <h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><pre class=" language-bash"><code class="language-bash">docker run -d --name<span class="token operator">=</span>alertmanager \
     -p 9093:9093 \
     -v /etc/localtime:/etc/localtime:ro \
-    -v ~/AppData/prometheus/alertmanager/config/alertmanager.yml:/etc/alertmanager/alertmanager.yml \
-    -v ~/AppData/prometheus/alertmanager/template:/etc/alertmanager/template \
+    -v /app/prometheus/alertmanager/config/alertmanager.yml:/etc/alertmanager/alertmanager.yml \
+    -v /app/prometheus/alertmanager/template:/etc/alertmanager/template \
     prom/alertmanager
 </code></pre>
 <h3 id="8-4-查看并等待告警"><a href="#8-4-查看并等待告警" class="headerlink" title="8.4 查看并等待告警"></a>8.4 查看并等待告警</h3><p><a target="_blank" rel="noopener" href="http://localhost:9093/">http://localhost:9093</a></p>
 <h2 id="9-安装grafana"><a href="#9-安装grafana" class="headerlink" title="9. 安装grafana"></a>9. 安装grafana</h2><h3 id="9-1-获取镜像"><a href="#9-1-获取镜像" class="headerlink" title="9.1 获取镜像"></a>9.1 获取镜像</h3><pre class=" language-bash"><code class="language-bash">docker search grafana
 docker pull grafana/grafana
 </code></pre>
-<h3 id="9-1-创建持久化目录"><a href="#9-1-创建持久化目录" class="headerlink" title="9.1 创建持久化目录"></a>9.1 创建持久化目录</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p ~/AppData/prometheus/grafana/<span class="token punctuation">{</span>data,plugins,config<span class="token punctuation">}</span>
-<span class="token function">chmod</span> 777 -R ~/AppData/prometheus/grafana
+<h3 id="9-1-创建持久化目录"><a href="#9-1-创建持久化目录" class="headerlink" title="9.1 创建持久化目录"></a>9.1 创建持久化目录</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p /app/prometheus/grafana/<span class="token punctuation">{</span>data,plugins,config<span class="token punctuation">}</span>
+<span class="token function">chmod</span> 777 -R /app/prometheus/grafana
 </code></pre>
 <h3 id="9-2-启动容器"><a href="#9-2-启动容器" class="headerlink" title="9.2 启动容器"></a>9.2 启动容器</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 先临时启动一个容器</span>
 docker run --name grafana-tmp -d -p 3000:3000 grafana/grafana
 <span class="token comment" spellcheck="true"># 将容器中默认的配置文件拷贝到宿主机上</span>
-docker <span class="token function">cp</span> grafana-tmp:/etc/grafana/grafana.ini ~/AppData/prometheus/grafana/config/grafana.ini
+docker <span class="token function">cp</span> grafana-tmp:/etc/grafana/grafana.ini /app/prometheus/grafana/config/grafana.ini
 <span class="token comment" spellcheck="true"># 移除临时容器</span>
 docker stop grafana-tmp
 docker <span class="token function">rm</span> grafana-tmp
@@ -665,9 +665,9 @@ docker run -d \
            -p 3000:3000 \
            --name<span class="token operator">=</span>grafana \
            -v /etc/localtime:/etc/localtime:ro \
-           -v ~/AppData/prometheus/grafana/data:/var/lib/grafana \
-           -v ~/AppData/prometheus/grafana/plugins/:/var/lib/grafana/plugins \
-           -v ~/AppData/prometheus/grafana/config/grafana.ini:/etc/grafana/grafana.ini \
+           -v /app/prometheus/grafana/data:/var/lib/grafana \
+           -v /app/prometheus/grafana/plugins/:/var/lib/grafana/plugins \
+           -v /app/prometheus/grafana/config/grafana.ini:/etc/grafana/grafana.ini \
            -e <span class="token string">"GF_SECURITY_ADMIN_PASSWORD=admin"</span> \
            -e <span class="token string">"GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-piechart-panel"</span> \
            grafana/grafana
@@ -907,7 +907,7 @@ docker run -d \
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/10/docker/an-zhuang-onlyoffice/">
+                <a href="/2023/05/15/docker/minio-an-zhuang-shi-yong/">
                     <div class="card-image">
                         
                         
@@ -924,7 +924,7 @@ docker run -d \
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-15
                         </span>
                         <span class="publish-author">
                             
@@ -1170,7 +1170,7 @@ docker run -d \
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.2k</span>&nbsp;字
             
             
             
