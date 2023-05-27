@@ -320,8 +320,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 行为型 </tag>
             
         </tags>
@@ -346,8 +344,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 行为型 </tag>
             
@@ -374,8 +370,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 行为型 </tag>
             
         </tags>
@@ -400,8 +394,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 行为型 </tag>
             
@@ -428,8 +420,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 行为型 </tag>
             
         </tags>
@@ -454,8 +444,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 行为型 </tag>
             
@@ -482,8 +470,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 行为型 </tag>
             
         </tags>
@@ -508,8 +494,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 行为型 </tag>
             
@@ -536,8 +520,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 行为型 </tag>
             
         </tags>
@@ -562,8 +544,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 行为型 </tag>
             
@@ -592,8 +572,6 @@
             
             <tag> MySQL </tag>
             
-            <tag> SQL </tag>
-            
         </tags>
       
     </entry>
@@ -616,8 +594,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 行为型 </tag>
             
@@ -644,8 +620,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 结构型 </tag>
             
         </tags>
@@ -670,8 +644,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 结构型 </tag>
             
@@ -698,8 +670,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 结构型 </tag>
             
         </tags>
@@ -724,8 +694,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 结构型 </tag>
             
@@ -752,8 +720,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 结构型 </tag>
             
         </tags>
@@ -778,8 +744,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 结构型 </tag>
             
@@ -806,8 +770,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 结构型 </tag>
             
         </tags>
@@ -832,8 +794,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 创建型 </tag>
             
@@ -860,8 +820,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 创建型 </tag>
             
         </tags>
@@ -886,8 +844,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 创建型 </tag>
             
@@ -914,8 +870,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 创建型 </tag>
             
         </tags>
@@ -941,8 +895,6 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> 创建型 </tag>
             
         </tags>
@@ -967,8 +919,6 @@
       
       
         <tags>
-            
-            <tag> 设计模式 </tag>
             
             <tag> 创建型 </tag>
             
@@ -1015,14 +965,10 @@
           
           <category> Spring </category>
           
-          <category> 事务 </category>
-          
       </categories>
       
       
         <tags>
-            
-            <tag> 事务 </tag>
             
             <tag> Spring </tag>
             
@@ -1044,18 +990,12 @@
           
           <category> 数据库 </category>
           
-          <category> MySQL </category>
-          
       </categories>
       
       
         <tags>
             
             <tag> MySQL </tag>
-            
-            <tag> 事务 </tag>
-            
-            <tag> 数据库 </tag>
             
         </tags>
       
@@ -1082,10 +1022,6 @@
             
             <tag> MySQL </tag>
             
-            <tag> 事务 </tag>
-            
-            <tag> 数据库 </tag>
-            
         </tags>
       
     </entry>
@@ -1110,8 +1046,6 @@
         <tags>
             
             <tag> Java </tag>
-            
-            <tag> 异常 </tag>
             
         </tags>
       
@@ -1138,9 +1072,7 @@
             
             <tag> RabbitMQ </tag>
             
-            <tag> 消息队列 </tag>
-            
-            <tag> 分布式 </tag>
+            <tag> MQ </tag>
             
         </tags>
       
@@ -1167,8 +1099,6 @@
             
             <tag> Java </tag>
             
-            <tag> 并发 </tag>
-            
         </tags>
       
     </entry>
@@ -1191,8 +1121,6 @@
       
       
         <tags>
-            
-            <tag> 算法 </tag>
             
             <tag> 排序 </tag>
             
@@ -1221,8 +1149,6 @@
             
             <tag> Java </tag>
             
-            <tag> 多线程 </tag>
-            
         </tags>
       
     </entry>
@@ -1247,8 +1173,6 @@
         <tags>
             
             <tag> Java </tag>
-            
-            <tag> 并发 </tag>
             
         </tags>
       
@@ -1275,8 +1199,6 @@
             
             <tag> Java </tag>
             
-            <tag> IO </tag>
-            
         </tags>
       
     </entry>
@@ -1302,8 +1224,6 @@
             
             <tag> Java </tag>
             
-            <tag> 并发 </tag>
-            
         </tags>
       
     </entry>
@@ -1322,20 +1242,12 @@
           
           <category> Spring </category>
           
-          <category> SpringMVC </category>
-          
-          <category> MyBatis </category>
-          
       </categories>
       
       
         <tags>
             
             <tag> Spring </tag>
-            
-            <tag> SpringMVC </tag>
-            
-            <tag> MyBatis </tag>
             
         </tags>
       
@@ -1378,9 +1290,7 @@
       
       <categories>
           
-          <category> 缓存 </category>
-          
-          <category> 工具 </category>
+          <category> Redis </category>
           
       </categories>
       
@@ -1388,8 +1298,6 @@
         <tags>
             
             <tag> Redis </tag>
-            
-            <tag> 分布式缓存 </tag>
             
         </tags>
       
@@ -1407,7 +1315,7 @@
       
       <categories>
           
-          <category> AOP </category>
+          <category> Spring </category>
           
       </categories>
       
@@ -1415,8 +1323,6 @@
         <tags>
             
             <tag> Spring </tag>
-            
-            <tag> AOP </tag>
             
         </tags>
       
@@ -1434,7 +1340,7 @@
       
       <categories>
           
-          <category> AOP </category>
+          <category> Spring </category>
           
       </categories>
       
@@ -1442,8 +1348,6 @@
         <tags>
             
             <tag> Spring </tag>
-            
-            <tag> AOP </tag>
             
         </tags>
       
