@@ -431,7 +431,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    568
+                    685
                 </div>
                 
 
@@ -551,20 +551,40 @@
 <p>为了使用方便，建议将这两个目录 映射出来，不然每次修改配置或查看日志都得 docker exec -it进入容器内部！</p>
 <p>本地创建两个相应的目录：</p>
 <p>-p是递归创建子目录。</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p ~/AppData/onlyoffice/DocumentServer/logs
-<span class="token function">mkdir</span> -p ~/AppData/onlyoffice/DocumentServer/logs
+<pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> -p ~/AppData/onlyoffice/DocumentServer/<span class="token punctuation">{</span>logs,data,lib,db,cache/files<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><pre class=" language-bash"><code class="language-bash">docker run -i -t -d -p 8089:80 --restart<span class="token operator">=</span>always \
     --name onlyoffice-document-server \
     -v ~/AppData/onlyoffice/DocumentServer/logs:/var/log/onlyoffice  \
     -v ~/AppData/onlyoffice/DocumentServer/data:/var/www/onlyoffice/Data  \
     -v ~/AppData/onlyoffice/DocumentServer/lib:/var/lib/onlyoffice \
+    -v ~/AppData/onlyoffice/DocumentServer/cache/files:/var/lib/onlyoffice/documentserver/App_Data/cache/files \
     -v ~/AppData/onlyoffice/DocumentServer/db:/var/lib/postgresql \
-    -e JWT_ENABLED<span class="token operator">=</span>false  onlyoffice/documentserver
+    --privileged<span class="token operator">=</span>true \
+    -e JWT_ENABLED<span class="token operator">=</span>false onlyoffice/documentserver
 </code></pre>
 <p>查看效果</p>
-<p>浏览器访问 http://你的服务器IP地址:18088 查看效果。</p>
+<p>浏览器访问 http://你的服务器IP地址:8089 查看效果。</p>
 <p><img src="http://www.bjphper.com/media/202301/image-20221215173536741.png" alt="image-20221215173536741"></p>
+<p>替换logo</p>
+<p>docker ps</p>
+<p>sudo docker cp 190a80ec0e5d:/var/www/onlyoffice/documentserver/web-apps/apps/documenteditor/main/resources/img ~/Desktop/atide工作</p>
+<p>linux需要安装docker</p>
+<p>教程</p>
+<pre class=" language-bash"><code class="language-bash">docker search onlyoffice/documentserver
+docker pull onlyoffice/documentserver
+</code></pre>
+<p>创建挂载目录</p>
+<pre><code>mkdir -p /app/onlyoffice/DocumentServer/&#123;logs,data,lib,db&#125;
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">docker run -itd --restart<span class="token operator">=</span>always \
+    --name onlyoffice-document-server \
+    -v /app/onlyoffice/DocumentServer/logs:/var/log/onlyoffice  \
+    -v /app/onlyoffice/DocumentServer/data:/var/www/onlyoffice/Data  \
+    -v /app/onlyoffice/DocumentServer/lib:/var/lib/onlyoffice \
+    -v /app/onlyoffice/DocumentServer/db:/var/lib/postgresql \
+    -e JWT_ENABLED<span class="token operator">=</span>false onlyoffice/documentserver
+</code></pre>
 
                 
             </div>
@@ -796,12 +816,11 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/10/docker/an-zhuang-onlyoffice/">
+                <a href="/2023/05/15/docker/minio-an-zhuang-shi-yong/">
                     <div class="card-image">
                         
                         
@@ -817,9 +836,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-15
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -828,7 +847,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1065,7 +1083,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105k</span>&nbsp;字
+                class="white-color">105.3k</span>&nbsp;字
             
             
             

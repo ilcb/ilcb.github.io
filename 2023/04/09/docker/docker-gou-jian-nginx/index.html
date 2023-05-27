@@ -444,7 +444,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    379
+                    373
                 </div>
                 
 
@@ -490,7 +490,7 @@
 <tr>
 <td align="left">日志目录</td>
 <td align="left">/etc/nginx/nginx.conf</td>
-<td align="left">~/AppData/nginx/conf/nginx.conf</td>
+<td align="left">~/AppData/nginx/conf/</td>
 </tr>
 <tr>
 <td align="left">nginx配置文件目录</td>
@@ -505,12 +505,12 @@
 <tr>
 <td align="left">子配置项存放处</td>
 <td align="left">/etc/nginx/conf.d</td>
-<td align="left">~/AppData/nginx/conf.d</td>
+<td align="left">~/AppData/nginx/</td>
 </tr>
 </tbody></table>
 <h3 id="4-2-将容器中的文件copy到宿主机中"><a href="#4-2-将容器中的文件copy到宿主机中" class="headerlink" title="4.2 将容器中的文件copy到宿主机中"></a>4.2 将容器中的文件copy到宿主机中</h3><p>将nginx配置文件copy到宿主机中</p>
 <pre><code>docker cp nginx:/etc/nginx/nginx.conf ~/AppData/nginx/conf
-docker cp nginx:/etc/nginx/conf.d ~/AppData/nginx/conf.d/
+docker cp nginx:/etc/nginx/conf.d ~/AppData/nginx/
 docker cp nginx:/usr/share/nginx/html/ ~/AppData/nginx/html/
 docker cp nginx:/var/log/nginx/ ~/AppData/nginx/logs/
 docker cp nginx:/etc/nginx/cert/ ~/AppData/nginx/cert/
@@ -530,6 +530,7 @@ docker <span class="token function">rm</span> nginx
            -v ~/AppData/nginx/cert/:/etc/nginx/cert \
            --privileged=true \
            nginx
+           
 </code></pre>
 
                 
@@ -1045,7 +1046,7 @@ docker <span class="token function">rm</span> nginx
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105k</span>&nbsp;字
+                class="white-color">105.3k</span>&nbsp;字
             
             
             
