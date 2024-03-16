@@ -107,17 +107,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -195,17 +184,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -414,10 +392,6 @@
                                 <span class="chip bg-color">Docker</span>
                             </a>
                         
-                            <a href="/tags/Redis/">
-                                <span class="chip bg-color">Redis</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -478,14 +452,14 @@
 <h2 id="3-挂载配置目录"><a href="#3-挂载配置目录" class="headerlink" title="3.挂载配置目录"></a>3.挂载配置目录</h2><p>将 redis 的配置文件进行挂载，以配置文件方式启动 redis 容器。(挂载：即将宿主的文件和容器内部目录相关联，相互绑定，在宿主机内修改文件的话也随之修改容器内部文件）</p>
 <ul>
 <li><p>数据挂载目录</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> -p /app/mongodb/data
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> -p /data/mongodb/data
 </code></pre>
 </li>
 </ul>
 <h2 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h2><pre class=" language-bash"><code class="language-bash">docker run -itd \
            --name mongo \
            --restart<span class="token operator">=</span>always \
-           -v /app/mongodb/data:/data/db \
+           -v /data/mongodb/data:/data/db \
            -p 27017:27017 \
            --privileged<span class="token operator">=</span>true \
            mongo \
@@ -495,7 +469,7 @@
 <p>-d：表示后台启动 mongo；</p>
 <p>–-name 给容器命名</p>
 <p>-p 27017:27017: 将宿主机 27017 端口与容器内 27017 端口进行映射，冒号之前为物理机端口</p>
-<p>-v: 将宿主机目录或文件与容器内目录或文件进行挂载映射，将宿主机的/app/mongodb/data 映射到容器的/data/db 目录，将数据持久化到宿主机，以防止删除容器后，容器内的数据丢失</p>
+<p>-v: 将宿主机目录或文件与容器内目录或文件进行挂载映射，将宿主机的/data/mongodb/data 映射到容器的/data/db 目录，将数据持久化到宿主机，以防止删除容器后，容器内的数据丢失</p>
 <p>–auth: 需要密码才能访问容器服务</p>
 </blockquote>
 <h2 id="4-创建用户并设置密码"><a href="#4-创建用户并设置密码" class="headerlink" title="4.创建用户并设置密码"></a>4.创建用户并设置密码</h2><pre class=" language-bash"><code class="language-bash">docker <span class="token function">exec</span> -it  mongo mongosh
@@ -581,10 +555,6 @@ test<span class="token operator">></span> db.auth<span class="token punctuation"
                             
                                 <a href="/tags/Docker/">
                                     <span class="chip bg-color">Docker</span>
-                                </a>
-                            
-                                <a href="/tags/Redis/">
-                                    <span class="chip bg-color">Redis</span>
                                 </a>
                             
                         </div>
@@ -796,10 +766,6 @@ test<span class="token operator">></span> db.auth<span class="token punctuation"
                         <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/tags/Redis/">
-                        <span class="chip bg-color">Redis</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -847,10 +813,6 @@ test<span class="token operator">></span> db.auth<span class="token punctuation"
                     
                     <a href="/tags/Docker/">
                         <span class="chip bg-color">Docker</span>
-                    </a>
-                    
-                    <a href="/tags/Redis/">
-                        <span class="chip bg-color">Redis</span>
                     </a>
                     
                 </div>
@@ -1044,7 +1006,7 @@ test<span class="token operator">></span> db.auth<span class="token punctuation"
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <span id="year">2019</span>
             <a href="/about" target="_blank">lee.ilcb</a>
@@ -1053,7 +1015,7 @@ test<span class="token operator">></span> db.auth<span class="token punctuation"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">109.2k</span>&nbsp;字
+                class="white-color">114.5k</span>&nbsp;字
             
             
             

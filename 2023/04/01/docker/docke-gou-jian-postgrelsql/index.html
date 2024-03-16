@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Docke 构建 PostgrelSQL, ✨ Ilcb&#39;s Blog">
+    <meta name="keywords" content="Docker 构建 PostgrelSQL, ✨ Ilcb&#39;s Blog">
     <meta name="description" content="Stay hungry, Stay foolish!">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Docke 构建 PostgrelSQL | ✨ Ilcb&#39;s Blog</title>
+    <title>Docker 构建 PostgrelSQL | ✨ Ilcb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -107,17 +107,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -195,17 +184,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -289,12 +267,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Docke 构建 PostgrelSQL</h1>
+                    <h1 class="description center-align post-title">Docker 构建 PostgrelSQL</h1>
                 </div>
             </div>
         </div>
@@ -466,7 +444,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Docke-构建-PostgrelSQL"><a href="#Docke-构建-PostgrelSQL" class="headerlink" title="Docke 构建 PostgrelSQL"></a>Docke 构建 PostgrelSQL</h2><h2 id="1-查询-postgresql-镜像"><a href="#1-查询-postgresql-镜像" class="headerlink" title="1.查询 postgresql 镜像"></a>1.查询 postgresql 镜像</h2><pre class=" language-bash"><code class="language-bash">docker search postgres
+                <h2 id="Docker-构建-PostgrelSQL"><a href="#Docker-构建-PostgrelSQL" class="headerlink" title="Docker 构建 PostgrelSQL"></a>Docker 构建 PostgrelSQL</h2><h2 id="1-查询-postgresql-镜像"><a href="#1-查询-postgresql-镜像" class="headerlink" title="1.查询 postgresql 镜像"></a>1.查询 postgresql 镜像</h2><pre class=" language-bash"><code class="language-bash">docker search postgres
 </code></pre>
 <p><img src="%E6%9F%A5%E8%AF%A2%E9%95%9C%E5%83%8F.jpg" alt="查询镜像"></p>
 <h2 id="2-拉取镜像"><a href="#2-拉取镜像" class="headerlink" title="2.拉取镜像"></a>2.拉取镜像</h2><pre class=" language-bash"><code class="language-bash">docker pull postgres
@@ -475,7 +453,7 @@
            --restart<span class="token operator">=</span>always \
            -e POSTGRES_PASSWORD<span class="token operator">=</span>123456 \
            -p 5432:5432 \
-           -v /app/postgres/data:/var/lib/postgresql/data \
+           -v /data/postgres/data:/var/lib/postgresql/data \
            -d postgres
 </code></pre>
 <blockquote>
@@ -762,10 +740,6 @@
                         <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/tags/Redis/">
-                        <span class="chip bg-color">Redis</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1006,7 +980,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <span id="year">2019</span>
             <a href="/about" target="_blank">lee.ilcb</a>
@@ -1015,7 +989,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">109.2k</span>&nbsp;字
+                class="white-color">114.5k</span>&nbsp;字
             
             
             

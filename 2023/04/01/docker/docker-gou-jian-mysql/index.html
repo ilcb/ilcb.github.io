@@ -107,17 +107,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -195,17 +184,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -414,10 +392,6 @@
                                 <span class="chip bg-color">Docker</span>
                             </a>
                         
-                            <a href="/tags/Redis/">
-                                <span class="chip bg-color">Redis</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -477,13 +451,13 @@
 </code></pre>
 <h2 id="3-挂载配置文件"><a href="#3-挂载配置文件" class="headerlink" title="3.挂载配置文件"></a>3.挂载配置文件</h2><p>将 redis 的配置文件进行挂载，以配置文件方式启动 redis 容器。(挂载：即将宿主的文件和容器内部目录相关联，相互绑定，在宿主机内修改文件的话也随之修改容器内部文件）</p>
 <ul>
-<li>挂载 mysql 的配置文件 <pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /app/mysql/conf/
+<li>挂载 mysql 的配置文件 <pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /data/mysql/conf/
 </code></pre>
 </li>
-<li>挂载 mysql 的数据库<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /app/mysql/data
+<li>挂载 mysql 的数据库<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /data/mysql/data
 </code></pre>
 </li>
-<li>挂在 mysql 的日志<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /app/mysql/logs
+<li>挂在 mysql 的日志<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> /data/mysql/logs
 </code></pre>
 <h2 id="3-启动容器"><a href="#3-启动容器" class="headerlink" title="3.启动容器"></a>3.启动容器</h2></li>
 </ul>
@@ -491,9 +465,9 @@
            -p 3306:3306 \
            --privileged<span class="token operator">=</span>true \
            --restart<span class="token operator">=</span>unless-stopped \
-           -v /app/mysql/logs:/var/log/mysql \
-           -v /app/mysql/data:/var/lib/mysql \
-           -v /app/mysql/conf:/etc/mysql/conf.d \
+           -v /data/mysql/logs:/var/log/mysql \
+           -v /data/mysql/data:/var/lib/mysql \
+           -v /data/mysql/conf:/etc/mysql/conf.d \
            -e MYSQL_ROOT_PASSWORD<span class="token operator">=</span>root1234 \
            --name mysql mysql
 </code></pre>
@@ -502,9 +476,9 @@
 <p>-p 3306:3306: 将宿主机 3306 端口与容器内 3306 端口进行映射，冒号之前为物理机端口</p>
 <p>–privileged=true</p>
 <p>–restart=unless-stopped: 容器重启策略</p>
-<p>-v /app/mysql/logs:/var/log/mysql: 将日志文件夹挂载到宿主机（宿主机路径:容器路径</p>
-<p>-v /app/mysql/data:/var/lib/mysql: 将 mysql 储存文件夹挂载到主机（宿主机路径:容器路径）</p>
-<p>-v /app/mysql/conf:/etc/mysql/conf.d 将配置文件夹挂载到主机（宿主机路径:容器路径）</p>
+<p>-v /data/mysql/logs:/var/log/mysql: 将日志文件夹挂载到宿主机（宿主机路径:容器路径</p>
+<p>-v /data/mysql/data:/var/lib/mysql: 将 mysql 储存文件夹挂载到主机（宿主机路径:容器路径）</p>
+<p>-v /data/mysql/conf:/etc/mysql/conf.d 将配置文件夹挂载到主机（宿主机路径:容器路径）</p>
 <p>-e MYSQL_ROOT_PASSWORD=root1234: 设置 root 用户密码</p>
 <p> –name mysql: 设置容器名称</p>
 </blockquote>
@@ -577,10 +551,6 @@ mysql -h localhost -u root -p
                             
                                 <a href="/tags/Docker/">
                                     <span class="chip bg-color">Docker</span>
-                                </a>
-                            
-                                <a href="/tags/Redis/">
-                                    <span class="chip bg-color">Redis</span>
                                 </a>
                             
                         </div>
@@ -792,10 +762,6 @@ mysql -h localhost -u root -p
                         <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/tags/Redis/">
-                        <span class="chip bg-color">Redis</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -843,10 +809,6 @@ mysql -h localhost -u root -p
                     
                     <a href="/tags/Docker/">
                         <span class="chip bg-color">Docker</span>
-                    </a>
-                    
-                    <a href="/tags/Redis/">
-                        <span class="chip bg-color">Redis</span>
                     </a>
                     
                 </div>
@@ -1040,7 +1002,7 @@ mysql -h localhost -u root -p
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <span id="year">2019</span>
             <a href="/about" target="_blank">lee.ilcb</a>
@@ -1049,7 +1011,7 @@ mysql -h localhost -u root -p
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">109.2k</span>&nbsp;字
+                class="white-color">114.5k</span>&nbsp;字
             
             
             

@@ -107,17 +107,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -195,17 +184,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -583,37 +561,37 @@ docker pull nginx
 <tbody><tr>
 <td>存储网站网页的目录</td>
 <td>/usr/share/nginx/html</td>
-<td>/app/nginx/html</td>
+<td>/data/nginx/html</td>
 </tr>
 <tr>
 <td>日志目录</td>
 <td>/etc/nginx/nginx.conf</td>
-<td>/app/nginx/conf/nginx.conf</td>
+<td>/data/nginx/conf/nginx.conf</td>
 </tr>
 <tr>
 <td>nginx配置文件目录</td>
 <td>/var/log/nginx</td>
-<td>/app/nginx/logs</td>
+<td>/data/nginx/logs</td>
 </tr>
 <tr>
 <td>证书存放目录</td>
 <td>/etc/nginx/cert/</td>
-<td>/app/nginx/cert</td>
+<td>/data/nginx/cert</td>
 </tr>
 <tr>
 <td>子配置项存放处</td>
 <td>/etc/nginx/conf.d</td>
-<td>/app/nginx/conf.d</td>
+<td>/data/nginx/conf.d</td>
 </tr>
 </tbody></table>
-<h3 id="2-2-5-创建挂载目录"><a href="#2-2-5-创建挂载目录" class="headerlink" title="2.2.5 创建挂载目录"></a>2.2.5 创建挂载目录</h3><pre class=" language-plain"><code class="language-plain">mkdir -p /app/nginx/{conf,conf.d,html,logs,cert}
+<h3 id="2-2-5-创建挂载目录"><a href="#2-2-5-创建挂载目录" class="headerlink" title="2.2.5 创建挂载目录"></a>2.2.5 创建挂载目录</h3><pre class=" language-plain"><code class="language-plain">mkdir -p /data/nginx/{conf,conf.d,html,logs,cert}
 </code></pre>
 <h3 id="2-2-6-复制配置到宿主机"><a href="#2-2-6-复制配置到宿主机" class="headerlink" title="2.2.6 复制配置到宿主机"></a>2.2.6 复制配置到宿主机</h3><p>将nginx配置文件copy到宿主机中</p>
-<pre class=" language-plain"><code class="language-plain">docker cp nginx:/etc/nginx/nginx.conf /app/nginx/conf
-docker cp nginx:/etc/nginx/conf.d /app/nginx/
-docker cp nginx:/usr/share/nginx/html/ /app/nginx/html/
-docker cp nginx:/var/log/nginx/ /app/nginx/logs/
-docker cp nginx:/etc/nginx/cert/ /app/nginx/cert/
+<pre class=" language-plain"><code class="language-plain">docker cp nginx:/etc/nginx/nginx.conf /data/nginx/conf
+docker cp nginx:/etc/nginx/conf.d /data/nginx/
+docker cp nginx:/usr/share/nginx/html/ /data/nginx/html/
+docker cp nginx:/var/log/nginx/ /data/nginx/logs/
+docker cp nginx:/etc/nginx/cert/ /data/nginx/cert/
 </code></pre>
 <h3 id="2-2-7-停止并移除容器"><a href="#2-2-7-停止并移除容器" class="headerlink" title="2.2.7 停止并移除容器"></a>2.2.7 停止并移除容器</h3><pre class=" language-plain"><code class="language-plain">docker stop nginx
 docker rm nginx
@@ -623,11 +601,11 @@ docker rm nginx
            --restart=always \
            -p 80:80 \
            -p 443:443 \
-           -v /app/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
-           -v /app/nginx/html/:/usr/share/nginx/html/ \
-           -v /app/nginx/logs/:/var/log/nginx/ \
-           -v /app/nginx/conf.d/:/etc/nginx/conf.d \
-           -v /app/nginx/cert/:/etc/nginx/cert \
+           -v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+           -v /data/nginx/html/:/usr/share/nginx/html/ \
+           -v /data/nginx/logs/:/var/log/nginx/ \
+           -v /data/nginx/conf.d/:/etc/nginx/conf.d \
+           -v /data/nginx/cert/:/etc/nginx/cert \
            --privileged=true \
            nginx
 </code></pre>
@@ -787,7 +765,7 @@ docker build --no-cache -f ./Dockerfile -t exfoide/onlyoffice:7.3.3 <span class=
 </tbody></table>
 <h2 id="4-1-安装PostgreSQL"><a href="#4-1-安装PostgreSQL" class="headerlink" title="4.1 安装PostgreSQL"></a>4.1 安装PostgreSQL</h2><h3 id="4-1-1-获取镜像"><a href="#4-1-1-获取镜像" class="headerlink" title="4.1.1 获取镜像"></a>4.1.1 获取镜像</h3><pre class=" language-bash"><code class="language-bash">docker pull postgres
 </code></pre>
-<h3 id="4-1-2-启动容器"><a href="#4-1-2-启动容器" class="headerlink" title="4.1.2 启动容器"></a>4.1.2 启动容器</h3><pre class=" language-bash"><code class="language-bash">docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD<span class="token operator">=</span>123456 --restart<span class="token operator">=</span>always -v /app/postgres/data:/var/lib/postgresql/data -d postgres
+<h3 id="4-1-2-启动容器"><a href="#4-1-2-启动容器" class="headerlink" title="4.1.2 启动容器"></a>4.1.2 启动容器</h3><pre class=" language-bash"><code class="language-bash">docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD<span class="token operator">=</span>123456 --restart<span class="token operator">=</span>always -v /data/postgres/data:/var/lib/postgresql/data -d postgres
            
 </code></pre>
 <h2 id="4-2-准备PostgreSQL数据库环境"><a href="#4-2-准备PostgreSQL数据库环境" class="headerlink" title="4.2 准备PostgreSQL数据库环境"></a>4.2 准备PostgreSQL数据库环境</h2><p>通过 &lt;&lt;**4.1安装PostgreSQL**&gt;&gt; 已经安装了PostgreSQL数据库，接下来需要初始化OnlyOffice数据库及数据表</p>
@@ -887,7 +865,7 @@ DB_HOST=127.0.0.1
 JWT_ENABLED=false
 
 #onlyoffice容器挂载到本地的目录
-MAPPING_LOCAL_DIR=/app/onlyoffice
+MAPPING_LOCAL_DIR=/data/onlyoffice
 </code></pre>
 <h4 id="4-3-2-2-docker-compose-yml"><a href="#4-3-2-2-docker-compose-yml" class="headerlink" title="4.3.2.2 docker-compose.yml"></a>4.3.2.2 docker-compose.yml</h4><p>指定启动3个onlyoffice实例:onlyoffice-8091、onlyoffice-8092、onlyoffice-8093</p>
 <pre class=" language-dockerfile"><code class="language-dockerfile">version: '3'
@@ -998,7 +976,7 @@ docker-compose -p onlyoffice down --remove-orphans
 <p><img src="https://cdn.nlark.com/yuque/0/2023/png/22370594/1685002964009-e822b725-6ff3-48fe-b5be-7ad0d179d1c5.png" alt="image.png"></p>
 <h2 id="4-4-部署ngnix"><a href="#4-4-部署ngnix" class="headerlink" title="4.4 部署ngnix"></a>4.4 部署ngnix</h2><p>参照本文目录 &lt;&lt;**1.2 安装nginx**&gt;&gt;</p>
 <h3 id="4-4-1-配置负载配置"><a href="#4-4-1-配置负载配置" class="headerlink" title="4.4.1 配置负载配置"></a>4.4.1 配置负载配置</h3><p>配置nginx负载</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /app/nginx/conf.d
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /data/nginx/conf.d
 <span class="token function">touch</span> office.conf
 <span class="token function">vi</span> office.conf
 </code></pre>
@@ -1360,62 +1338,11 @@ server {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
-            <div class="card">
-                <a href="/2023/05/27/docker/docker-gou-jian-onlyoffice-ji-qun/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Docker构建OnlyOffice集群">
-                        
-                        <span class="card-title">Docker构建OnlyOffice集群</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-27
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Docker/" class="post-category">
-                                    Docker
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/10/docker/an-zhuang-prometheus/">
+                <a href="/2024/03/07/hou-duan/spring/springboot-can-shu-xiao-yan/">
                     <div class="card-image">
                         
                         
@@ -1431,9 +1358,9 @@ server {
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-03-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1441,6 +1368,55 @@ server {
                             
                         </span>
                     </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/04/09/docker/docker-gou-jian-nginx/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Docker构建Nginx">
+                        
+                        <span class="card-title">Docker构建Nginx</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1632,7 +1608,7 @@ server {
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <span id="year">2019</span>
             <a href="/about" target="_blank">lee.ilcb</a>
@@ -1641,7 +1617,7 @@ server {
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">109.2k</span>&nbsp;字
+                class="white-color">114.5k</span>&nbsp;字
             
             
             
