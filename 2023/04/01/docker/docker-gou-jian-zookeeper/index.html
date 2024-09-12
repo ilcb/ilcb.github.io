@@ -403,7 +403,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    252
+                    311
                 </div>
                 
 
@@ -445,7 +445,22 @@
 </code></pre>
 </li>
 </ul>
-<h2 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h2><pre class=" language-bash"><code class="language-bash">docker run -d \
+<h2 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h2><p>启动zookeeper容器</p>
+<pre class=" language-bash"><code class="language-bash">docker run -d \
+           --name zookeeper \
+           --privileged<span class="token operator">=</span>true \
+           --restart<span class="token operator">=</span>always \
+           -p 2181:2181 \
+           zookeeper
+</code></pre>
+<p>复制zoo.cfg文件</p>
+<pre class=" language-bash"><code class="language-bash">docker <span class="token function">cp</span> zookeeper:/conf/zoo.cfg /data/docker/zookeeper/conf
+</code></pre>
+<p>停止并删除 zookeeper 容器</p>
+<pre><code>docker stop zookeeper &amp;&amp; docker rm zookeeper
+</code></pre>
+<p>重启容器并挂载目录:</p>
+<pre class=" language-bash"><code class="language-bash">docker run -d \
            --name zookeeper \
            --privileged<span class="token operator">=</span>true \
            --restart<span class="token operator">=</span>always \
@@ -891,7 +906,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">116.8k</span>
+                        class="white-color">120.5k</span>
             
             
             

@@ -376,8 +376,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Spring/" class="post-category">
-                                Spring
+                            <a href="/categories/Springplainplainplain/" class="post-category">
+                                Springplainplainplain
                             </a>
                         
                     </div>
@@ -398,14 +398,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    5.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    21 分
                 </div>
                 
 
@@ -453,7 +453,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>5.3.20<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
 </code></pre>
-<h3 id="4-2-Bean定义"><a href="#4-2-Bean定义" class="headerlink" title="4.2 Bean定义"></a>4.2 Bean定义</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>bean<span class="token punctuation">.</span>lifecycle<span class="token punctuation">;</span>
+<h3 id="4-2-Bean-定义"><a href="#4-2-Bean-定义" class="headerlink" title="4.2 Bean 定义"></a>4.2 Bean 定义</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>bean<span class="token punctuation">.</span>lifecycle<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>BeansException<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>BeanNameAware<span class="token punctuation">;</span>
@@ -605,6 +605,414 @@ public class AppConfig {
 <span class="token punctuation">[</span>destroy-method<span class="token punctuation">]</span>调用<span class="token operator">&lt;</span>bean<span class="token operator">></span>的destroy-method属性指定的销毁方法
 </code></pre>
 <p>控制台打印结果验证了 person 对象的生命周期相关方法执行顺序严格遵从上面流程图，同时当我们执行容器<code>applicationContext</code>的关闭方法<code>close()</code>会触发调用 bean 的销毁回调方法</p>
+<h2 id="5-LifeCycle"><a href="#5-LifeCycle" class="headerlink" title="5.LifeCycle"></a>5.LifeCycle</h2><h3 id="5-1-Lifecycle"><a href="#5-1-Lifecycle" class="headerlink" title="5.1 Lifecycle"></a>5.1 Lifecycle</h3><h4 id="5-1-1-为什么要用Lifecycle"><a href="#5-1-1-为什么要用Lifecycle" class="headerlink" title="5.1.1 为什么要用Lifecycle"></a>5.1.1 为什么要用Lifecycle</h4><p>在 SpringBoot 的应用中，我们通常会利用@PostConstruct 和@PreDestroy 注解，在 Bean 初始化或销毁时执行一些操作，这些操作都处于 Bean 声明周期的层面。</p>
+<p>然而，在某些情况下，我们可能会遇到一些遗漏的场景，比如希望在容器本身的生命周期事件（如容器启动、停止）上执行一些操作，一个典型的例子就是在 Spring Boot 中启动内嵌的 Web 容器。这时候，该如何处理呢？</p>
+<p>这就需要利用 Spring 提供的另一个接口 <code>Lifecycle </code>。</p>
+<p><code>Lifecycle </code>接口它允许在所有Bean创建完成之后执行自定义的一些任务并运行，并在退出时执行资源销毁流程。</p>
+<ul>
+<li><p>这里是所有Bean创建完成之后执行，并不像我们常会用到的<code>@PostConstruct</code>和<code>@PreDestroy</code>两个注解，它们是在 Bean 初始化或销毁时执行一些操作，这些操作属于 Bean 生命周期级别；</p>
+</li>
+<li><p><code>Lifecycle </code>接口解决的是另外一些场景，比如我们想在<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/tke?from_column=20065&from=20065">容器</a>本身的生命周期（比如容器启动、停止）的事件上做一些工作</p>
+</li>
+</ul>
+<h4 id="5-1-2-接口方法"><a href="#5-1-2-接口方法" class="headerlink" title="5.1.2 接口方法"></a>5.1.2 接口方法</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Lifecycle</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * 容器启动后调用
+     **/</span>
+    <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 容器停止时调用
+     **/</span>
+    <span class="token keyword">void</span> <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 检查此组件是否正在运行
+     **/</span>
+    <span class="token keyword">boolean</span> <span class="token function">isRunning</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>当<code>ApplicationContext</code>接收到<code>start</code>、<code>stop</code>和<code>restart</code>等信号时，会调用实现了<code>Lifecycle </code>接口的 Bean 的相应方法。通过实现<code>Lifecycle </code>接口，我们可以获得对容器生命周期的回调，从而实现业务扩展。</p>
+<h4 id="5-1-3-代码示例"><a href="#5-1-3-代码示例" class="headerlink" title="5.1.3 代码示例"></a>5.1.3 代码示例</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>bean<span class="token punctuation">.</span>lifecycle<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>BeansException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>BeanNameAware<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>DisposableBean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>InitializingBean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ApplicationContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ApplicationContextAware<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>Lifecycle<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>SmartLifecycle<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>PostConstruct<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>PreDestroy<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token keyword">implements</span> <span class="token class-name">BeanNameAware</span><span class="token punctuation">,</span> ApplicationContextAware<span class="token punctuation">,</span> InitializingBean<span class="token punctuation">,</span> DisposableBean<span class="token punctuation">,</span> Lifecycle <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> running <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[构造器]调用Person的构造器实例化"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[注入属性]注入属性name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBeanName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[BeanNameAware接口]调用BeanNameAware#setBeanName"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setApplicationContext</span><span class="token punctuation">(</span>ApplicationContext applicationContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> BeansException <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[ApplicationContextAware]调用ApplicationContextAware#setApplicationContext"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterPropertiesSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[InitializingBean接口]调用InitializingBean#afterPropertiesSet"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[DisposableBean接口]调用DisposableBean#destroy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@PostConstruct</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postConstruct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[PostConstruct接口]调用PostConstruct注解的方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@PreDestroy</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">preDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[PreDestroy接口]调用了PreDestroy注解的方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">selfInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[init-method]调用&lt;bean>的init-method属性指定的初始化方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">selfDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[destroy-method]调用&lt;bean>的destroy-method属性指定的销毁方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     * 容器启动后调用
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"收到容器启动的信号后，执行Lifecycle#start"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        running <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     * 容器停止时调用
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"收到关闭容器的信号后，执行Lifecycle#stop"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        running <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 检查此组件是否正在运行。
+     * 1. 只有该方法返回false时，start()方法才会被执行，容器启动后。
+     * 2. 只有该方法返回true时，stop()方法才会被执行，容器停止时。
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isRunning</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"检查Lifecycle组件的运行状态:"</span> <span class="token operator">+</span> running<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> running<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>bean<span class="token punctuation">.</span>lifecycle<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>AnnotationConfigApplicationContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Bean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>ComponentScan<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@ComponentScan</span><span class="token punctuation">(</span>basePackages <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"com.example.bean"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span>initMethod <span class="token operator">=</span> <span class="token string">"selfInit"</span><span class="token punctuation">,</span> destroyMethod <span class="token operator">=</span> <span class="token string">"selfDestroy"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> Person <span class="token function">person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Person person <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        person<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"tester"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> person<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        AnnotationConfigApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AnnotationConfigApplicationContext</span><span class="token punctuation">(</span>AppConfig<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        context<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"容器启动...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        context<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>执行结果:</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">[</span>InstantiationAwareBeanPostProcessor接口<span class="token punctuation">]</span>调用InstantiationAwareBeanPostProcessor前置方法<span class="token punctuation">,</span> BeanName<span class="token operator">:</span>person
+<span class="token punctuation">[</span>构造器<span class="token punctuation">]</span>调用Person的构造器实例化
+<span class="token punctuation">[</span>注入属性<span class="token punctuation">]</span>注入属性name
+<span class="token punctuation">[</span>InstantiationAwareBeanPostProcessor接口<span class="token punctuation">]</span>调用InstantiationAwareBeanPostProcessor后置方法<span class="token punctuation">,</span> BeanName<span class="token operator">:</span>person
+<span class="token punctuation">[</span>BeanNameAware接口<span class="token punctuation">]</span>调用BeanNameAware#setBeanName
+<span class="token punctuation">[</span>ApplicationContextAware<span class="token punctuation">]</span>调用ApplicationContextAware#setApplicationContext
+<span class="token punctuation">[</span>BeanPostProcessor接口<span class="token punctuation">]</span>调用了BeanPostProcessor的前置处理方法
+<span class="token punctuation">[</span>PostConstruct接口<span class="token punctuation">]</span>调用PostConstruct注解的方法
+<span class="token punctuation">[</span>InitializingBean接口<span class="token punctuation">]</span>调用InitializingBean#afterPropertiesSet
+<span class="token punctuation">[</span>init-method<span class="token punctuation">]</span>调用&lt;bean>的init-method属性指定的初始化方法
+<span class="token punctuation">[</span>BeanPostProcessor接口<span class="token punctuation">]</span>调用了BeanPostProcessor的后置处理方法
+检查Lifecycle组件的运行状态<span class="token operator">:</span><span class="token boolean">false</span>
+收到容器启动的信号后，执行Lifecycle#start
+容器启动....
+检查Lifecycle组件的运行状态<span class="token operator">:</span><span class="token boolean">true</span>
+收到关闭容器的信号后，执行Lifecycle#stop
+<span class="token punctuation">[</span>PreDestroy接口<span class="token punctuation">]</span>调用了PreDestroy注解的方法
+<span class="token punctuation">[</span>DisposableBean接口<span class="token punctuation">]</span>调用DisposableBean#destroy
+<span class="token punctuation">[</span>destroy-method<span class="token punctuation">]</span>调用&lt;bean>的destroy-method属性指定的销毁方法
+</code></pre>
+<p>需要注意的是在<code>SpringBoot</code>或<code>Spring</code>应用中，<strong>如果只是实现了 <code>Lifecycle </code> 接口而没有显式调用 AbstractApplicationContext 的 start()方法，那么<code>Lifecycle#start()</code>方法<code>Lifecycle#isRunning()</code>方法不会被执行。</strong>然而，在应用退出时，会执行<code>Lifecycle#isRunning()</code>方法来判断该<code>Lifecycle </code>是否已经启动，如果返回 true，则会调用<code>Lifecycle#stop()</code>方法来停止。</p>
+<p>这种实现方式需要使用者显式地调用容器的<code>start()</code>和<code>stop()</code>方法才能触发<code>Lifecycle </code>接口的方法执行，而在一般的项目中，我们很少这样显式的去调用。为了解决这个问题，<code>Spring</code>提供了<code>SmartLifecycle</code>接口。</p>
+<h3 id="5-2-SmartLifecycle"><a href="#5-2-SmartLifecycle" class="headerlink" title="5.2 SmartLifecycle"></a>5.2 SmartLifecycle</h3><h4 id="5-2-1-为什么要用-SmartLifecycle"><a href="#5-2-1-为什么要用-SmartLifecycle" class="headerlink" title="5.2.1 为什么要用 SmartLifecycle"></a>5.2.1 为什么要用 SmartLifecycle</h4><p><code>SmartLifecycle </code>继承了<code>Lifecycle </code>接口，并且提供了更智能的功能：</p>
+<ol>
+<li>实现<code>SmartLifecycle </code>接口的组件可以自动启动和停止；</li>
+<li>可以控制多个组件的执行顺序。</li>
+</ol>
+<p>在应用启动时，会自动调用实现了<code>SmartLifecycle </code>接口的组件的<code>start()</code>方法，而无需显式调用容器的<code>start()</code>方法。因此，如果希望组件的生命周期方法能够自动执行而无需显式调用容器的方法，可以考虑实现<code>SmartLifecycle </code>接口而不是仅仅实现<code>Lifecycle </code>接口。</p>
+<h4 id="5-2-2-接口方法"><a href="#5-2-2-接口方法" class="headerlink" title="5.2.2 接口方法"></a>5.2.2 接口方法</h4><p>isAutoStartup()：返回一个布尔值，指示这个生命周期组件是否应该在 Spring 容器启动时自动启动。<br>getPhase()：返回一个整数，表示这个生命周期组件的启动顺序。数值越小，组件启动的越早。<br>start()：启动这个生命周期组件。<br>stop()：停止这个生命周期组件。<br>stop(Runnable callback)：停止生命周期组件，并在停止后执行提供的回调。</p>
+<p><code>SmartLifecycle </code> 的智能之处在于，它允许多个组件根据 getPhase() 方法返回的值自动排序，确保它们按照正确的顺序启动和停止。这对于需要依赖其他组件启动后再启动的场景非常有用。</p>
+<p>例如，在 Spring Boot 应用中，你可能会有一些组件需要在数据库连接建立之后才能启动，或者需要在某些服务注册到 Eureka 服务器之后才能启动。通过使用 <code>SmartLifecycle </code>，你可以确保这些组件在依赖条件满足后按正确的顺序启动。</p>
+<h4 id="5-2-3-使用场景"><a href="#5-2-3-使用场景" class="headerlink" title="5.2.3 使用场景"></a>5.2.3 使用场景</h4><ol>
+<li><p>异步初始化或销毁操作:</p>
+<p><code>SmartLifecycle </code> 接口允许在容器启动或关闭过程中执行异步操作。这对于需要在应用程序启动或关闭时执行长时间运行的任务或资源清理操作非常有用。</p>
+</li>
+<li><p>有序启动和关闭：</p>
+<p> <code>SmartLifecycle </code> 可以指定组件的启动和关闭顺序，确保在启动或关闭过程中其他组件已经准备好或者已经完成。当你的组件在启动的时候，有依赖关系的话，那么就可以 <code>SmartLifecycle </code> 来进行控制组件的启动顺序。</p>
+</li>
+<li><p>动态决定启动和关闭： </p>
+<p><code>SmartLifecycle </code> 接口中的方法能够让组件动态地决定何时启动或关闭。这使得在特定条件满足时才启动或关闭组件成为可能，从而提高了系统的灵活性和可控性。</p>
+</li>
+<li><p>状态管理： </p>
+<p><code>SmartLifecycle </code> 接口提供了方法来查询组件的当前状态，例如是否已经启动或停止。这对于在应用程序的其他部分中根据组件状态做出决策或执行特定的逻辑非常有用。</p>
+</li>
+<li><p>资源监控器的启动和停止：</p>
+<p> 如果应用程序中存在资源监控器，可以使用 <code>SmartLifecycle </code> 接口来启动和停止这些监控器。在应用程序启动时，监控器可以开始监控资源的使用情况。在应用程序关闭时，可以停止监控器并释放资源。</p>
+</li>
+</ol>
+<p>以下是一些具体的 <code>SmartLifecycle </code> 接口的应用场景：</p>
+<ol>
+<li><p>数据库连接池的管理： </p>
+<p>在应用程序启动时，可以利用 <code>SmartLifecycle </code> 接口来初始化数据库连接池。在应用程序关闭时，可以利用 <code>SmartLifecycle </code> 接口来优雅地关闭数据库连接池，确保所有数据库连接都已释放。</p>
+</li>
+<li><p>缓存的初始化和销毁：</p>
+<p> 在应用程序启动时，可以使用 <code>SmartLifecycle </code> 接口来初始化缓存并加载数据。在应用程序关闭时，可以使用 <code>SmartLifecycle </code> 接口来优雅地销毁缓存并释放资源。</p>
+</li>
+<li><p>定时任务的管理： </p>
+<p>如果应用程序中存在定时任务，可以使用 <code>SmartLifecycle </code> 接口来启动和关闭这些定时任务。在应用程序启动时，定时任务可以注册并开始执行。在应用程序关闭时，可以优雅地停止定时任务的执行。</p>
+</li>
+</ol>
+<h4 id="5-2-4-代码示例"><a href="#5-2-4-代码示例" class="headerlink" title="5.2.4 代码示例"></a>5.2.4 代码示例</h4><p>修改 Person, 实现 <code>SmartLifecycle </code> 接口:</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>bean<span class="token punctuation">.</span>lifecycle<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>BeansException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>BeanNameAware<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>DisposableBean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>InitializingBean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ApplicationContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ApplicationContextAware<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>Lifecycle<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>`SmartLifecycle `<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>PostConstruct<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>PreDestroy<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token keyword">implements</span> <span class="token class-name">BeanNameAware</span><span class="token punctuation">,</span> ApplicationContextAware<span class="token punctuation">,</span> InitializingBean<span class="token punctuation">,</span> DisposableBean<span class="token punctuation">,</span> SmartLifecycle <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> running <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[构造器]调用Person的构造器实例化"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[注入属性]注入属性name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBeanName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[BeanNameAware接口]调用BeanNameAware#setBeanName"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setApplicationContext</span><span class="token punctuation">(</span>ApplicationContext applicationContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> BeansException <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[ApplicationContextAware]调用ApplicationContextAware#setApplicationContext"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterPropertiesSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[InitializingBean接口]调用InitializingBean#afterPropertiesSet"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[DisposableBean接口]调用DisposableBean#destroy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@PostConstruct</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postConstruct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[PostConstruct接口]调用PostConstruct注解的方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@PreDestroy</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">preDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[PreDestroy接口]调用了PreDestroy注解的方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">selfInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[init-method]调用&lt;bean>的init-method属性指定的初始化方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">selfDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[destroy-method]调用&lt;bean>的destroy-method属性指定的销毁方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 1. 主要在该方法中启动任务或者其他异步服务，比如开启MQ接收消息&lt;br/>
+     * 2. 当上下文被刷新（所有对象已被实例化和初始化之后）时，将调用该方法，
+     * 默认生命周期处理器将检查每个SmartLifecycle对象的isAutoStartup()方法返回的布尔值。
+     * 如果为“true”，则该方法会被调用，而不是等待显式调用自己的start()方法。
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[SmartLifecycle]start方法调用, 启动完成"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        running <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * SmartLifecycle子类的才有的方法，当isRunning方法返回true时，该方法才会被调用。
+     * 很多框架中的源码中，都会把真正逻辑写在stop()方法内。
+     * 比如quartz和Redis的spring支持包。
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">stop</span><span class="token punctuation">(</span>Runnable callback<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[SmartLifecycle]stop方法调用, 执行回调函数"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 如果你让isRunning返回true，需要执行stop这个方法，那么就不要忘记调用callback.run()。</span>
+        <span class="token comment" spellcheck="true">// 否则在程序退出时，Spring的DefaultLifecycleProcessor会认为这个MySmartLifecycle没有stop完成，程序会一直卡着结束不了，等待一定时间（默认超时时间30秒）后才会自动结束。</span>
+        callback<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 接口Lifecycle子类的方法，只有非SmartLifecycle的子类才会执行该方法。&lt;br/>
+     * 1. 该方法只对直接实现接口Lifecycle的类才起作用，对实现SmartLifecycle接口的类无效。&lt;br/>
+     * 2. 方法stop()和方法stop(Runnable callback)的区别只在于，后者是SmartLifecycle子类的专属。
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[SmartLifecycle]stop方法调用, running: "</span> <span class="token operator">+</span> running<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        running <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 1. 只有该方法返回false时，start方法才会被执行。&lt;br/>
+     * 2. 只有该方法返回true时，stop(Runnable callback)或stop()方法才会被执行。
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isRunning</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"[SmartLifecycle]isRunning方法调用, running: "</span> <span class="token operator">+</span> running<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> running<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 如果该`Lifecycle`类所在的上下文在调用`refresh`时,希望能够自己自动进行回调，则返回`true`,
+     * false的值表明组件打算通过显式的start()调用来启动，类似于普通的Lifecycle实现。
+     * 默认就是true，所以可以不用重写此方法。
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAutoStartup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 如果有多个实现接口SmartLifecycle的类，则这些类的start的执行顺序按getPhase方法返回值从小到大执行。&lt;br/>
+     * 例如：1比2先执行，-1比0先执行。stop方法的执行顺序则相反，getPhase返回值较大类的stop方法先被调用，小的后被调用。
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPhase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>修改 AppConfig </p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>bean<span class="token punctuation">.</span>lifecycle<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>AnnotationConfigApplicationContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Bean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>ComponentScan<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@ComponentScan</span><span class="token punctuation">(</span>basePackages <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"com.example.bean"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span>initMethod <span class="token operator">=</span> <span class="token string">"selfInit"</span><span class="token punctuation">,</span> destroyMethod <span class="token operator">=</span> <span class="token string">"selfDestroy"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> Person <span class="token function">person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Person person <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        person<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"tester"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        person<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> person<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        AnnotationConfigApplicationContext context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AnnotationConfigApplicationContext</span><span class="token punctuation">(</span>AppConfig<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        context<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>执行结果:</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">[</span>InstantiationAwareBeanPostProcessor接口<span class="token punctuation">]</span>调用InstantiationAwareBeanPostProcessor前置方法<span class="token punctuation">,</span> BeanName<span class="token operator">:</span>person
+<span class="token punctuation">[</span>构造器<span class="token punctuation">]</span>调用Person的构造器实例化
+<span class="token punctuation">[</span>注入属性<span class="token punctuation">]</span>注入属性name
+<span class="token punctuation">[</span>InstantiationAwareBeanPostProcessor接口<span class="token punctuation">]</span>调用InstantiationAwareBeanPostProcessor后置方法<span class="token punctuation">,</span> BeanName<span class="token operator">:</span>person
+<span class="token punctuation">[</span>BeanNameAware接口<span class="token punctuation">]</span>调用BeanNameAware#setBeanName
+<span class="token punctuation">[</span>ApplicationContextAware<span class="token punctuation">]</span>调用ApplicationContextAware#setApplicationContext
+<span class="token punctuation">[</span>BeanPostProcessor接口<span class="token punctuation">]</span>调用了BeanPostProcessor的前置处理方法
+<span class="token punctuation">[</span>PostConstruct接口<span class="token punctuation">]</span>调用PostConstruct注解的方法
+<span class="token punctuation">[</span>InitializingBean接口<span class="token punctuation">]</span>调用InitializingBean#afterPropertiesSet
+<span class="token punctuation">[</span>init-method<span class="token punctuation">]</span>调用&lt;bean>的init-method属性指定的初始化方法
+<span class="token punctuation">[</span>BeanPostProcessor接口<span class="token punctuation">]</span>调用了BeanPostProcessor的后置处理方法
+<span class="token punctuation">[</span>SmartLifecycle<span class="token punctuation">]</span>isRunning方法调用<span class="token punctuation">,</span> running<span class="token operator">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">[</span>SmartLifecycle<span class="token punctuation">]</span>start方法调用<span class="token punctuation">,</span> 启动完成
+<span class="token punctuation">[</span>SmartLifecycle<span class="token punctuation">]</span>isRunning方法调用<span class="token punctuation">,</span> running<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">[</span>SmartLifecycle<span class="token punctuation">]</span>stop方法调用<span class="token punctuation">,</span> 执行回调函数
+<span class="token punctuation">[</span>SmartLifecycle<span class="token punctuation">]</span>stop方法调用<span class="token punctuation">,</span> running<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">[</span>PreDestroy接口<span class="token punctuation">]</span>调用了PreDestroy注解的方法
+<span class="token punctuation">[</span>DisposableBean接口<span class="token punctuation">]</span>调用DisposableBean#destroy
+<span class="token punctuation">[</span>destroy-method<span class="token punctuation">]</span>调用&lt;bean>的destroy-method属性指定的销毁方法
+</code></pre>
+<h4 id="5-2-5-总结"><a href="#5-2-5-总结" class="headerlink" title="5.2.5 总结"></a>5.2.5 总结</h4><ol>
+<li>如果一个 Bean 实现了<code>SmartLifecycle </code>接口，当<code>Spring</code>容器启动时会自动执行它的启动方法。在执行启动方法之前，会通过<code>isRunning()</code>方法检查组件的运行状态，如果返回值为<code>false</code>表示尚未执行启动操作，此时会调用<code>start()</code>方法进行启动。</li>
+<li>当<code>Spring</code>容器关闭时，会检查组件的运行状态，并根据情况执行关闭操作。如果组件正在运行，则会调用相应的停止方法。同时，可以处理相应的回调函数。</li>
+<li><code>SmartLifecycle </code>接口中的<code>getPhase()</code>方法返回的值越小，优先级越高，表示在启动和停止过程中先执行</li>
+</ol>
 
                 
             </div>
@@ -777,8 +1185,8 @@ public class AppConfig {
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Spring/" class="post-category">
-                                    Spring
+                            <a href="/categories/Springplainplainplain/" class="post-category">
+                                    Springplainplainplain
                                 </a>
                             
                             
@@ -1034,7 +1442,7 @@ public class AppConfig {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">116.8k</span>
+                        class="white-color">120.5k</span>
             
             
             
